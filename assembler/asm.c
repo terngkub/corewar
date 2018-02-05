@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/05 21:06:26 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/05 21:10:45 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_error(char *str)
 {
-	ft_printf("ERROR: %s", str);
+	ft_fprintf(2, "ERROR: %s\n", str);
 	exit(1);
 }
 
@@ -53,10 +53,9 @@ int		main(int argc, char **argv)
 	fd_read = open(argv[1], O_RDONLY);
 	cor_filename = get_cor_name(argv[1]);
 	fd_write = open(cor_filename, O_WRONLY | O_CREAT, 0755);
-	while (get_next_line(fd_read, &line) > 0)
+	while (sget_next_line(fd_read, &line) > 0)
 	{
-		ft_putstr_fd(line, fd_write);
-		ft_putstr_fd("\n", fd_write);
+		ft_fprintf(fd_write, "%s\n", line);
 		free(line);
 	}
 	close(fd_read);
