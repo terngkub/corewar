@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/05 21:10:45 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/05 21:34:50 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,20 @@ int		check_file_name(char *str)
 	return (0);
 }
 
+void	get_name(char *line)
+{
+	char	**tab;
+
+	if (!(tab = ft_split(line, " ")))
+		return ;
+	if (!ft_strcmp(tab[0], ".name"))
+	{
+		//if startwith " 
+		ft_printf("%s\n", tab[1]);
+		
+	}
+}
+
 int		main(int argc, char **argv)
 {
 	int		fd_read;
@@ -55,6 +69,7 @@ int		main(int argc, char **argv)
 	fd_write = open(cor_filename, O_WRONLY | O_CREAT, 0755);
 	while (sget_next_line(fd_read, &line) > 0)
 	{
+		get_name(line);
 		ft_fprintf(fd_write, "%s\n", line);
 		free(line);
 	}
