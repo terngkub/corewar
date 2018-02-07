@@ -1,2 +1,2 @@
 .name           "42"               
-.comment        "42"               
+.comment        "i am a great champion"               

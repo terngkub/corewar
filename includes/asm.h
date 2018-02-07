@@ -6,7 +6,11 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 18:40:36 by nkamolba          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2018/02/07 20:51:47 by nkamolba         ###   ########.fr       */
+=======
+/*   Updated: 2018/02/07 20:55:58 by fbabin           ###   ########.fr       */
+>>>>>>> e1b0b543958d2d2474b6b267b81612b350c9fef7
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +29,14 @@
 /*
 ** -------------------------------- STRUCTURES --------------------------------
 */
+
+typedef struct	s_champ
+{
+	char		name[PROG_NAME_LENGTH + 1];
+	char		comment[COMMENT_LENGTH + 1];
+	t_list		*instructions;
+	t_list		*labels;
+}				t_champ;
 
 typedef struct	s_op
 {
@@ -54,7 +66,7 @@ void			ft_trim(char **str);
 ** ------------------------------ CHECK FUNCTIONS ------------------------------
 */
 
-int			check_name(char *line, int line_nb);
-int			check_comment(char *line, int line_nb);
+int			check_name(t_champ *champ, char *line, int line_nb);
+int			check_comment(t_champ *champ, char *line, int line_nb);
 
 #endif

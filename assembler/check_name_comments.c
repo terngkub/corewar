@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 17:20:30 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/07 17:22:34 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/07 20:58:03 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void		ft_exit_error_line(int line_nb, char *message, int ret)
 	exit (ret);
 }
 
-int			check_name(char *line, int line_nb)
+int			check_name(t_champ *champ, char *line, int line_nb)
 {
 	int		n_start;
 	int		n_len;
@@ -42,10 +42,11 @@ int			check_name(char *line, int line_nb)
 					"could not find ending '\"' at the end of the name", 0));
 	if (n_len > PROG_NAME_LENGTH)
 		return(ft_return_error_line(line_nb, "champion name too long", 0));
+	ft_strncpy(champ->name, line + n_start + 1, n_len);
 	return (1);
 }
 
-int			check_comment(char *line, int line_nb)
+int			check_comment(t_champ *champ, char *line, int line_nb)
 {
 	int		n_start;
 	int		n_len;
@@ -63,5 +64,6 @@ int			check_comment(char *line, int line_nb)
 					"could not find ending '\"' at the end of the comment", 0));
 	if (n_len > COMMENT_LENGTH)
 		return(ft_return_error_line(line_nb, "comment too long", 0));
+	ft_strncpy(champ->comment, line + n_start + 1, n_len);
 	return (1);
 }
