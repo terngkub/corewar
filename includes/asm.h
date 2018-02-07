@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 18:40:36 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/07 18:14:21 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/07 20:51:47 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ typedef struct	s_op
 
 t_op			*get_op(char *instruction);
 void			ft_error(char *str);
+char			*ft_remove_space(char *str);
+
+void			ft_trim(char **str);
 
 /*
 ** ------------------------------ CHECK FUNCTIONS ------------------------------

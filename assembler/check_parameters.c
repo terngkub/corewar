@@ -6,45 +6,11 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 21:36:41 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/07 18:21:53 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/07 18:35:34 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <string.h>
 #include "../includes/asm.h"
-#include "../includes/op.h"
-
-char	*ft_remove_space(char *str)
-{
-	int		new_len;
-	int		i;
-	int		j;
-	char	*new_str;
-
-	new_len = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_isspace(str[i]))
-			new_len++;
-		i++;
-	}
-	if (!(new_str = ft_strnew(new_len)))
-		ft_error("");
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (!ft_isspace(str[i]))
-			new_str[j++] = str[i];
-		i++;
-	}
-	ft_printf("%s\n", new_str);
-	return (new_str);
-}
 
 void	check_registry(char *str)
 {
@@ -156,11 +122,11 @@ void	check_parameters(char *instruction, char *str)
 	}
 }
 
-/*int		main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	if (argc != 3)
 		return (1);
 	check_parameters(argv[1], ft_remove_space(argv[2]));
 	ft_printf("valid\n");
 	return (0);
-}*/
+}
