@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 18:40:36 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/05 20:57:49 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/07 13:48:18 by terng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,17 @@
 ** ---------------------------------- SOURCES ---------------------------------
 ** ----------------------------------------------------------------------------
 */
+
+typedef struct	s_op
+{
+	char		*instruction;
+	char		param_num;
+	char		param_type[3];
+	char		opcode;
+	int			cycle;
+	char		*name;
+	char		codebyte;
+	char		carry;
+}				t_op;
 
 #endif
