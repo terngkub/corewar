@@ -6,17 +6,11 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/05 21:34:50 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/07 18:17:43 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-void	ft_error(char *str)
-{
-	ft_fprintf(2, "ERROR: %s\n", str);
-	exit(1);
-}
 
 char	*get_cor_name(char *filename)
 {
@@ -41,27 +35,15 @@ int		check_file_name(char *str)
 	return (0);
 }
 
-void	get_name(char *line)
-{
-	char	**tab;
-
-	if (!(tab = ft_split(line, " ")))
-		return ;
-	if (!ft_strcmp(tab[0], ".name"))
-	{
-		//if startwith " 
-		ft_printf("%s\n", tab[1]);
-		
-	}
-}
-
 int		main(int argc, char **argv)
 {
 	int		fd_read;
 	int		fd_write;
 	char	*cor_filename;
 	char	*line;
+	int		line_nb;
 
+	line_nb = 0;
 	if (argc != 2 || !check_file_name(argv[1]))
 		ft_error("wrong input");
 	fd_read = open(argv[1], O_RDONLY);
@@ -69,8 +51,12 @@ int		main(int argc, char **argv)
 	fd_write = open(cor_filename, O_WRONLY | O_CREAT, 0755);
 	while (sget_next_line(fd_read, &line) > 0)
 	{
-		get_name(line);
-		ft_fprintf(fd_write, "%s\n", line);
+		line_nb++;
+		if (!ft_strncmp(line, NAME_CMD_STRING, 5))
+			ft_printf("%d\n", check_name(line, line_nb));
+		if (!ft_strncmp(line, COMMENT_CMD_STRING, 7))
+			ft_printf("%d\n", check_comment(line, line_nb));
+		//ft_fprintf(fd_write, "%s\n", line);
 		free(line);
 	}
 	close(fd_read);

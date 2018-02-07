@@ -6,7 +6,7 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/16 21:15:36 by fbabin            #+#    #+#              #
-#    Updated: 2018/02/05 20:47:42 by fbabin           ###   ########.fr        #
+#    Updated: 2018/02/07 18:12:43 by fbabin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ ASM				= asm
 CC				= gcc -g3
 CFLAGS			= -Wall -Werror -Wextra
 
-_ASM_SRCS		=	asm.c \
+_ASM_SRCS		=	asm.c check_name_comments.c check_parameters.c ft_error.c \
+					op.c \
 
 _LIBFT			=	libft.a
 HEADER_DIR		=	includes

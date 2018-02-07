@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 21:36:41 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/07 15:23:17 by terng            ###   ########.fr       */
+/*   Updated: 2018/02/07 18:21:53 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include <string.h>
 #include "../includes/asm.h"
 #include "../includes/op.h"
-
-void	ft_error(char *str);
 
 char	*ft_remove_space(char *str)
 {
@@ -118,6 +116,7 @@ int		check_param_num(char **arr, int param_num)
 	int		len;
 
 	i = 0;
+	len = 0;
 	while (arr[i++])
 		len++;
 	ft_printf("%-9s: %d\n", "param_num", param_num);
@@ -157,11 +156,11 @@ void	check_parameters(char *instruction, char *str)
 	}
 }
 
-int		main(int argc, char **argv)
+/*int		main(int argc, char **argv)
 {
 	if (argc != 3)
 		return (1);
 	check_parameters(argv[1], ft_remove_space(argv[2]));
 	ft_printf("valid\n");
 	return (0);
-}
+}*/
