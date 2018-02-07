@@ -6,14 +6,14 @@
 /*   By: terng <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 13:34:51 by terng             #+#    #+#             */
-/*   Updated: 2018/02/07 13:48:30 by terng            ###   ########.fr       */
+/*   Updated: 2018/02/07 15:11:50 by terng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 #include "../includes/op.h"
 
-t_op    op_tab[17] =
+t_op    g_op_tab[17] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
@@ -40,7 +40,16 @@ t_op    op_tab[17] =
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
 
-int	main(void)
+t_op	*get_op(char *instruction)
 {
-	return (0);
+	int		i;
+
+	i = 0;
+	while (i < 16)
+	{
+		if (ft_strcmp(instruction, g_op_tab[i].instruction) == 0)
+			return (&(g_op_tab[i]));
+		i++;
+	}
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 18:40:36 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/07 13:48:18 by terng            ###   ########.fr       */
+/*   Updated: 2018/02/07 15:13:18 by terng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ typedef struct	s_op
 	char		codebyte;
 	char		carry;
 }				t_op;
+
+t_op			*get_op(char *instruction);
 
 #endif

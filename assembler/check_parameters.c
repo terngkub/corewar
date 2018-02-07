@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 21:36:41 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/06 18:17:49 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/07 15:23:17 by terng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	check_registry(char *str)
 {
 	int		num;
 
-	ft_printf("check_registry %s\n", str);
+	ft_printf("%-14s %s\n", "check_registry", str);
 	str++;
 	if (!ft_isdigit(*str) || *str == '0')
 		ft_error("");
@@ -67,8 +67,8 @@ void	check_registry(char *str)
 
 void	check_number(char *str, char type)
 {
-	ft_printf("check_number %s\n", str);
-	if (type == 'd')
+	ft_printf("%-14s %s\n", "check_number", str);
+	if (type & T_DIR)
 		str++;
 	while (*str)
 	{
@@ -80,10 +80,10 @@ void	check_number(char *str, char type)
 
 void	check_label(char *str, char type)
 {
-	ft_printf("check_label %s\n", str);
-	if (type == 'D')
+	ft_printf("%-14s %s\n", "check_label", str);
+	if (type & T_DIR)
 		str += 2;
-	if (type == 'I')
+	else
 		str++;
 	while (*str)
 	{
@@ -96,51 +96,72 @@ void	check_label(char *str, char type)
 char	get_type(char *str)
 {
 	if (str[0] == 'r')
-		return ('r');
+		return (T_REG);
 	else if (str[0] == '%')
 	{
 		if (ft_isdigit(str[1]))
-			return ('d');
+			return (T_DIR);
 		else if (str[1] == ':')
-			return ('D');
+			return (T_DIR | T_LAB);
 		ft_error("");
 	}
 	else if (ft_isdigit(str[0]))
-		return ('i');
+		return (T_IND);
 	else if (str[0] == ':')
-		return ('I');
-	ft_error("");
+		return (T_IND | T_LAB);
 	return (0);
 }
 
-void	check_parameters(char *str)
+int		check_param_num(char **arr, int param_num)
 {
+	int 	i;
+	int		len;
+
+	i = 0;
+	while (arr[i++])
+		len++;
+	ft_printf("%-9s: %d\n", "param_num", param_num);
+	ft_printf("%-9s: %d\n", "len", len);
+	if (param_num == len)
+		return (1);
+	return (0);
+}
+
+void	check_parameters(char *instruction, char *str)
+{
+	t_op	*op;
 	char	**arr;
 	char	type;
 	int		i;
 
+	op = get_op(instruction);
 	arr = ft_strsplit(str, SEPARATOR_CHAR);
+	if (!check_param_num(arr, op->param_num))
+		ft_error("parameter number is wrong");
 	i = 0;
 	while (arr[i])
 	{
-		ft_printf("loop %d: ", i);
+		ft_printf("loop %d ", i);
 		if (!(type = get_type(arr[i])))
-			ft_error("");
-		if (type == 'r')
+			ft_error("No type");
+		ft_printf("type %2d ", (int)type);
+		if (!(type & op->param_type[i]))
+			ft_error("Wrong type");
+		if (type & T_REG)
 			check_registry(arr[i]);
-		if (type == 'd' || type == 'i')
-			check_number(arr[i], type);
-		if (type == 'D' || type == 'I')
+		else if (type & T_LAB)
 			check_label(arr[i], type);
+		else if (type & (T_DIR | T_IND))
+			check_number(arr[i], type);
 		i++;
 	}
 }
 
 int		main(int argc, char **argv)
 {
-	if (argc != 2)
+	if (argc != 3)
 		return (1);
-	check_parameters(ft_remove_space(argv[1]));
+	check_parameters(argv[1], ft_remove_space(argv[2]));
 	ft_printf("valid\n");
 	return (0);
 }
