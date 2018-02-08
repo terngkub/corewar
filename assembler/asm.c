@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/08 16:25:58 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/08 18:28:31 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,33 @@ void	ft_initchamp(t_champ *champ)
 	champ->labels = NULL;
 }
 
+void	disp_hexlen(int fd, size_t size, int len)
+{
+
+	unsigned char	*tmp;
+	int				i;
+
+	i = len;
+	if (!(tmp = (unsigned char*)ft_memalloc(i * sizeof(unsigned char))))
+		return ;
+	while (size)
+	{
+		tmp[--i] = size % 256;
+		size /= 256;
+	}
+	write (fd, tmp, len);
+	write (1, tmp, len);
+	free(tmp);
+}
+
+void	write_champion(int fd, t_champ *champ)
+{
+	disp_hexlen(fd, COREWAR_EXEC_MAGIC, 4);
+	write(fd, champ->name, PROG_NAME_LENGTH);
+	disp_hexlen(fd, 23, 8);
+	write(fd, champ->comment, COMMENT_LENGTH);
+}
+
 int		main(int argc, char **argv)
 {
 	int			fd_read;
@@ -59,20 +86,20 @@ int		main(int argc, char **argv)
 	fd_read = open(argv[1], O_RDONLY);
 	cor_filename = get_cor_name(argv[1]);
 	fd_write = open(cor_filename, O_WRONLY | O_CREAT, 0755);
-	ft_fprintf(fd_write, "%c%c%c%c", 0x00, 0xea, 0x83, 0xf3);
 	while (sget_next_line(fd_read, &line) > 0)
 	{
 		line_nb++;
-		if (!ft_strncmp(line, NAME_CMD_STRING, 5))
-			ft_printf("%d\n", check_name(&champ, line, line_nb));
-		else if (!ft_strncmp(line, COMMENT_CMD_STRING, 7))
-			ft_printf("%d\n", check_comment(&champ, line, line_nb));
-		else
-			ft_printf("%d\n", check_instruction_line(line));
+		if (line[0] == COMMENT_CHAR)
+			continue ;
+		else if (!ft_strncmp(line, NAME_CMD_STRING, 5) && !check_name(&champ, line, line_nb))
+			return (-1);
+		else if (!ft_strncmp(line, COMMENT_CMD_STRING, 7) && !check_comment(&champ, line, line_nb))
+			return (-1);
+		//else if (!check_instruction_line(line))
+		//	return (-1);
 		free(line);
 	}
-	write(fd_write, champ.name, PROG_NAME_LENGTH);
-	write(fd_write, champ.comment, COMMENT_LENGTH);
+	write_champion(fd_write, &champ);
 	close(fd_read);
 	close(fd_write);
 	return (0);
