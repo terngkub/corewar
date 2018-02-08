@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/08 18:28:31 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/08 19:54:54 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_initchamp(t_champ *champ)
 {
 	ft_bzero(champ->name, PROG_NAME_LENGTH + 1);
 	ft_bzero(champ->comment, COMMENT_LENGTH + 1);
-	champ->instructions = NULL;
+	champ->inst = NULL;
 	champ->labels = NULL;
 }
 
@@ -100,6 +100,7 @@ int		main(int argc, char **argv)
 		free(line);
 	}
 	write_champion(fd_write, &champ);
+	print_inst_list(champ.inst);
 	close(fd_read);
 	close(fd_write);
 	return (0);
