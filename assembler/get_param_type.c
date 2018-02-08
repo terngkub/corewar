@@ -1,41 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_remove_space.c                                  :+:      :+:    :+:   */
+/*   get_param_type.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/07 18:29:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/08 15:32:17 by nkamolba         ###   ########.fr       */
+/*   Created: 2018/02/08 16:16:11 by nkamolba          #+#    #+#             */
+/*   Updated: 2018/02/08 16:16:55 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 
-char	*ft_remove_space(char *str)
+char	get_param_type(char *str)
 {
-	int		new_len;
-	int		i;
-	int		j;
-	char	*new_str;
-
-	new_len = 0;
-	i = 0;
-	while (str[i])
+	if (str[0] == 'r')
+		return (T_REG);
+	else if (str[0] == '%')
 	{
-		if (!ft_isspace(str[i]))
-			new_len++;
-		i++;
+		if (ft_isdigit(str[1]))
+			return (T_DIR);
+		else if (str[1] == ':')
+			return (T_DIR | T_LAB);
+		return (0);
 	}
-	if (!(new_str = ft_strnew(new_len)))
-		ft_error("ft_strnew failed in ft_remove_space");
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (!ft_isspace(str[i]))
-			new_str[j++] = str[i];
-		i++;
-	}
-	return (new_str);
+	else if (ft_isdigit(str[0]))
+		return (T_IND);
+	else if (str[0] == ':')
+		return (T_IND | T_LAB);
+	return (0);
 }

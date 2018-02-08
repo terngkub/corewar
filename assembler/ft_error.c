@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 16:15:05 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/06 16:15:22 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/08 15:34:04 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 void	ft_error(char *str)
 {
 	ft_fprintf(2, "ERROR: %s\n", str);
-	exit(1);
+	exit(EXIT_FAILURE);
 }

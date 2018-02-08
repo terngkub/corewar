@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/07 21:02:40 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/08 16:25:58 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,10 @@ int		main(int argc, char **argv)
 		line_nb++;
 		if (!ft_strncmp(line, NAME_CMD_STRING, 5))
 			ft_printf("%d\n", check_name(&champ, line, line_nb));
-		if (!ft_strncmp(line, COMMENT_CMD_STRING, 7))
+		else if (!ft_strncmp(line, COMMENT_CMD_STRING, 7))
 			ft_printf("%d\n", check_comment(&champ, line, line_nb));
+		else
+			ft_printf("%d\n", check_instruction_line(line));
 		free(line);
 	}
 	write(fd_write, champ.name, PROG_NAME_LENGTH);

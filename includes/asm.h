@@ -6,11 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 18:40:36 by nkamolba          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2018/02/07 20:51:47 by nkamolba         ###   ########.fr       */
-=======
-/*   Updated: 2018/02/07 20:55:58 by fbabin           ###   ########.fr       */
->>>>>>> e1b0b543958d2d2474b6b267b81612b350c9fef7
+/*   Updated: 2018/02/08 16:23:53 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +53,12 @@ typedef struct	s_op
 */
 
 t_op			*get_op(char *instruction);
+
 void			ft_error(char *str);
+
+char			*ft_trim(char *str);
 char			*ft_remove_space(char *str);
 
-void			ft_trim(char **str);
 
 /*
 ** ------------------------------ CHECK FUNCTIONS ------------------------------
@@ -68,5 +66,8 @@ void			ft_trim(char **str);
 
 int			check_name(t_champ *champ, char *line, int line_nb);
 int			check_comment(t_champ *champ, char *line, int line_nb);
+int			check_instruction_line(char *line);
+void		check_parameters(char *str, t_op *op);
+char		get_param_type(char *str);
 
 #endif
