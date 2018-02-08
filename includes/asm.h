@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 18:40:36 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/08 16:23:53 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/08 19:43:51 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct	s_champ
 {
 	char		name[PROG_NAME_LENGTH + 1];
 	char		comment[COMMENT_LENGTH + 1];
-	t_list		*instructions;
+	t_list		*inst;
 	t_list		*labels;
 }				t_champ;
 
@@ -46,6 +46,15 @@ typedef struct	s_op
 	char		carry;
 }				t_op;
 
+typedef struct	s_inst
+{
+	char		opcode;
+	char		codebyte;
+	int			param_byte;
+	char		param_num;
+	char		**param_arr;
+}				t_inst;
+
 /*
 ** ----------------------------------------------------------------------------
 ** ---------------------------------- SOURCES ---------------------------------
@@ -59,6 +68,8 @@ void			ft_error(char *str);
 char			*ft_trim(char *str);
 char			*ft_remove_space(char *str);
 
+void			print_inst_list(t_list *list);
+
 
 /*
 ** ------------------------------ CHECK FUNCTIONS ------------------------------
@@ -66,8 +77,8 @@ char			*ft_remove_space(char *str);
 
 int			check_name(t_champ *champ, char *line, int line_nb);
 int			check_comment(t_champ *champ, char *line, int line_nb);
-int			check_instruction_line(char *line);
-void		check_parameters(char *str, t_op *op);
-char		get_param_type(char *str);
+int			check_instruction_line(t_champ *champ, char *line);
+void		check_parameters(char *str, t_op *op, t_inst *inst);
+char		get_param_type(char *str, t_inst *inst, int value);
 
 #endif

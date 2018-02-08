@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 21:36:41 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/08 16:24:21 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/08 18:50:27 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	check_label(char *str, char type)
 	}
 }
 
-int		check_param_num(char **arr, int param_num)
+int		check_param_num(char **arr, int param_num, t_inst *inst)
 {
 	int 	i;
 
@@ -61,11 +61,15 @@ int		check_param_num(char **arr, int param_num)
 	while (arr[i])
 		i++;
 	if (param_num == i)
+	{
+		inst->param_num = param_num;
+		inst->param_arr = arr;
 		return (1);
+	}
 	return (0);
 }
 
-void	check_parameters(char *str, t_op *op)
+void	check_parameters(char *str, t_op *op, t_inst *inst)
 {
 	char	**arr;
 	char	type;
@@ -73,12 +77,12 @@ void	check_parameters(char *str, t_op *op)
 
 	if (!(arr = ft_strsplit(str, SEPARATOR_CHAR)))
 		ft_error("ft_strsplit failed in check_parameters");
-	if (!check_param_num(arr, op->param_num))
+	if (!check_param_num(arr, op->param_num, inst))
 		ft_error("parameter number is wrong");
 	i = 0;
 	while (arr[i])
 	{
-		if (!(type = get_param_type(arr[i])))
+		if (!(type = get_param_type(arr[i], inst, i)))
 			ft_error("arguments have wrong format");
 		if (!(type & op->param_type[i]))
 			ft_error("input arguments have wrong type");
@@ -89,5 +93,6 @@ void	check_parameters(char *str, t_op *op)
 		else if (type & (T_DIR | T_IND))
 			check_number(arr[i], type);
 		i++;
+		
 	}
 }

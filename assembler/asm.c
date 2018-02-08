@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/08 16:25:58 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/08 19:46:57 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ void	ft_initchamp(t_champ *champ)
 {
 	ft_bzero(champ->name, PROG_NAME_LENGTH + 1);
 	ft_bzero(champ->comment, COMMENT_LENGTH + 1);
-	champ->instructions = NULL;
+	champ->inst = NULL;
 	champ->labels = NULL;
 }
+
 
 int		main(int argc, char **argv)
 {
@@ -68,9 +69,10 @@ int		main(int argc, char **argv)
 		else if (!ft_strncmp(line, COMMENT_CMD_STRING, 7))
 			ft_printf("%d\n", check_comment(&champ, line, line_nb));
 		else
-			ft_printf("%d\n", check_instruction_line(line));
+			ft_printf("%d\n", check_instruction_line(&champ, line));
 		free(line);
 	}
+	print_inst_list(champ.inst);
 	write(fd_write, champ.name, PROG_NAME_LENGTH);
 	write(fd_write, champ.comment, COMMENT_LENGTH);
 	close(fd_read);

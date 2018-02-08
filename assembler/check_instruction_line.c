@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 18:33:17 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/08 16:32:28 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/08 19:42:27 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	check_label_infront(char *str)
 	return (0);
 }
 
-static t_op	*check_instruction(char *str)
+static t_op	*check_instruction(char *str, t_inst *inst)
 {
 	int		instruction_len;
 	char	*instruction;
@@ -64,45 +64,35 @@ static t_op	*check_instruction(char *str)
 	if (!(op = get_op(instruction)))
 		ft_error("instuction not found");
 	free(instruction);
+	inst->opcode = op->opcode;
 	return (op);
 }
 
-int		check_instruction_line(char *line)
+
+int		check_instruction_line(t_champ *champ, char *line)
 {
+	t_inst	*inst;	
 	char	*str;
 	char	*param;
 	int		i;
 	t_op	*op;
 
+	if (!(inst = (t_inst *)malloc(sizeof(t_inst))))
+		ft_error("failed to malloc inst");
 	if (!(str = ft_trim(line)))
 		return (1);
 	i = check_label_infront(str);
 	if (!str[i])
 		return (1);
 	i = skip_space(str, i);
-	op = check_instruction(&str[i]);
+	op = check_instruction(&str[i], inst);
 	i = skip_nonspace(str, i);
 	i = skip_space(str, i);
 	param = ft_remove_space(&str[i]);
-	check_parameters(param, op);
+	inst->codebyte = op->codebyte;
+	check_parameters(param, op, inst);
 	free(str);
 	free(param);
+	ft_lstpushback(&champ->inst, inst, sizeof(t_inst));
 	return (1);
 }
-
-/*
-int		main(void)
-{
-	//valid
-	ft_printf("%d\n", check_instruction_line("test:"));
-	ft_printf("%d\n", check_instruction_line("sti r1,%:live,%1"));
-	ft_printf("%d\n", check_instruction_line("test: sti r1,%:live,%1"));
-	
-	//error
-	//ft_printf("%d\n", check_instruction_line("Test:"));
-	//ft_printf("%d\n", check_instruction_line("test r1,%:live,%1"));
-	ft_printf("%d\n", check_instruction_line("test: sti r1,%:live,1"));
-
-	return (0);
-}
-*/
