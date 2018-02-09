@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/08 19:46:57 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/08 20:41:29 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,27 @@ int		main(int argc, char **argv)
 	while (sget_next_line(fd_read, &line) > 0)
 	{
 		line_nb++;
+		/*
 		if (!ft_strncmp(line, NAME_CMD_STRING, 5))
 			ft_printf("%d\n", check_name(&champ, line, line_nb));
 		else if (!ft_strncmp(line, COMMENT_CMD_STRING, 7))
 			ft_printf("%d\n", check_comment(&champ, line, line_nb));
 		else
 			ft_printf("%d\n", check_instruction_line(&champ, line));
+			*/
+		ft_printf("%s\n", line);
+		if (line[0] == COMMENT_CHAR)
+			continue ;
+		else if (!ft_strncmp(line, NAME_CMD_STRING, 5) && !check_name(&champ, line, line_nb))
+			return (-1);
+		else if (!ft_strncmp(line, COMMENT_CMD_STRING, 7) && !check_comment(&champ, line, line_nb))
+			return (-1);
+		else if (!check_instruction_line(&champ, line))
+			return (-1);
 		free(line);
 	}
 	print_inst_list(champ.inst);
+	print_labels_list(champ.labels);
 	write(fd_write, champ.name, PROG_NAME_LENGTH);
 	write(fd_write, champ.comment, COMMENT_LENGTH);
 	close(fd_read);

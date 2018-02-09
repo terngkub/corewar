@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 18:33:17 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/08 19:42:27 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/08 19:58:46 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ static int	skip_space(char *str, int i)
 	return (i);
 }
 
-static int	check_label_infront(char *str)
+static int	check_label_infront(char *str, t_champ *champ)
 {
 	int		i;
 	int		j;
+	char	*label;
 
 	i = 0;
 	while (str[i] && !ft_isspace(str[i]))
@@ -43,6 +44,8 @@ static int	check_label_infront(char *str)
 					ft_error("label name contains non-LABEL_CHARS");
 				j++;
 			}
+			label = ft_strsub(str, 0, i);
+			ft_lstpushback(&champ->labels, label, i);
 			return (i + 1);
 		}
 		i++;
@@ -81,7 +84,7 @@ int		check_instruction_line(t_champ *champ, char *line)
 		ft_error("failed to malloc inst");
 	if (!(str = ft_trim(line)))
 		return (1);
-	i = check_label_infront(str);
+	i = check_label_infront(str, champ);
 	if (!str[i])
 		return (1);
 	i = skip_space(str, i);

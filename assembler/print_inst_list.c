@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/08 19:42:40 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/08 19:44:09 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/08 20:00:08 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ static void	print_inst(t_inst *inst)
 
 void		print_inst_list(t_list *list)
 {
+	ft_printf("\n-----Instructions-----\n\n");
 	while (list)
 	{
 		print_inst((t_inst *)list->content);
+		ft_printf("\n");
 		list = list->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 18:40:36 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/08 19:43:51 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/08 20:39:48 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ typedef struct	s_inst
 	char		**param_arr;
 }				t_inst;
 
+typedef struct	s_label
+{
+	char		*name;
+}				t_label;
+
 /*
 ** ----------------------------------------------------------------------------
 ** ---------------------------------- SOURCES ---------------------------------
@@ -69,6 +74,7 @@ char			*ft_trim(char *str);
 char			*ft_remove_space(char *str);
 
 void			print_inst_list(t_list *list);
+void			print_labels_list(t_list *list);
 
 
 /*
