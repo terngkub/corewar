@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/09 15:43:01 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/09 16:00:56 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void	write_champion(int fd, t_champ *champ)
 	write(fd, champ->name, PROG_NAME_LENGTH);
 	disp_hexlen(fd, champ->accu_len, 8);
 	write(fd, champ->comment, COMMENT_LENGTH);
+	write(fd, "\0\0\0\0", 4);
 	t = champ->inst;
 	while (t)
 	{

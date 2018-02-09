@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 17:20:30 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/07 20:58:03 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/09 17:14:52 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int			check_name(t_champ *champ, char *line, int line_nb)
 	int		n_start;
 	int		n_len;
 
-	n_len = ft_strcspn(line, " ");
-	n_start = n_len + ft_strspn(line + n_len, " ");
+	n_len = ft_strcspn(line, " \t");
+	n_start = n_len + ft_strspn(line + n_len, " \t");
 	if (line[n_start] != '"')
 		return (ft_return_error_line(line_nb, 
 			"could not find starting '\"' at the beginning of the name", 0));
@@ -51,8 +51,8 @@ int			check_comment(t_champ *champ, char *line, int line_nb)
 	int		n_start;
 	int		n_len;
 
-	n_len = ft_strcspn(line, " ");
-	n_start = n_len + ft_strspn(line + n_len, " ");
+	n_len = ft_strcspn(line, " \t");
+	n_start = n_len + ft_strspn(line + n_len, " \t");
 	if (line[n_start] != '"')
 		return (ft_return_error_line(line_nb, 
 			"could not find starting '\"' at the beginning of the comment", 0));
