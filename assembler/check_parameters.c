@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 21:36:41 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/08 18:50:27 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/09 14:39:29 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,16 @@ int		check_param_num(char **arr, int param_num, t_inst *inst)
 	return (0);
 }
 
+void	get_inst_len(t_op *op, t_inst *inst, char type)
+{
+	if (type & T_REG)
+		inst->len++;
+	else if (type & T_DIR)
+		inst->len += op->direct_len;
+	else if (type & T_IND)
+		inst->len += 2;
+}
+
 void	check_parameters(char *str, t_op *op, t_inst *inst)
 {
 	char	**arr;
@@ -86,6 +96,7 @@ void	check_parameters(char *str, t_op *op, t_inst *inst)
 			ft_error("arguments have wrong format");
 		if (!(type & op->param_type[i]))
 			ft_error("input arguments have wrong type");
+		get_inst_len(op, inst, type);
 		if (type & T_REG)
 			check_registry(arr[i]);
 		else if (type & T_LAB)

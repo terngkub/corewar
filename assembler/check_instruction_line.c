@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 18:33:17 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/08 19:58:46 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/09 14:48:40 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	check_label_infront(char *str, t_champ *champ)
 {
 	int		i;
 	int		j;
-	char	*label;
+	t_label	*label;
 
 	i = 0;
 	while (str[i] && !ft_isspace(str[i]))
@@ -44,8 +44,11 @@ static int	check_label_infront(char *str, t_champ *champ)
 					ft_error("label name contains non-LABEL_CHARS");
 				j++;
 			}
-			label = ft_strsub(str, 0, i);
-			ft_lstpushback(&champ->labels, label, i);
+			if (!(label = (t_label *)malloc(sizeof(t_label))))
+				ft_error("failed to malloc label");
+			label->name = ft_strsub(str, 0, i);
+			label->addr = champ->accu_len;
+			ft_lstpushback(&champ->labels, label, sizeof(t_label));
 			return (i + 1);
 		}
 		i++;
@@ -92,8 +95,11 @@ int		check_instruction_line(t_champ *champ, char *line)
 	i = skip_nonspace(str, i);
 	i = skip_space(str, i);
 	param = ft_remove_space(&str[i]);
-	inst->codebyte = op->codebyte;
+	inst->addr = champ->accu_len;
+	inst->len = 1 + op->ocp;
+	inst->ocp = op->ocp;
 	check_parameters(param, op, inst);
+	champ->accu_len += inst->len;
 	free(str);
 	free(param);
 	ft_lstpushback(&champ->inst, inst, sizeof(t_inst));

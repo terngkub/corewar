@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 18:40:36 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/08 20:39:48 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/09 14:37:18 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct	s_champ
 {
 	char		name[PROG_NAME_LENGTH + 1];
 	char		comment[COMMENT_LENGTH + 1];
+	int			accu_len;
 	t_list		*inst;
 	t_list		*labels;
 }				t_champ;
@@ -42,22 +43,26 @@ typedef struct	s_op
 	char		opcode;
 	int			cycle;
 	char		*name;
-	char		codebyte;
+	char		ocp;
 	char		carry;
+	char		direct_len;
 }				t_op;
 
 typedef struct	s_inst
 {
 	char		opcode;
-	char		codebyte;
+	char		ocp;
 	int			param_byte;
 	char		param_num;
 	char		**param_arr;
+	int			addr;
+	int			len;
 }				t_inst;
 
 typedef struct	s_label
 {
 	char		*name;
+	int			addr;
 }				t_label;
 
 /*

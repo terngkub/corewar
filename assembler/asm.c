@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/09 13:30:31 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/09 14:18:58 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_initchamp(t_champ *champ)
 {
 	ft_bzero(champ->name, PROG_NAME_LENGTH + 1);
 	ft_bzero(champ->comment, COMMENT_LENGTH + 1);
+	champ->accu_len = 0;
 	champ->inst = NULL;
 	champ->labels = NULL;
 }

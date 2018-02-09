@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/08 19:42:40 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/08 20:00:08 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/09 14:45:14 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ static void	print_inst(t_inst *inst)
 	int 	i;
 
 	ft_printf("opcode %d\n", (int)inst->opcode);
-	ft_printf("codebyte %d\n", (int)inst->codebyte);
+	ft_printf("ocp %d\n", (int)inst->ocp);
 	ft_printf("param_byte %d\n", (int)inst->param_byte);
+	ft_printf("addr %d\n", (int)inst->addr);
+	ft_printf("len %d\n", (int)inst->len);
 	ft_printf("param_num %d\n", (int)inst->param_num);
 	i = 0;
 	while (i < (int)inst->param_num)
