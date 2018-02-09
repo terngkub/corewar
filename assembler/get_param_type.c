@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/08 16:16:11 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/08 19:09:32 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/09 15:49:03 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ char		get_param_type(char *str, t_inst *inst, int i)
 	}
 	if (str[0] == '%')
 	{
-		get_param_byte(inst, i, 3);
+		get_param_byte(inst, i, 2);
 		if (ft_isdigit(str[1]))
 			return (T_DIR);
 		else if (str[1] == ':')
 			return (T_DIR | T_LAB);
 		return (0);
 	}
-	get_param_byte(inst, i, 2);
+	get_param_byte(inst, i, 3);
 	if (ft_isdigit(str[0]))
 		return (T_IND);
 	else if (str[0] == ':')

@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/09 14:18:58 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/09 15:43:01 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,74 @@ void	disp_hexlen(int fd, size_t size, int len)
 	free(tmp);
 }
 
+void	write_inst(int fd, t_inst *inst, t_list *label_list)
+{
+	int			i;
+	int			begin;
+	int			len;
+	char		*label;
+	char		*name;
+	int			addr;
+
+	disp_hexlen(fd, inst->opcode, 1);
+	if (inst->ocp)
+		disp_hexlen(fd, inst->param_byte, 1);
+	i = 0;
+	while (i < inst->param_num)
+	{
+		if (inst->param_arr[i][0] == 'r')
+			disp_hexlen(fd, ft_atoi(&inst->param_arr[i][1]), 1);
+		else if (!ft_strchr(inst->param_arr[i], ':'))
+		{
+			if (inst->param_arr[i][0] == '%')
+				disp_hexlen(fd, ft_atoi(&inst->param_arr[i][1]), inst->direct_len);
+			else
+				disp_hexlen(fd, ft_atoi(&inst->param_arr[i][0]), 2);
+		}
+		else
+		{
+			begin = inst->param_arr[i][0] == '%' ? 2 : 1;
+			len = ft_strlen(inst->param_arr[i]) - begin;
+			label = ft_strsub(inst->param_arr[i], begin, len);
+			addr = -1;
+			while (label_list)
+			{
+				name = ((t_label *)label_list->content)->name;
+				if (ft_strcmp(label, name) == 0)
+				{
+					addr = ((t_label *)label_list->content)->addr;
+					break;
+				}
+				label_list = label_list->next;
+			}
+			if (addr != -1)
+			{
+				if (inst->param_arr[i][0] == '%')
+					disp_hexlen(fd, addr - inst->addr, inst->direct_len);
+				else
+					disp_hexlen(fd, addr - inst->addr, 2);
+			}
+			free(label);
+		}
+		i++;
+	}
+}
+
 void	write_champion(int fd, t_champ *champ)
 {
+	t_list		*t;
+
 	disp_hexlen(fd, COREWAR_EXEC_MAGIC, 4);
 	write(fd, champ->name, PROG_NAME_LENGTH);
-	disp_hexlen(fd, 23, 8);
-	write(fd, champ->comment, COMMENT_LENGTH + 4);
+	disp_hexlen(fd, champ->accu_len, 8);
+	write(fd, champ->comment, COMMENT_LENGTH);
+	t = champ->inst;
+	while (t)
+	{
+
+		write_inst(fd, (t_inst *)t->content, champ->labels);
+		t = t->next;
+	}
 }
 
 int		main(int argc, char **argv)

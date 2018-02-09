@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 18:33:17 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/09 14:48:40 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/09 15:25:50 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int		check_instruction_line(t_champ *champ, char *line)
 	inst->addr = champ->accu_len;
 	inst->len = 1 + op->ocp;
 	inst->ocp = op->ocp;
+	inst->direct_len = op->direct_len;
 	check_parameters(param, op, inst);
 	champ->accu_len += inst->len;
 	free(str);

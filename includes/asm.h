@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 18:40:36 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/09 14:37:18 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/09 15:25:39 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct	s_inst
 {
 	char		opcode;
 	char		ocp;
+	char		direct_len;
 	int			param_byte;
 	char		param_num;
 	char		**param_arr;
