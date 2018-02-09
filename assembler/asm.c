@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/08 19:54:54 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/08 20:53:15 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	disp_hexlen(int fd, size_t size, int len)
 		size /= 256;
 	}
 	write (fd, tmp, len);
-	write (1, tmp, len);
 	free(tmp);
 }
 
@@ -67,7 +66,7 @@ void	write_champion(int fd, t_champ *champ)
 	disp_hexlen(fd, COREWAR_EXEC_MAGIC, 4);
 	write(fd, champ->name, PROG_NAME_LENGTH);
 	disp_hexlen(fd, 23, 8);
-	write(fd, champ->comment, COMMENT_LENGTH);
+	write(fd, champ->comment, COMMENT_LENGTH + 4);
 }
 
 int		main(int argc, char **argv)
@@ -91,12 +90,22 @@ int		main(int argc, char **argv)
 		line_nb++;
 		if (line[0] == COMMENT_CHAR)
 			continue ;
-		else if (!ft_strncmp(line, NAME_CMD_STRING, 5) && !check_name(&champ, line, line_nb))
+		else if (!ft_strncmp(line, NAME_CMD_STRING, 5))
+		{
+			if (check_name(&champ, line, line_nb))
+				continue ;
+			else
+				return (-1);
+		}
+		else if (!ft_strncmp(line, COMMENT_CMD_STRING, 7))
+		{
+			if (check_comment(&champ, line, line_nb))
+				continue ;
+			else
+				return (-1);
+		}
+		else if (!check_instruction_line(&champ, line))
 			return (-1);
-		else if (!ft_strncmp(line, COMMENT_CMD_STRING, 7) && !check_comment(&champ, line, line_nb))
-			return (-1);
-		//else if (!check_instruction_line(line))
-		//	return (-1);
 		free(line);
 	}
 	write_champion(fd_write, &champ);
