@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/09 16:00:56 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/09 18:16:30 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,13 +168,13 @@ int		main(int argc, char **argv)
 			else
 				return (-1);
 		}
-		else if (!check_instruction_line(&champ, line))
+		else if (!check_instruction_line(&champ, line, line_nb))
 			return (-1);
 		free(line);
 	}
 	write_champion(fd_write, &champ);
-	print_inst_list(champ.inst);
-	print_labels_list(champ.labels);
+	//print_inst_list(champ.inst);
+	//print_labels_list(champ.labels);
 	close(fd_read);
 	close(fd_write);
 	return (0);

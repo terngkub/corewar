@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 18:40:36 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/09 15:25:39 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/09 18:10:53 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct	s_label
 t_op			*get_op(char *instruction);
 
 void			ft_error(char *str);
+void			ft_error_line(char *str, int line_nb);
 
 char			*ft_trim(char *str);
 char			*ft_remove_space(char *str);
@@ -89,8 +90,8 @@ void			print_labels_list(t_list *list);
 
 int			check_name(t_champ *champ, char *line, int line_nb);
 int			check_comment(t_champ *champ, char *line, int line_nb);
-int			check_instruction_line(t_champ *champ, char *line);
-void		check_parameters(char *str, t_op *op, t_inst *inst);
+int			check_instruction_line(t_champ *champ, char *line_str, int line_nb);
+void		check_parameters(char *str, t_op *op, t_inst *inst, int line_nb);
 char		get_param_type(char *str, t_inst *inst, int value);
 
 #endif
