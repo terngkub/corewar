@@ -1,5 +1,5 @@
 
-d=~/test_corewar/champs/*.s
+d=~/Documents/42/corewar/champs/*.s
 
 for files in $d;
 do

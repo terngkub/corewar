@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/08 19:56:07 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/09 14:50:23 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/09 17:20:32 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ void	print_labels_list(t_list *list)
 	{
 		print_label((t_label *)list->content);
 		list = list->next;
+		ft_printf("\n");
 	}
 }

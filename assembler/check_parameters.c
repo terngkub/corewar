@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 21:36:41 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/09 14:39:29 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/09 17:41:56 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static void	check_registry(char *str)
 static void	check_number(char *str, char type)
 {
 	if (type & T_DIR)
+		str++;
+	if (*str == '-')
 		str++;
 	while (*str)
 	{
@@ -77,6 +79,7 @@ void	get_inst_len(t_op *op, t_inst *inst, char type)
 		inst->len += op->direct_len;
 	else if (type & T_IND)
 		inst->len += 2;
+	ft_printf("%d\n", inst->len);
 }
 
 void	check_parameters(char *str, t_op *op, t_inst *inst)
