@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/10 15:39:17 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/10 16:51:42 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,51 +151,52 @@ void		ft_initcheck(t_check *check)
 
 int			main(int argc, char **argv)
 {
-	int			fd_read;
+	t_file		f;
+	/*int			fd_read;
 	int			fd_write;
 	char		*cor_filename;
 	char		*line;
-	int			line_nb;
+	int			line_nb;*/
 	t_champ		champ;
 	t_check		check;
 
 	ft_initchamp(&champ);
 	ft_initcheck(&check);
-	line_nb = 0;
+	f.line_nb = 0;
 	if (argc != 2 || !check_file_name(argv[1]))
 		ft_error("wrong input");
-	fd_read = open(argv[1], O_RDONLY);
-	cor_filename = get_cor_name(argv[1]);
-	fd_write = open(cor_filename, O_WRONLY | O_CREAT, 0755);
-	while (sget_next_line(fd_read, &line) > 0)
+	f.fd_read = open(argv[1], O_RDONLY);
+	f.cor_filename = get_cor_name(argv[1]);
+	f.fd_write = open(f.cor_filename, O_WRONLY | O_CREAT, 0755);
+	while (sget_next_line(f.fd_read, &f.line) > 0)
 	{
-		line_nb++;
-		if (line[0] == COMMENT_CHAR)
+		f.line_nb++;
+		if (f.line[0] == COMMENT_CHAR)
 			continue ;
-		else if (!ft_strncmp(line, NAME_CMD_STRING, 5))
+		else if (!ft_strncmp(f.line, NAME_CMD_STRING, 5))
 		{
-			if (check_name(&champ, line, line_nb, &check))
+			if (check_name(&champ, &f, &check))
 				continue ;
 			else
 				return (-1);
 		}
-		else if (!ft_strncmp(line, COMMENT_CMD_STRING, 7))
+		else if (!ft_strncmp(f.line, COMMENT_CMD_STRING, 7))
 		{
-			if (check_comment(&champ, line, line_nb, &check))
+			if (check_comment(&champ, &f, &check))
 				continue ;
 			else
 				return (-1);
 		}
-		else if (!check_instruction_line(&champ, line, line_nb))
+		else if (!check_instruction_line(&champ, f.line, f.line_nb))
 			return (-1);
-		free(line);
+		free(f.line);
 	}
 	if (!(check_champion_integrity(&champ, &check)))
 		return (-1);
-	write_champion(fd_write, &champ);
+	write_champion(f.fd_write, &champ);
 	//print_inst_list(champ.inst);
 	//print_labels_list(champ.labels);
-	close(fd_read);
-	close(fd_write);
+	close(f.fd_read);
+	close(f.fd_write);
 	return (0);
 }
