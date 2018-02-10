@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 17:20:30 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/10 18:16:16 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/10 19:41:31 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ int			check_comment(t_champ *champ, t_file *f, t_check *check)
 {
 	int		n_start;
 	int		n_len;
+	int		ret;
 
+	ret = 1;
 	n_len = ft_strcspn(f->line, " \t");
 	n_start = n_len + ft_strspn(f->line + n_len, " \t");
 	if (check->comment == 1)
@@ -71,10 +73,10 @@ int			check_comment(t_champ *champ, t_file *f, t_check *check)
 		return (ft_return_error_line(f->line_nb, 
 			"could not find starting '\"' at the beginning of the comment", 0));
 	f->line += n_start + 1;
-	while (!ft_strbspn(f->line, ":") && !f->line[ft_strchrindex(f->line, '"')])
+	while (ret > 0 && !ft_charinset(':', f->line) && !f->line[ft_strchrindex(f->line, '"')])
 	{
 		ft_strcat(champ->name, f->line);
-		sget_next_line(f->fd_read, &f->line);
+		ret = sget_next_line(f->fd_read, &f->line);
 	}
 	n_len = ft_strchrindex(f->line, '"');
 	if (!f->line[n_len] ||
