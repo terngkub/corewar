@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/10 16:51:42 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/10 22:00:43 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,17 +171,19 @@ int			main(int argc, char **argv)
 	while (sget_next_line(f.fd_read, &f.line) > 0)
 	{
 		f.line_nb++;
-		if (f.line[0] == COMMENT_CHAR)
+		if (f.line[0] == COMMENT_CHAR || f.line[0] == ';')
 			continue ;
-		else if (!ft_strncmp(f.line, NAME_CMD_STRING, 5))
+		else if (!ft_strncmp(f.line + ft_strspn(f.line, " \t"), NAME_CMD_STRING, 5))
 		{
+			f.line += ft_strspn(f.line, " \t");
 			if (check_name(&champ, &f, &check))
 				continue ;
 			else
 				return (-1);
 		}
-		else if (!ft_strncmp(f.line, COMMENT_CMD_STRING, 7))
+		else if (!ft_strncmp(f.line + ft_strspn(f.line, " \t"), COMMENT_CMD_STRING, 7))
 		{
+			f.line += ft_strspn(f.line, " \t");
 			if (check_comment(&champ, &f, &check))
 				continue ;
 			else

@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 17:20:30 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/10 21:11:48 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/10 21:45:16 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int			check_comment(t_champ *champ, t_file *f, t_check *check)
 		ret = sget_next_line(f->fd_read, &f->line);
 		f->line_nb++;
 	}
-	ft_printf("%d [%s]\n", f->line_nb, f->line);
 	n_len = ft_strchrindex(f->line, '"');
 	if (!f->line[n_len] ||
 			f->line[n_len + 1 +
