@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 18:33:17 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/09 18:09:06 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/10 14:40:39 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static t_op	*check_instruction(char *str, t_inst *inst, int line_nb)
 	t_op	*op;
 
 	instruction_len = 0;
-	while (!ft_isspace(str[instruction_len]))
+	while (str[instruction_len] && !ft_isspace(str[instruction_len]))
 		instruction_len++;
 	if (!(instruction = ft_strsub(str, 0, instruction_len)))
 		ft_error_line("ft_strsub failed in check_instruction", line_nb);
@@ -83,13 +83,15 @@ int		check_instruction_line(t_champ *champ, char *line, int line_nb)
 	int		i;
 	t_op	*op;
 
-	if (!(inst = (t_inst *)malloc(sizeof(t_inst))))
-		ft_error_line("failed to malloc inst", line_nb);
+	if (ft_strchr(line, COMMENT_CHAR))
+		line = ft_strsub(line, 0, ft_strchrindex(line, COMMENT_CHAR));
 	if (!(str = ft_trim(line)))
 		return (1);
 	i = check_label_infront(str, champ, line_nb);
 	if (!str[i])
 		return (1);
+	if (!(inst = (t_inst *)malloc(sizeof(t_inst))))
+		ft_error_line("failed to malloc inst", line_nb);
 	i = skip_space(str, i);
 	op = check_instruction(&str[i], inst, line_nb);
 	i = skip_nonspace(str, i);
