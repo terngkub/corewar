@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/10 14:09:47 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/10 15:39:17 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,34 +127,29 @@ void	write_champion(int fd, t_champ *champ)
 	t = champ->inst;
 	while (t)
 	{
-
 		write_inst(fd, (t_inst *)t->content, champ->labels);
 		t = t->next;
 	}
 }
 
-int		check_champion_integrity(t_champ *champ)
+int			check_champion_integrity(t_champ *champ, t_check *check)
 {
-	int		i;
-
-	i = -1;
-	while (++i < 128)
-		if (((char*)champ->name)[i] != '\0')
-			break ;
-	if (i == 128)
+	if (check->name == 0)
 		return (ft_error_return("champion has no name", 0));
-	i = -1;
-	while (++i < 2048)
-		if (((char*)champ->comment)[i] != '\0')
-			break ;
-	if (i == 2048)
+	if (check->comment == 0)
 		return (ft_error_return("champion has no comment", 0));
 	if (!champ->labels || !champ->inst)
 		return (ft_error_return("champion has no instruction", 0));
 	return (1);
 }
 
-int		main(int argc, char **argv)
+void		ft_initcheck(t_check *check)
+{
+	check->name = 0;
+	check->comment = 0;
+}
+
+int			main(int argc, char **argv)
 {
 	int			fd_read;
 	int			fd_write;
@@ -162,8 +157,10 @@ int		main(int argc, char **argv)
 	char		*line;
 	int			line_nb;
 	t_champ		champ;
+	t_check		check;
 
 	ft_initchamp(&champ);
+	ft_initcheck(&check);
 	line_nb = 0;
 	if (argc != 2 || !check_file_name(argv[1]))
 		ft_error("wrong input");
@@ -177,14 +174,14 @@ int		main(int argc, char **argv)
 			continue ;
 		else if (!ft_strncmp(line, NAME_CMD_STRING, 5))
 		{
-			if (check_name(&champ, line, line_nb))
+			if (check_name(&champ, line, line_nb, &check))
 				continue ;
 			else
 				return (-1);
 		}
 		else if (!ft_strncmp(line, COMMENT_CMD_STRING, 7))
 		{
-			if (check_comment(&champ, line, line_nb))
+			if (check_comment(&champ, line, line_nb, &check))
 				continue ;
 			else
 				return (-1);
@@ -193,7 +190,7 @@ int		main(int argc, char **argv)
 			return (-1);
 		free(line);
 	}
-	if (!(check_champion_integrity(&champ)))
+	if (!(check_champion_integrity(&champ, &check)))
 		return (-1);
 	write_champion(fd_write, &champ);
 	//print_inst_list(champ.inst);

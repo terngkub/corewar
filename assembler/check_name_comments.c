@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 17:20:30 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/10 13:56:57 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/10 15:02:32 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,16 @@ void		ft_exit_error_line(int line_nb, char *message, int ret)
 	exit (ret);
 }
 
-int			check_name(t_champ *champ, char *line, int line_nb)
+int			check_name(t_champ *champ, char *line, int line_nb, t_check *check)
 {
 	int		n_start;
 	int		n_len;
 
 	n_len = ft_strcspn(line, " \t");
 	n_start = n_len + ft_strspn(line + n_len, " \t");
+	if (check->name == 1)
+		return (ft_return_error_line(line_nb,
+			"champion already has a name", 0));
 	if (line[n_start] != '"')
 		return (ft_return_error_line(line_nb, 
 			"could not find starting '\"' at the beginning of the name", 0));
@@ -43,16 +46,21 @@ int			check_name(t_champ *champ, char *line, int line_nb)
 	if (n_len > PROG_NAME_LENGTH)
 		return(ft_return_error_line(line_nb, "champion name too long", 0));
 	ft_strncpy(champ->name, line + n_start + 1, n_len);
+	check->name = 1;
 	return (1);
 }
 
-int			check_comment(t_champ *champ, char *line, int line_nb)
+int			check_comment(t_champ *champ, char *line, int line_nb,
+				t_check *check)
 {
 	int		n_start;
 	int		n_len;
 
 	n_len = ft_strcspn(line, " \t");
 	n_start = n_len + ft_strspn(line + n_len, " \t");
+	if (check->comment == 1)
+		return (ft_return_error_line(line_nb,
+			"champion already has a comment", 0));
 	if (line[n_start] != '"')
 		return (ft_return_error_line(line_nb, 
 			"could not find starting '\"' at the beginning of the comment", 0));
@@ -65,5 +73,6 @@ int			check_comment(t_champ *champ, char *line, int line_nb)
 	if (n_len > COMMENT_LENGTH)
 		return(ft_return_error_line(line_nb, "comment too long", 0));
 	ft_strncpy(champ->comment, line + n_start + 1, n_len);
+	check->comment = 1;
 	return (1);
 }
