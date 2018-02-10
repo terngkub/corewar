@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 17:20:30 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/09 17:14:52 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/10 13:56:57 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int			ft_return_error_line(int line_nb, char *message, int ret)
 {
-	ft_printf("ERROR, line %d : %s\n", line_nb, message);
+	ft_printf("\033[01;31mERROR{eoc}, line \033[01;32m%d{eoc} : %s\n", line_nb, message);
 	return (ret);
 }
 
 void		ft_exit_error_line(int line_nb, char *message, int ret)
 {
-	ft_printf("ERROR, line %d : %s\n", line_nb, message);
+	ft_printf("\033[01;31mERROR{eoc}, line \033[01;32m%d{eoc} : %s\n", line_nb, message);
 	exit (ret);
 }
 

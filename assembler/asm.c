@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/09 18:16:30 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/10 14:09:47 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,27 @@ void	write_champion(int fd, t_champ *champ)
 	}
 }
 
+int		check_champion_integrity(t_champ *champ)
+{
+	int		i;
+
+	i = -1;
+	while (++i < 128)
+		if (((char*)champ->name)[i] != '\0')
+			break ;
+	if (i == 128)
+		return (ft_error_return("champion has no name", 0));
+	i = -1;
+	while (++i < 2048)
+		if (((char*)champ->comment)[i] != '\0')
+			break ;
+	if (i == 2048)
+		return (ft_error_return("champion has no comment", 0));
+	if (!champ->labels || !champ->inst)
+		return (ft_error_return("champion has no instruction", 0));
+	return (1);
+}
+
 int		main(int argc, char **argv)
 {
 	int			fd_read;
@@ -172,6 +193,8 @@ int		main(int argc, char **argv)
 			return (-1);
 		free(line);
 	}
+	if (!(check_champion_integrity(&champ)))
+		return (-1);
 	write_champion(fd_write, &champ);
 	//print_inst_list(champ.inst);
 	//print_labels_list(champ.labels);

@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 18:40:36 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/09 18:10:53 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/10 13:58:38 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_op			*get_op(char *instruction);
 
 void			ft_error(char *str);
 void			ft_error_line(char *str, int line_nb);
+int				ft_error_return(char *str, int ret);
 
 char			*ft_trim(char *str);
 char			*ft_remove_space(char *str);
