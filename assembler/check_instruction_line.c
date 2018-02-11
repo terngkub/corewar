@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 18:33:17 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/10 14:40:39 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/11 20:23:08 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static t_op	*check_instruction(char *str, t_inst *inst, int line_nb)
 		ft_error_line("ft_strsub failed in check_instruction", line_nb);
 	if (!(op = get_op(instruction)))
 		ft_error_line("instuction not found", line_nb);
-	free(instruction);
+	//free(instruction);
 	inst->opcode = op->opcode;
 	return (op);
 }
@@ -78,14 +78,15 @@ static t_op	*check_instruction(char *str, t_inst *inst, int line_nb)
 int		check_instruction_line(t_champ *champ, char *line, int line_nb)
 {
 	t_inst	*inst;	
+	char	*temp;
 	char	*str;
-	char	*param;
 	int		i;
 	t_op	*op;
 
+	temp = line;
 	if (ft_strchr(line, COMMENT_CHAR))
-		line = ft_strsub(line, 0, ft_strchrindex(line, COMMENT_CHAR));
-	if (!(str = ft_trim(line)))
+		temp = ft_strsub(line, 0, ft_strchrindex(line, COMMENT_CHAR));
+	if (!(str = ft_trim(temp)))
 		return (1);
 	i = check_label_infront(str, champ, line_nb);
 	if (!str[i])
@@ -96,15 +97,12 @@ int		check_instruction_line(t_champ *champ, char *line, int line_nb)
 	op = check_instruction(&str[i], inst, line_nb);
 	i = skip_nonspace(str, i);
 	i = skip_space(str, i);
-	param = ft_remove_space(&str[i]);
 	inst->addr = champ->accu_len;
 	inst->len = 1 + op->ocp;
 	inst->ocp = op->ocp;
 	inst->direct_len = op->direct_len;
-	check_parameters(param, op, inst, line_nb);
+	check_parameters(&str[i], op, inst, line_nb);
 	champ->accu_len += inst->len;
-	free(str);
-	free(param);
 	ft_lstpushback(&champ->inst, inst, sizeof(t_inst));
 	return (1);
 }
