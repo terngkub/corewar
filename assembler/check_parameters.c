@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 21:36:41 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/10 13:51:35 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/11 13:36:51 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static void	check_label(char *str, char type, int line_nb)
 	if (type & T_DIR)
 		str++;
 	str++;
+	if (*str == 0)
+		ft_error_line("no character after label char", line_nb);
 	while (*str)
 	{
 		if (!ft_strchr(LABEL_CHARS, *str))

@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/10 22:00:43 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/11 14:47:19 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,14 +132,52 @@ void	write_champion(int fd, t_champ *champ)
 	}
 }
 
+void		check_label(t_list *inst_list, t_list *labels_list)
+{
+	t_list		*labels_head;
+	t_inst		*inst;
+	t_label		*label;
+	int			i;
+	int			j;
+	int			found;
+
+	labels_head = labels_list;
+	while (inst_list)
+	{
+		inst = (t_inst *)inst_list->content;
+		i = 0;
+		while (i < inst->param_num && ft_strchr(inst->param_arr[i], ':'))
+		{
+			j = ft_strchr(inst->param_arr[i], '%') ? 2 : 1;
+			found = 0;
+			labels_list = labels_head;
+			while (labels_list)
+			{
+				label = (t_label *)labels_list->content;
+				if (ft_strcmp(&inst->param_arr[i][j], label->name) == 0)
+				{
+					found = 1;
+					break;
+				}
+				labels_list = labels_list->next;
+			}
+			if (found == 0)
+				ft_error("can't find referenced label of the parameters");
+			i++;
+		}
+		inst_list = inst_list->next;
+	}
+}
+
 int			check_champion_integrity(t_champ *champ, t_check *check)
 {
 	if (check->name == 0)
 		return (ft_error_return("champion has no name", 0));
 	if (check->comment == 0)
 		return (ft_error_return("champion has no comment", 0));
-	if (!champ->labels || !champ->inst)
+	if (!champ->inst)
 		return (ft_error_return("champion has no instruction", 0));
+	check_label(champ->inst, champ->labels);
 	return (1);
 }
 
@@ -193,12 +231,13 @@ int			main(int argc, char **argv)
 			return (-1);
 		free(f.line);
 	}
+	//print_inst_list(champ.inst);
+	//print_labels_list(champ.labels);
 	if (!(check_champion_integrity(&champ, &check)))
 		return (-1);
 	write_champion(f.fd_write, &champ);
-	//print_inst_list(champ.inst);
-	//print_labels_list(champ.labels);
 	close(f.fd_read);
 	close(f.fd_write);
+	ft_printf("OK\n");
 	return (0);
 }
