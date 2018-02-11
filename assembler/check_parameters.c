@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 21:36:41 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/11 20:10:35 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/11 22:51:23 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	get_inst_len(t_op *op, t_inst *inst, char type)
 void	check_parameters(char *str, t_op *op, t_inst *inst, int line_nb)
 {
 	char	**arr;
+	char	*tmp;
 	char	type;
 	int		i;
 
@@ -100,7 +101,9 @@ void	check_parameters(char *str, t_op *op, t_inst *inst, int line_nb)
 	i = 0;
 	while (i < inst->param_num)
 	{
-		arr[i] = ft_trim(arr[i]);
+		tmp = ft_strtrim(arr[i]);
+		free(arr[i]);
+		arr[i] = tmp;
 		if (!(type = get_param_type(arr[i], inst, i)))
 			ft_error_line("arguments have wrong format", line_nb);
 		if (!(type & op->param_type[i]))

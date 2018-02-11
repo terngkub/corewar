@@ -1,5 +1,5 @@
 
-d=tests/*.s
+d=~/ASM_Corewar_tests/*.s
 
 for files in $d;
 do

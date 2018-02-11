@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/11 20:16:52 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/11 22:04:29 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	disp_hexlen(int fd, size_t size, int len)
 	i = len;
 	if (!(tmp = (unsigned char*)ft_memalloc(i * sizeof(unsigned char))))
 		return ;
-	while (size)
+	while (size && i > 0)
 	{
 		tmp[--i] = size % 256;
 		size /= 256;
@@ -91,6 +91,7 @@ void	write_inst(int fd, t_inst *inst, t_list *label_list)
 			begin = inst->param_arr[i][0] == '%' ? 2 : 1;
 			len = ft_strlen(inst->param_arr[i]) - begin;
 			label = ft_strsub(inst->param_arr[i], begin, len);
+			//ft_printf("%s\n", label);
 			addr = -1;
 			while (label_list)
 			{
@@ -187,20 +188,24 @@ void		ft_initcheck(t_check *check)
 	check->comment = 0;
 }
 
+void		ft_initfile(t_file *f)
+{
+	f->line_nb = 0;
+	f->line = NULL;
+	f->fd_read = 0;
+	f->cor_filename = NULL;
+	f->fd_write = 0;
+}
+
 int			main(int argc, char **argv)
 {
-	t_file		f;
-	/*int			fd_read;
-	int			fd_write;
-	char		*cor_filename;
-	char		*line;
-	int			line_nb;*/
-	t_champ		champ;
-	t_check		check;
+	t_file			f;
+	t_champ			champ;
+	t_check			check;
 
 	ft_initchamp(&champ);
 	ft_initcheck(&check);
-	f.line_nb = 0;
+	ft_initfile(&f);
 	if (argc != 2 || !check_file_name(argv[1]))
 		ft_error("wrong input");
 	f.fd_read = open(argv[1], O_RDONLY);
@@ -210,34 +215,20 @@ int			main(int argc, char **argv)
 	{
 		f.line_nb++;
 		if (f.line[0] == COMMENT_CHAR || f.line[0] == ';')
-			continue ;
+			;
 		else if (!ft_strncmp(f.line + ft_strspn(f.line, " \t"), NAME_CMD_STRING, 5))
-		{
-			f.line += ft_strspn(f.line, " \t");
-			if (check_name(&champ, &f, &check))
-				continue ;
-			else
-				return (-1);
-		}
+			check_name(&champ, &f, &check);
 		else if (!ft_strncmp(f.line + ft_strspn(f.line, " \t"), COMMENT_CMD_STRING, 7))
-		{
-			f.line += ft_strspn(f.line, " \t");
-			if (check_comment(&champ, &f, &check))
-				continue ;
-			else
-				return (-1);
-		}
+			check_comment(&champ, &f, &check);
 		else if (!check_instruction_line(&champ, f.line, f.line_nb))
-			return (-1);
+			return (free_return(&f, &champ, -1));
 		free(f.line);
 	}
-	//print_inst_list(champ.inst);
-	//print_labels_list(champ.labels);
+	free(f.line);
 	if (!(check_champion_integrity(&champ, &check)))
 		return (-1);
 	write_champion(f.fd_write, &champ);
 	close(f.fd_read);
 	close(f.fd_write);
-	ft_printf("OK\n");
-	return (0);
+	return (free_return(&f, &champ, 0));
 }

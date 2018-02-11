@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 18:40:36 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/11 20:12:25 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/11 21:39:33 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ typedef struct	s_label
 ** ---------------------------------- SOURCES ---------------------------------
 ** ----------------------------------------------------------------------------
 */
-
 t_op			*get_op(char *instruction);
 
 void			ft_error(char *str);
@@ -104,10 +103,14 @@ void			print_labels_list(t_list *list);
 ** ------------------------------ CHECK FUNCTIONS ------------------------------
 */
 
-int			check_name(t_champ *champ, t_file *f, t_check *check);
-int			check_comment(t_champ *champ, t_file *f, t_check *check);
-int			check_instruction_line(t_champ *champ, char *line_str, int line_nb);
-void		check_parameters(char *str, t_op *op, t_inst *inst, int line_nb);
-char		get_param_type(char *str, t_inst *inst, int value);
+void			check_name(t_champ *champ, t_file *f, t_check *check);
+void			check_comment(t_champ *champ, t_file *f, t_check *check);
+int				check_instruction_line(t_champ *champ, char *line_str, int line_nb);
+void			check_parameters(char *str, t_op *op, t_inst *inst, int line_nb);
+char			get_param_type(char *str, t_inst *inst, int value);
+
+void			free_labels(t_list **labels);
+void			free_inst(t_list **inst);
+int				free_return(t_file *f, t_champ *champ, int ret);
 
 #endif
