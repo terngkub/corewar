@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_labels_list.c                                :+:      :+:    :+:   */
+/*   disp_hexlen.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/08 19:56:07 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/09 17:20:32 by nkamolba         ###   ########.fr       */
+/*   Created: 2018/02/12 20:18:17 by nkamolba          #+#    #+#             */
+/*   Updated: 2018/02/12 20:34:43 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/asm.h"
+#include "asm.h"
 
-void	print_label(t_label *label)
+void	disp_hexlen(int fd, size_t size, int len)
 {
-	ft_printf("name %s\n", label->name);
-	ft_printf("addr %d\n", label->addr);
-}
+	unsigned char	*tmp;
+	int				i;
 
-void	print_labels_list(t_list *list)
-{
-	ft_printf("\n-----Labels-----\n\n");
-	while (list)
+	i = len;
+	if (!(tmp = (unsigned char*)ft_memalloc(i * sizeof(unsigned char))))
+		return ;
+	while (size && i > 0)
 	{
-		print_label((t_label *)list->content);
-		list = list->next;
-		ft_printf("\n");
+		tmp[--i] = size % 256;
+		size /= 256;
 	}
+	write(fd, tmp, len);
+	free(tmp);
 }

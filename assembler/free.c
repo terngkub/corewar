@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 20:35:45 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/11 22:43:46 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/12 19:20:40 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ void		free_inst(t_list **inst)
 
 int			free_return(t_file *f, t_champ *champ, int ret)
 {
-
 	free(f->cor_filename);
-
 	if (champ->labels)
 		free_labels(&champ->labels);
 	free_inst(&champ->inst);

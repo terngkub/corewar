@@ -6,7 +6,7 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/16 21:15:36 by fbabin            #+#    #+#              #
-#    Updated: 2018/02/11 21:17:55 by fbabin           ###   ########.fr        #
+#    Updated: 2018/02/12 20:39:43 by nkamolba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,10 +15,14 @@ ASM				= asm
 CC				= gcc -g3
 CFLAGS			= -Wall -Werror -Wextra
 
-_ASM_SRCS		=	asm.c check_name_comments.c check_instruction_line.c  \
-					check_parameters.c get_param_type.c ft_trim.c \
-					ft_remove_space.c ft_error.c print_inst_list.c \
-					print_labels_list.c op.c free.c \
+_ASM_SRCS		=	asm.c op.c init.c\
+					check_name_comments.c \
+					check_instruction_line.c skip.c \
+					check_parameters.c get_param_type.c check_type.c \
+					check_integrity.c \
+					write_champion.c disp_hexlen.c \
+					ft_error.c print_list.c \
+					free.c \
 
 _LIBFT			=	libft.a
 HEADER_DIR		=	includes

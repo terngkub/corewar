@@ -1,10 +1,10 @@
+dir=champs
 
-d=champs/*.s
-
-for files in $d;
+rm $dir/*.cor
+for file in $dir/*.s;
 do
-	echo "==> $files <=="
-	./asm $files
+	echo "==> $file <=="
+	./asm $file
 	echo ""
 	echo ""
 done

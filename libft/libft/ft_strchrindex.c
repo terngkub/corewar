@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/18 12:28:16 by fbabin            #+#    #+#             */
-/*   Updated: 2017/12/17 17:10:03 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/12 18:57:34 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,7 @@ int		ft_strchrindex(const char *str, char c)
 	i = 0;
 	while (str[i] && str[i] != c)
 		i++;
+	if (!str[i])
+		return (-1);
 	return (i);
 }

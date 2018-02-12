@@ -6,27 +6,13 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 18:33:17 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/11 22:36:54 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/12 19:17:14 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 
-static int	skip_nonspace(char *str, int i)
-{
-	while (str[i] && !ft_isspace(str[i]))
-		i++;
-	return (i);
-}
-
-static int	skip_space(char *str, int i)
-{
-	while (str[i] && ft_isspace(str[i]))
-		i++;
-	return (i);
-}
-
-static int	check_label_infront(char *str, t_champ *champ, int line_nb)
+static int		check_label_infront(char *str, t_champ *champ, int line_nb)
 {
 	int		i;
 	int		j;
@@ -40,9 +26,8 @@ static int	check_label_infront(char *str, t_champ *champ, int line_nb)
 			j = 0;
 			while (j < i)
 			{
-				if (!ft_strchr(LABEL_CHARS, str[j]))
-					ft_error_line("label name contains non-LABEL_CHARS", line_nb);
-				j++;
+				if (!ft_strchr(LABEL_CHARS, str[j++]))
+					ft_error_line("label contains non-LABEL_CHARS", line_nb);
 			}
 			if (!(label = (t_label *)malloc(sizeof(t_label))))
 				ft_error_line("failed to malloc label", line_nb);
@@ -56,7 +41,7 @@ static int	check_label_infront(char *str, t_champ *champ, int line_nb)
 	return (0);
 }
 
-static t_op	*check_instruction(char *str, t_inst *inst, int line_nb)
+static t_op		*check_instruction(char *str, int line_nb)
 {
 	int		instruction_len;
 	char	*instruction;
@@ -70,26 +55,45 @@ static t_op	*check_instruction(char *str, t_inst *inst, int line_nb)
 		ft_error_line("ft_strsub failed in check_instruction", line_nb);
 	if (!(op = get_op(instruction)))
 		ft_error_line("instuction not found", line_nb);
-	//ft_printf("%d %s\n", instruction_len, instruction);
-	//if (instruction && *instruction)
 	free(instruction);
-	inst->opcode = op->opcode;
 	return (op);
 }
 
-
-int		check_instruction_line(t_champ *champ, char *line, int line_nb)
+static t_inst	*create_inst(t_champ *champ, t_op *op, int line_nb)
 {
-	t_inst	*inst;	
-	char	*temp;
+	t_inst	*inst;
+
+	if (!(inst = (t_inst *)malloc(sizeof(t_inst))))
+		ft_error_line("failed to malloc inst", line_nb);
+	inst->opcode = op->opcode;
+	inst->addr = champ->accu_len;
+	inst->len = 1 + op->ocp;
+	inst->ocp = op->ocp;
+	inst->direct_len = op->direct_len;
+	return (inst);
+}
+
+static void		remove_comment(char *str)
+{
+	int		i;
+
+	i = ft_strchrindex(str, COMMENT_CHAR);
+	if (i >= 0)
+	{
+		while (str[i])
+			str[i++] = 0;
+	}
+}
+
+int				check_instruction_line(t_champ *champ, char *line, int line_nb)
+{
 	char	*str;
 	int		i;
 	t_op	*op;
+	t_inst	*inst;
 
-	temp = line;
-	if (ft_strchr(line, COMMENT_CHAR))
-		temp = ft_strsub(line, 0, ft_strchrindex(line, COMMENT_CHAR));
-	if (!(str = ft_strtrim(temp)))
+	remove_comment(line);
+	if (!(str = ft_strtrim(line)))
 		return (1);
 	i = check_label_infront(str, champ, line_nb);
 	if (!str[i])
@@ -97,16 +101,11 @@ int		check_instruction_line(t_champ *champ, char *line, int line_nb)
 		free(str);
 		return (1);
 	}
-	if (!(inst = (t_inst *)malloc(sizeof(t_inst))))
-		ft_error_line("failed to malloc inst", line_nb);
 	i = skip_space(str, i);
-	op = check_instruction(&str[i], inst, line_nb);
+	op = check_instruction(&str[i], line_nb);
+	inst = create_inst(champ, op, line_nb);
 	i = skip_nonspace(str, i);
 	i = skip_space(str, i);
-	inst->addr = champ->accu_len;
-	inst->len = 1 + op->ocp;
-	inst->ocp = op->ocp;
-	inst->direct_len = op->direct_len;
 	check_parameters(&str[i], op, inst, line_nb);
 	champ->accu_len += inst->len;
 	ft_lstpushback(&champ->inst, inst, sizeof(t_inst));
