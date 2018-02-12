@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 17:20:30 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/11 22:28:09 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/12 14:37:22 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		ft_exit_error_line(t_file *f, t_champ *champ,
 	exit(ret);
 }
 
-void		multiple_lines_handler(char *line, t_champ *champ, t_file *f)
+void		multiple_lines_handler_name(char *line, t_champ *champ, t_file *f)
 {
 	int		ret;
 
@@ -41,6 +41,22 @@ void		multiple_lines_handler(char *line, t_champ *champ, t_file *f)
 		!line[ft_strchrindex(line, '"')])
 	{
 		ft_strcat(champ->name, line);
+		free(f->line);
+		ret = sget_next_line(f->fd_read, &f->line);
+		f->line_nb++;
+		line = f->line;
+	}
+}
+
+void		multiple_lines_handler_comment(char *line, t_champ *champ, t_file *f)
+{
+	int		ret;
+
+	ret = 1;
+	while (ret > 0 && !ft_charinset(':', line) &&
+		!line[ft_strchrindex(line, '"')])
+	{
+		ft_strcat(champ->comment, line);
 		free(f->line);
 		ret = sget_next_line(f->fd_read, &f->line);
 		f->line_nb++;
@@ -63,7 +79,7 @@ void		check_name(t_champ *champ, t_file *f, t_check *check)
 		ft_exit_error_line(f, champ,
 			"could not find starting '\"' at the beginning of the name", 0);
 	line += n_start + 1;
-	multiple_lines_handler(line, champ, f);
+	multiple_lines_handler_name(line, champ, f);
 	n_len = ft_strchrindex(line, '"');
 	if (!line[n_len] || line[n_len + 1 +
 		ft_strspn(line + n_len + 1, " ")] != '\0')
@@ -92,7 +108,7 @@ void		check_comment(t_champ *champ, t_file *f, t_check *check)
 		ft_exit_error_line(f, champ,
 			"could not find starting '\"' at the beginning of the comment", 0);
 	line += n_start + 1;
-	multiple_lines_handler(line, champ, f);
+	multiple_lines_handler_comment(line, champ, f);
 	n_len = ft_strchrindex(line, '"');
 	if (!line[n_len] ||
 			line[n_len + 1 +
@@ -101,6 +117,6 @@ void		check_comment(t_champ *champ, t_file *f, t_check *check)
 					"could not find ending '\"' at the end of the comment", 0);
 	if (n_len > COMMENT_LENGTH)
 		ft_exit_error_line(f, champ, "comment too long", 0);
-	ft_strncat(champ->name, line, n_len);
+	ft_strncat(champ->comment, line, n_len);
 	check->comment = 1;
 }
