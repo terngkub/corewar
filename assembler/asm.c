@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/12 14:37:53 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/12 15:02:39 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,6 @@ int			main(int argc, char **argv)
 		ft_error("wrong input");
 	f.fd_read = open(argv[1], O_RDONLY);
 	f.cor_filename = get_cor_name(argv[1]);
-	f.fd_write = open(f.cor_filename, O_WRONLY | O_CREAT, 0755);
 	while (sget_next_line(f.fd_read, &f.line) > 0)
 	{
 		f.line_nb++;
@@ -227,6 +226,7 @@ int			main(int argc, char **argv)
 	free(f.line);
 	if (!(check_champion_integrity(&champ, &check)))
 		return (-1);
+	f.fd_write = open(f.cor_filename, O_WRONLY | O_CREAT, 0755);
 	write_champion(f.fd_write, &champ);
 	close(f.fd_read);
 	close(f.fd_write);
