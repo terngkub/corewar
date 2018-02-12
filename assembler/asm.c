@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/12 17:08:03 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/12 17:18:45 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,7 @@ int			main(int argc, char **argv)
 	}
 	free(f.line);
 	if (!(check_champion_integrity(&champ, &check)))
-		return (-1);
+		return (free_return(&f, &champ, -1));
 	f.fd_write = open(f.cor_filename, O_WRONLY | O_CREAT, 0755);
 	write_champion(f.fd_write, &champ);
 	close(f.fd_read);
