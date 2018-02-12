@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/12 15:02:39 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/12 17:08:03 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,9 @@ void	write_inst(int fd, t_inst *inst, t_list *label_list)
 	char		*label;
 	char		*name;
 	int			addr;
+	t_list		*start;
 
+	start = label_list;
 	disp_hexlen(fd, inst->opcode, 1);
 	if (inst->ocp)
 		disp_hexlen(fd, inst->param_byte, 1);
@@ -91,8 +93,8 @@ void	write_inst(int fd, t_inst *inst, t_list *label_list)
 			begin = inst->param_arr[i][0] == '%' ? 2 : 1;
 			len = ft_strlen(inst->param_arr[i]) - begin;
 			label = ft_strsub(inst->param_arr[i], begin, len);
-			//ft_printf("%s\n", label);
 			addr = -1;
+			label_list = start;
 			while (label_list)
 			{
 				name = ((t_label *)label_list->content)->name;
