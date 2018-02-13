@@ -6,20 +6,11 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 17:20:30 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/12 17:30:25 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/13 14:45:05 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-int			ft_return_error_line(t_file *f, char *message, int ret)
-{
-	ft_putendl_fd(f->line, 2);
-	ft_fprintf(2, "\033[01;31merror{eoc}: line \033[01;32m%d{eoc} : %s\n",
-		f->line_nb, message);
-	free(f->line);
-	return (ret);
-}
 
 void		ft_exit_error_line(t_file *f, t_champ *champ,
 				char *message, int ret)
@@ -48,7 +39,8 @@ void		multiple_lines_handler_name(char *line, t_champ *champ, t_file *f)
 	}
 }
 
-void		multiple_lines_handler_comment(char *line, t_champ *champ, t_file *f)
+void		multiple_lines_handler_comment(char *line, t_champ *champ,
+				t_file *f)
 {
 	int		ret;
 

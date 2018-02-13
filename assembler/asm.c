@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/12 20:42:56 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/13 15:49:10 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,31 @@ static int	check_file_name(char *str)
 	return (0);
 }
 
+int			main_2(t_file *f, t_champ *champ, t_check *check)
+{
+	while (sget_next_line(f->fd_read, &f->line) > 0)
+	{
+		f->line_nb++;
+		if (f->line[0] == COMMENT_CHAR || f->line[0] == ';')
+			;
+		else if (!ft_strncmp(f->line + ft_strspn(f->line, " \t"),
+					NAME_CMD_STRING, 5))
+		{
+			check_name(champ, f, check);
+		}
+		else if (!ft_strncmp(f->line + ft_strspn(f->line, " \t"),
+					COMMENT_CMD_STRING, 7))
+		{
+			check_comment(champ, f, check);
+		}
+		else if (!check_instruction_line(champ, f->line, f->line_nb))
+			return (free_return(f, champ, -1));
+		free(f->line);
+	}
+	free(f->line);
+	return (0);
+}
+
 int			main(int argc, char **argv)
 {
 	t_champ			champ;
@@ -46,20 +71,8 @@ int			main(int argc, char **argv)
 		ft_error("wrong input");
 	f.fd_read = open(argv[1], O_RDONLY);
 	f.cor_filename = get_cor_name(argv[1]);
-	while (sget_next_line(f.fd_read, &f.line) > 0)
-	{
-		f.line_nb++;
-		if (f.line[0] == COMMENT_CHAR || f.line[0] == ';')
-			;
-		else if (!ft_strncmp(f.line + ft_strspn(f.line, " \t"), NAME_CMD_STRING, 5))
-			check_name(&champ, &f, &check);
-		else if (!ft_strncmp(f.line + ft_strspn(f.line, " \t"), COMMENT_CMD_STRING, 7))
-			check_comment(&champ, &f, &check);
-		else if (!check_instruction_line(&champ, f.line, f.line_nb))
-			return (free_return(&f, &champ, -1));
-		free(f.line);
-	}
-	free(f.line);
+	if (main_2(&f, &champ, &check) == -1)
+		return (-1);
 	if (!(check_integrity(&champ, &check)))
 		return (free_return(&f, &champ, -1));
 	f.fd_write = open(f.cor_filename, O_WRONLY | O_CREAT, 0755);

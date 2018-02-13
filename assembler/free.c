@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 20:35:45 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/12 19:20:40 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/13 14:45:19 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void		free_inst(t_list **inst)
 		free(*inst);
 		*inst = t;
 	}
-	//ft_free2((void**)((t_inst*)(*inst)->content)->param_arr);
 }
 
 int			free_return(t_file *f, t_champ *champ, int ret)
