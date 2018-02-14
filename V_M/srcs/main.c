@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:18:27 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/14 17:36:03 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/14 18:53:02 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,15 @@ void	lst_pushfront_process(t_process **begin_list, int opc, int cycle, int pc)
 		*begin_list = lst_new_process(opc, cycle, pc);
 }
 
-void	load_one_champ(t_arena arn, char *champ, int p)
+int		load_one_champ(t_arena arn, char *champ, int p)
 {
 	int		fd;
 	char	*l;
 	int		i;
+	int		save;
 
 	i = 0;
+	save = p;
 	if (!(l = ft_strnew(1)))
 		exit(0);
 	fd = open(champ, O_RDONLY);
@@ -106,6 +108,13 @@ void	load_one_champ(t_arena arn, char *champ, int p)
 			p++;
 		}
 	}
+	free(l);
+	if (p - save > CHAMP_MAX_SIZE)
+	{
+		ft_printf("Error: File %s has too large a code (%d bytes > %d bytes)\n", champ, p - save, CHAMP_MAX_SIZE);
+		return (0);
+	}
+	return (1);
 	close(fd);
 }
 
@@ -120,16 +129,18 @@ int		start_of_input(int i, int nb_players)
 }
 
 
-void	load_champs(t_arena arn, char **argv, int nb_players)
+int		load_champs(t_arena arn, char **argv, int nb_players)
 {
 	int		i;
 
 	i = 1;
 	while (i <= nb_players)
 	{
-		load_one_champ(arn, argv[i], start_of_input(i, nb_players));
+		if (!(load_one_champ(arn, argv[i], start_of_input(i, nb_players))))
+			return (0);
 		i++;
 	}
+	return (1);
 }
 
 t_player	create_one_player(char *champ)
@@ -212,20 +223,61 @@ void	init_arena(t_arena *arn, int nb_players, char **argv)
 	init_process(*arn, &(arn->process));
 }
 
+int		write_usage(void)
+{
+	ft_printf("Usage: ./corewar <champion1.cor> <...>\n");
+	return (0);
+}
+
+int		ft_checkname(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	i -= 4;
+	if (str[i++] != '.')
+		return (0);
+	if (str[i++] != 'c')
+		return (0);
+	if (str[i++] != 'o')
+		return (0);
+	if (str[i++] != 'r')
+		return (0);
+	return (1);
+}
+
+int		parse_champs(int argc, char **argv)
+{
+	int		i;
+
+	i = 1;
+	if (argc <= 1)
+		return (write_usage());
+	while (i < argc)
+	{
+		if (ft_checkname(argv[i]) == 0)
+		{
+			ft_printf("Error: File %s is too small to be a champion\n", argv[i]);
+			return (0);
+		}
+		i++;
+	}
+	return (argc - 1);
+}
+
 int		main(int argc, char **argv)
 {
 	t_arena	arn;
 	int		nb_players;
 
-	if (argc - 1 > MAX_PLAYERS || argc == 1)
-	{
-		write(1, "error\n", 6);
+	if (!(nb_players = parse_champs(argc, argv)))
 		return (0);
-	}
-	nb_players = argc - 1;
 	if (!(arn.mem = (char*)malloc(sizeof(char) * MEM_SIZE)))
 		exit(0);
-	load_champs(arn, argv, nb_players);
+	if (!(load_champs(arn, argv, nb_players)))
+		return (0);
 	init_arena(&arn, nb_players, argv);
 	print_arena(arn);
 //	print_mem(arn.mem, MEM_SIZE);

@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 13:56:48 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/14 17:46:01 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/14 18:53:04 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ void	print_players(t_player *players, t_arena arn)
 
 void	print_arena(t_arena arn)
 {
-	ft_printf("nb_cycle = %d\nnb_checks = %d\nnb_players = %d\n", arn.nb_cycle, arn.nb_checks, arn.nb_players);
-	ft_printf("\n");
+	ft_printf("nb_cycle = %d\nnb_checks = %d\nnb_players = %d\n\n", arn.nb_cycle, arn.nb_checks, arn.nb_players);
 	print_players(arn.players, arn);
 	print_process(&(arn.process));
 }
