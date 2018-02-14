@@ -6,7 +6,7 @@
 #    By: pnardozi <pnardozi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/19 14:34:26 by pnardozi          #+#    #+#              #
-#    Updated: 2018/02/14 19:42:40 by arobion          ###   ########.fr        #
+#    Updated: 2018/02/14 20:09:52 by arobion          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,6 +71,8 @@ fclean: clean
 	/bin/rm -rf $(COREWAR)
 	@echo "$(RED)COREWAR REMOVE$(END)"
 
-re: fclean all
+re: 
+	make fclean
+	make
 
 .PHONY: all clean fclean re
