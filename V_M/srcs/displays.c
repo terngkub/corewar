@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 13:56:48 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/14 15:33:09 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/14 16:33:53 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,22 @@ void	print_process(t_process *lst)
 	}
 }
 */
+
+void	print_players(t_player *players, t_arena arn)
+{
+	int		i;
+
+	i = 0;
+	while (i < arn.nb_players)
+	{
+		ft_printf("name player %d = %s\ncomment player %d = %s\nnb_live player %d = %d\nlast_live player %d = %d\n\n", i + 1, players[i].name, i + 1, players[i].comment, i + 1, players[i].nb_live, i + 1, players[i].last_live);
+		i++;
+	}
+}
+
 void	print_arena(t_arena arn)
 {
-	ft_printf("nb_cycle = %d\nnb_checks = %d\n", arn.nb_cycle, arn.nb_checks);
+	ft_printf("nb_cycle = %d\nnb_checks = %d\nnb_players = %d\n", arn.nb_cycle, arn.nb_checks, arn.nb_players);
 	ft_printf("\n");
+	print_players(arn.players, arn);
 }

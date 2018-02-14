@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/14 15:34:05 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/14 15:55:22 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,20 @@ typedef struct			s_arena
 	t_process	*process;
 }						t_arena;
 */
+typedef struct			s_player
+{
+	char		*name;
+	char		*comment;
+	int			nb_live;
+	int			last_live;
+}						t_player;
+
 typedef struct			s_arena
 {
-	int			nb_cycle;
-	int			*nb_lives;
-	int			*last_lives;
 	char		*mem;
+	int			nb_cycle;
+	int			nb_players;
+	t_player	*players;
 	int			nb_checks;
 	t_process	*process;
 }						t_arena;
