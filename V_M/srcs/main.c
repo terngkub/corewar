@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:18:27 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/14 16:34:38 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/14 17:36:03 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,23 @@ int		opc_nb_cycle(int opc)
 t_process	*lst_new_process(int opc, int cycle, int pc)
 {
 	t_process	*lst;
+	int			i;
 
+	i = 0;
 	if (!(lst = (t_process*)malloc(sizeof(t_process))))
 		exit(0);
 	lst->opc = opc;
 	lst->cycle_to_wait = cycle;
 	lst->pc = pc;
 	lst->carry = 0;
-	if (!(lst->regs = (char*)malloc(sizeof(char) * (REG_SIZE * REG_NUMBER))))
+	if (!(lst->regs = (char**)malloc(sizeof(char*) * (REG_NUMBER))))
 		exit(0);
+	while (i < REG_NUMBER)
+	{
+		if (!(lst->regs[i] = (char*)malloc(sizeof(char) * REG_SIZE)))
+			exit(0);
+		i++;
+	}
 	lst->next = NULL;
 	return (lst);
 }
@@ -178,13 +186,18 @@ void	init_players(t_player *players, int nb_players, char **argv)
 	}
 }
 
-void	init_process(t_process **begin_list, t_arena arn)
+void	init_process(t_arena arn, t_process **begin_list)
 {
-	t_process	*lst;
+	int			i;
+	int			start;
 
-	lst = *begin_list;
-	lst = lst_new_process(arn.mem[0], arn.nb_cycle + opc_nb_cycle(arn.mem[0]), 0);
-	lst->next = lst_new_process(arn.mem[MEM_SIZE / 2], arn.nb_cycle + opc_nb_cycle(arn.mem[MEM_SIZE / 2]), MEM_SIZE / 2);
+	i = 0;
+	while (i < arn.nb_players)
+	{
+		start = start_of_input(i + 1, arn.nb_players);
+		lst_pushfront_process(begin_list, arn.mem[start], opc_nb_cycle(arn.mem[start]), start);
+		i++;
+	}
 }
 
 void	init_arena(t_arena *arn, int nb_players, char **argv)
@@ -196,7 +209,7 @@ void	init_arena(t_arena *arn, int nb_players, char **argv)
 		exit(0);
 	init_players((*arn).players, nb_players, argv);
 	(*arn).process = NULL;
-	init_process(&(arn->process), *arn);
+	init_process(*arn, &(arn->process));
 }
 
 int		main(int argc, char **argv)
@@ -204,7 +217,7 @@ int		main(int argc, char **argv)
 	t_arena	arn;
 	int		nb_players;
 
-	if (argc != 3)
+	if (argc - 1 > MAX_PLAYERS || argc == 1)
 	{
 		write(1, "error\n", 6);
 		return (0);

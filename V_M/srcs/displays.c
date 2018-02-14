@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 13:56:48 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/14 16:33:53 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/14 17:46:01 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,19 @@ void	print_mem(char *mem, int size)
 		i++;
 	}
 }
-/*
-void	print_process(t_process *lst)
+
+void	print_process(t_process **begin_list)
 {
+	t_process *lst;
+
+	lst = *begin_list;
 	while (lst)
 	{
-		print_mem(lst->regs, REG_SIZE * REG_NUMBER);
-		ft_printf("opc = %d\ncycle_to_wait = %d\npc = %d\ncarry = %d\n", lst->opc, lst->cycle_to_wait, lst->pc, lst->carry);
+		ft_printf("opc = %.2x\ncycle_to_wait = %d\npc = %d\ncarry = %d\n\n", lst->opc, lst->cycle_to_wait, lst->pc, lst->carry);
 	   lst = lst->next;
 	}
 }
-*/
+
 
 void	print_players(t_player *players, t_arena arn)
 {
@@ -56,4 +58,5 @@ void	print_arena(t_arena arn)
 	ft_printf("nb_cycle = %d\nnb_checks = %d\nnb_players = %d\n", arn.nb_cycle, arn.nb_checks, arn.nb_players);
 	ft_printf("\n");
 	print_players(arn.players, arn);
+	print_process(&(arn.process));
 }

@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/14 15:55:22 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/14 17:21:56 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 typedef struct			s_process
 {
-	char				*regs;
+	char				**regs;
 	int					opc;
 	int					cycle_to_wait;
 	int					pc;
