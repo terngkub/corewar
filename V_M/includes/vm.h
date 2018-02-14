@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/14 14:49:20 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/14 15:34:05 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ typedef struct			s_arena
 typedef struct			s_arena
 {
 	int			nb_cycle;
-	t_list		*nb_lives;
-	t_list		*last_lives;
+	int			*nb_lives;
+	int			*last_lives;
 	char		*mem;
 	int			nb_checks;
 	t_process	*process;
-}
+}						t_arena;
 
 void	print_mem(char *mem, int size);
 void	print_arena(t_arena arn);

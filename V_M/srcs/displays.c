@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 13:56:48 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/14 14:17:26 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/14 15:33:09 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	print_mem(char *mem, int size)
 		i++;
 	}
 }
-
+/*
 void	print_process(t_process *lst)
 {
 	while (lst)
@@ -37,10 +37,9 @@ void	print_process(t_process *lst)
 	   lst = lst->next;
 	}
 }
-
+*/
 void	print_arena(t_arena arn)
 {
-	ft_printf("nb_cycle = %d\nnb_live1 = %d\nnb_live2 = %d\nlast_live1 = %d\nlast_live2 = %d\n", arn.nb_cycle, arn.nb_live_1, arn.nb_live_2, arn.last_live_1, arn.last_live_2);
+	ft_printf("nb_cycle = %d\nnb_checks = %d\n", arn.nb_cycle, arn.nb_checks);
 	ft_printf("\n");
-	print_process(arn.process);
 }
