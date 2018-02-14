@@ -6,7 +6,7 @@
 #    By: pnardozi <pnardozi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/19 14:34:26 by pnardozi          #+#    #+#              #
-#    Updated: 2018/02/14 13:04:38 by arobion          ###   ########.fr        #
+#    Updated: 2018/02/14 13:57:57 by arobion          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ COREWAR_SRCS_PATH = ./srcs/
 COREWAR_INCLUDES_PATH = ./includes/
 COREWAR_OBJ_PATH = ./obj/
 
-COREWAR_SRCS_NAME = main.c
+COREWAR_SRCS_NAME = main.c \
+					displays.c
 
 COREWAR_OBJ_NAME =$(COREWAR_SRCS_NAME:.c=.o)
 
