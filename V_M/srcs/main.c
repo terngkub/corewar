@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:18:27 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/14 12:49:47 by pnardozi         ###   ########.fr       */
+/*   Updated: 2018/02/14 13:01:06 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	print_mem(char *mem)
 		i++;
 	}
 }
-
+/*
 void	lst_new_process(int opc, int cycle, int pc)
 {
 	t_process	*lst;
@@ -53,7 +53,7 @@ void	lst_pushfront_process(t_process **begin_list, int opc, int cycle, int pc)
 	else
 		*begin_list = lst_new_process(opc, cycle, pc);
 }
-
+*/
 void	load_first_champ(t_arena arn, char *champ1)
 {
 	int		fd;
@@ -102,58 +102,15 @@ void	load_second_champ(t_arena arn, char *champ2)
 
 void	init_arena(t_arena *arn)
 {
-	(*arn)->nb_cycle = 0;
-	(*arn)->nb_live_1 = 0;
-	(*arn)->nb_live_2 = 0;
-	(*arn)->last_live_1 = 0;
-	(*arn)->last_live_2 = 0;
-	(*arn)->carry = 0;
-	(*arn)->pc_1 = 0;
-	(*arn)->pc_2 = MEM_SIZE / 2;
-	(*arn)->process = NULL;
-}
-
-void	put_live_in_lst_1(t_arena *arn)
-{
-	lst_pushfront_propcess(&(arn->process), 1, arn->nb_cycle + 10, arn->pc_1);
-	(*arn)->pc_1 += 5;
-	(*arn)->pc_1 %= MEM_SIZE;
-}
-
-void	get_opc_1(t_arena *arn)
-{
-	if (mem[pc_1] == 1)
-		put_live_in_lst_1(arn);
-	if (mem[pc_1] == 2)
-		put_ld_in_lst_1(arn);
-	if (mem[pc_1] == 3)	
-		put_st_in_lst_1(arn);
-	if (mem[pc_1] == 4)
-		put_add_in_lst_1(arn);
-	if (mem[pc_1] == 5)
-		put_sub_in_lst_1(arn);
-	if (mem[pc_1] == 6)
-		put_and_in_lst_1(arn);
-	if (mem[pc_1] == 7)
-		put_or_in_lst_1(arn);
-	if (mem[pc_1] == 8)
-		put_xor_in_lst_1(arn);
-	if (mem[pc_1] == 9)
-		put_zjmp_in_lst_1(arn);
-	if (mem[pc_1] == 10)
-		put_ldi_in_lst_1(arn);
-	if (mem[pc_1] == 11)
-		put_sti_in_lst_1(arn);
-	if (mem[pc_1] == 12)
-		put_fork_in_lst_1(arn);
-	if (mem[pc_1] == 13)
-		put_lld_in_lst_1(arn);
-	if (mem[pc_1] == 14)
-		put_lldi_in_lst_1(arn);
-	if (mem[pc_1] == 15)
-		put_lfork_in_lst_1(arn);
-	if (mem[pc_1] == 16)
-		put_aff_in_lst_1(arn);
+	(*arn).nb_cycle = 0;
+	(*arn).nb_live_1 = 0;
+	(*arn).nb_live_2 = 0;
+	(*arn).last_live_1 = 0;
+	(*arn).last_live_2 = 0;
+	(*arn).carry = 0;
+	(*arn).pc_1 = 0;
+	(*arn).pc_2 = MEM_SIZE / 2;
+	(*arn).process = NULL;
 }
 
 int		main(int argc, char **argv)
@@ -171,6 +128,5 @@ int		main(int argc, char **argv)
 	load_first_champ(arn, argv[1]);
 	load_second_champ(arn, argv[2]);
 	//print_mem(arn.mem);
-	get_opc(&arn);	
 	return (0);
 }

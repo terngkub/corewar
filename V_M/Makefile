@@ -6,7 +6,7 @@
 #    By: pnardozi <pnardozi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/19 14:34:26 by pnardozi          #+#    #+#              #
-#    Updated: 2018/02/14 12:44:10 by pnardozi         ###   ########.fr        #
+#    Updated: 2018/02/14 13:04:38 by arobion          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ COREWAR_OBJ = $(addprefix $(COREWAR_OBJ_PATH),$(COREWAR_OBJ_NAME))
 COREWAR_INC = $(addprefix -I,$(COREWAR_INCLUDES_PATH))
 
 LIB_PATH = ../libft/
-LIB_NAME = libftprintf.a
+LIB_NAME = libft.a
 LIB = $(addprefix $(LIB_PATH),$(LIB_NAME))
 
 RED = \033[31m
@@ -57,7 +57,7 @@ $(COREWAR_OBJ_PATH)%.o: $(COREWAR_SRCS_PATH)%.c
 
 clean:
 	make clean -C $(LIB_PATH)
-	/bin/rm -rf $(COREWARE_OBJ_PATH)
+	/bin/rm -rf $(COREWAR_OBJ_PATH)
 	@echo "$(RED)COREWAR OBJECTS REMOVE$(END)"
 
 fclean: clean
