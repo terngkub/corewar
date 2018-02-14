@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:43:46 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/14 20:05:04 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/14 20:24:28 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_process	*lst_new_process(int opc, int cycle, int pc)
 	i = 0;
 	if (!(lst = (t_process*)malloc(sizeof(t_process))))
 		exit(0);
+	lst->alive = 1;
 	lst->opc = opc;
 	lst->cycle_to_wait = cycle;
 	lst->pc = pc;

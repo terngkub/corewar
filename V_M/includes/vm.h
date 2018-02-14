@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/14 19:50:26 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/14 23:16:03 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 typedef struct			s_process
 {
+	char				alive;
 	char				**regs;
 	int					opc;
 	int					cycle_to_wait;
@@ -41,6 +42,7 @@ typedef struct			s_arena
 */
 typedef struct			s_player
 {
+	int			number;
 	char		*name;
 	char		*comment;
 	int			nb_live;
@@ -70,5 +72,7 @@ void					init_process(t_arena arn, t_process **begin_list);
 
 void					print_mem(char *mem, int size);
 void					print_arena(t_arena arn);
+
+void					live(t_arena *arena, t_process *process, int cycle);
 
 #endif

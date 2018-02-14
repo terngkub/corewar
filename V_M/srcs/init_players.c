@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:40:33 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/14 20:00:42 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/14 20:23:50 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void		create_comment(int fd, char *comment, char *l)
 	}
 }
 
-t_player	create_one_player(char *champ)
+t_player	create_one_player(char *champ, int number)
 {
 	t_player	player;
 	int			fd;
@@ -61,6 +61,7 @@ t_player	create_one_player(char *champ)
 	fd = open(champ, O_RDONLY);
 	create_name(fd, player.name, l);
 	create_comment(fd, player.comment, l);
+	player.number = number;
 	player.nb_live = 0;
 	player.last_live = 0;
 	free(l);
@@ -75,7 +76,7 @@ void		init_players(t_player *players, int nb_players, char **argv)
 	i = 0;
 	while (i < nb_players)
 	{
-		players[i] = create_one_player(argv[i + 1]);
+		players[i] = create_one_player(argv[i + 1], i + 1);
 		i++;
 	}
 }
