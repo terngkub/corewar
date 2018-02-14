@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/14 17:21:56 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/14 19:50:26 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,18 @@ typedef struct			s_arena
 	t_process	*process;
 }						t_arena;
 
-void	print_mem(char *mem, int size);
-void	print_arena(t_arena arn);
+
+
+int						parse_champs(int argc, char **argv);
+int						load_champs(t_arena arn, char **argv, int nb_players);
+int						start_of_input(int i, int nb_players);
+int						opc_nb_cycle(int opc);
+
+void					init_arena(t_arena *arn, int nb_players, char **argv);
+void					init_players(t_player *players, int nb_players, char **argv);
+void					init_process(t_arena arn, t_process **begin_list);
+
+void					print_mem(char *mem, int size);
+void					print_arena(t_arena arn);
 
 #endif
