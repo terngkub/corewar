@@ -6,17 +6,17 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/12 18:47:19 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/14 12:13:46 by pnardozi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_H
 # define VM_H
 
-# include "../includes/op.h"
-# include "../libft/includes/libft.h"	
-# include "../libft/includes/get_next_line.h"
-# include "../libft/includes/ft_printf.h"
+# include "../../includes/op.h"
+# include "libft.h"	
+# include "../../libft/includes/get_next_line.h"
+# include "ft_printf.h"
 
 typedef struct			s_process
 {

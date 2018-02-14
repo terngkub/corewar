@@ -3,60 +3,68 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
+#    By: pnardozi <pnardozi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/01/16 21:15:36 by fbabin            #+#    #+#              #
-#    Updated: 2018/02/12 15:39:26 by arobion          ###   ########.fr        #
+#    Created: 2017/12/19 14:34:26 by pnardozi          #+#    #+#              #
+#    Updated: 2018/02/14 12:44:10 by pnardozi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-Corewar			= corewar
+CC = gcc
 
-CC				= gcc -g3
-CFLAGS			= -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g3
 
-_Corewar_SRCS	=	main.c
+COREWAR = corewar
 
-_LIBFT			=	libft.a
-HEADER_DIR		=	includes
-HEADER			=	vm.h
+LIBFT_INCLUDES_PATH = ../libft/includes/
+PRINTF_INCLUDES_PATH = ./libft/includes/
 
-SRCS_DIR		= .
-ASM_DIR			= .
-LIB_DIR			= ../libft
-ASM_SRCS		= $(addprefix $(ASM_DIR)/, $(_Corewar_SRCS))
-LIBFT			= $(addprefix $(LIB_DIR)/, $(_LIBFT))
-ASM_OBJS		= $(ASM_SRCS:.c=.o)
+COREWAR_SRCS_PATH = ./srcs/
+COREWAR_INCLUDES_PATH = ./includes/
+COREWAR_OBJ_PATH = ./obj/
 
-#COLORS
-_CYAN=\x1b[36m
-_GREEN=\x1b[32m
-_YELLOW=\x1b[33m
-_END=\x1b[0m
+COREWAR_SRCS_NAME = main.c
 
-all: $(Corewar)
+COREWAR_OBJ_NAME =$(COREWAR_SRCS_NAME:.c=.o)
 
-$(Corewar): $(HEADER) $(LIBFT) $(ASM_OBJS)
-		@$(CC) $(CFLAGS) -o $(ASM) $(ASM_OBJS) -L$(LIB_DIR) -lft -I $(HEADER_DIR)
-		@echo "$(ASM) : $(_GREEN)Done$(_END)"
+LIBFT_INC = $(addprefix -I,$(LIBFT_INCLUDES_PATH))
+PRINTF_INC = $(addprefix -I,$(PRINTF_INCLUDES_PATH))
 
-$(LIBFT):
-		@make -C $(LIB_DIR)
+COREWAR_SRCS = $(addprefix $(COREWAR_SRCS_PATH),$(COREWAR_SRCS_NAME))
+COREWAR_OBJ = $(addprefix $(COREWAR_OBJ_PATH),$(COREWAR_OBJ_NAME))
+COREWAR_INC = $(addprefix -I,$(COREWAR_INCLUDES_PATH))
 
-%.o : %.c
-		@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER_DIR)
+LIB_PATH = ../libft/
+LIB_NAME = libftprintf.a
+LIB = $(addprefix $(LIB_PATH),$(LIB_NAME))
+
+RED = \033[31m
+GREEN = \033[32m
+END = \033[0m
+
+all: $(LIB_NAME) $(COREWAR)
+
+$(LIB_NAME):
+	make -C $(LIB_PATH)
+
+$(COREWAR): $(COREWAR_OBJ)
+	$(CC) $(CFLAGS) -o $(COREWAR) $(COREWAR_OBJ) $(LIB)
+	@echo "$(GREEN)COREWAR READY$(END)"
+
+$(COREWAR_OBJ_PATH)%.o: $(COREWAR_SRCS_PATH)%.c
+	@mkdir -p $(COREWAR_OBJ_PATH)
+	$(CC) -c $(CFLAGS) $(COREWAR_INC) $(LIBFT_INC) $(PRINTF_INC) -o $@ -c $<
 
 clean:
-		@make fclean -C $(LIB_DIR)
-		@/bin/rm -f $(ASM_OBJS)
-		@echo "$(ASM) clean : $(_GREEN)Done$(_END)"
+	make clean -C $(LIB_PATH)
+	/bin/rm -rf $(COREWARE_OBJ_PATH)
+	@echo "$(RED)COREWAR OBJECTS REMOVE$(END)"
 
 fclean: clean
-		@/bin/rm -f $(ASM)
-		@echo "$(ASM) fclean : $(_GREEN)Done$(_END)"
+	make fclean -C $(LIB_PATH)
+	/bin/rm -rf $(COREWAR)
+	@echo "$(RED)COREWAR REMOVE$(END)"
 
-re:
-		@make fclean
-		@make
+re: fclean all
 
 .PHONY: all clean fclean re
