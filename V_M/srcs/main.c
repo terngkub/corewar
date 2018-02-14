@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:18:27 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/14 18:53:02 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/14 19:18:54 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,7 @@ void	init_process(t_arena arn, t_process **begin_list)
 {
 	int			i;
 	int			start;
+	t_process	*lst;
 
 	i = 0;
 	while (i < arn.nb_players)
@@ -209,6 +210,44 @@ void	init_process(t_arena arn, t_process **begin_list)
 		lst_pushfront_process(begin_list, arn.mem[start], opc_nb_cycle(arn.mem[start]), start);
 		i++;
 	}
+	lst = *begin_list;
+	i = 0;
+	while (lst)
+	{
+		lst->regs[i][0] = i + 1;
+		i++;
+		lst = lst->next;
+	}	
+}
+
+int		weigh_champ(char *str)
+{
+	int		fd;
+	char	*l;
+	int		i;
+
+	i = 0;
+	if (!(l = ft_strnew(1)))
+		exit(0);
+	fd = open(str, O_RDONLY);
+	while (read(fd, l, 1))
+		i++;
+	free(l);
+	close(fd);
+	return (i - (PROG_NAME_LENGTH + COMMENT_LENGTH + 16));
+}
+
+void	introduce_players(t_arena arn, char **argv)
+{
+	int		i;
+
+	i = 0;
+	ft_printf("Introducing contestants...\n");
+	while (i < arn.nb_players)
+	{
+		ft_printf("* Player %d, wheighing %d bytes, \"%s\" (\"%s\") !\n", i + 1, weigh_champ(argv[i + 1]), arn.players[i].name, arn.players[i].comment);
+	   i++;
+	}	   
 }
 
 void	init_arena(t_arena *arn, int nb_players, char **argv)
@@ -221,6 +260,7 @@ void	init_arena(t_arena *arn, int nb_players, char **argv)
 	init_players((*arn).players, nb_players, argv);
 	(*arn).process = NULL;
 	init_process(*arn, &(arn->process));
+	introduce_players(*arn, argv);
 }
 
 int		write_usage(void)
@@ -279,7 +319,7 @@ int		main(int argc, char **argv)
 	if (!(load_champs(arn, argv, nb_players)))
 		return (0);
 	init_arena(&arn, nb_players, argv);
-	print_arena(arn);
+	//print_arena(arn);
 //	print_mem(arn.mem, MEM_SIZE);
 	return (0);
 }
