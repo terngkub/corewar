@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:18:27 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/15 16:16:29 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/15 18:02:03 by pnardozi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,20 @@ int		opc_nb_cycle(int opc)
 
 int		main(int argc, char **argv)
 {
-	t_arena	arn;
-	int		nb_players;
+	t_arena			arn;
+	int				nb_players;
+	int				i;
+	unsigned int	dump;
 
-	if (!(nb_players = parse_champs(argc, argv)))
+	i = 1;
+	dump = 0;
+	if (!(nb_players = parse_champs(argc, argv, &i, &dump)))
 		return (0);
 	if (!(arn.mem = (char*)malloc(sizeof(char) * MEM_SIZE)))
 		exit(0);
-	if (!(load_champs(arn, argv, nb_players)))
+	if (!(load_champs(arn, argv, nb_players, i)))
 		return (0);
-	init_arena(&arn, nb_players, argv);
+	init_arena(&arn, nb_players, argv, i);
 //	print_arena(arn);
 	run_cycle(&arn);
 //	print_arena(arn);

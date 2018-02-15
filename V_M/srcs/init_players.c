@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:40:33 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/15 17:01:42 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/15 17:49:07 by pnardozi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,15 @@ t_player	create_one_player(char *champ, int number)
 	return (player);
 }
 
-void		init_players(t_player *players, int nb_players, char **argv)
+void		init_players(t_player *players, int nb_players, char **argv, int start)
 {
 	int		i;
 
 	i = 0;
 	while (i < nb_players)
 	{
-		players[i] = create_one_player(argv[i + 1], i + 1);
+		players[i] = create_one_player(argv[start], i + 1);
+		start++;
 		i++;
 	}
 }
