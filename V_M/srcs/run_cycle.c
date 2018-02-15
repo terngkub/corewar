@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/15 20:46:11 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/15 22:11:53 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	do_instruction(t_arena *arn, t_process *process)
 		live(arn, process);
 	else if (process->opc == 2)
 		ld(arn, process);
+	else if (process->opc == 16)
+		aff(arn, process);
 	else
 		process->pc = (process->pc + 1) % MEM_SIZE;
 	process->opc = arn->mem[process->pc];
@@ -162,7 +164,7 @@ void	find_winner(t_arena *arn)
 	ft_printf("Contestant %d, \"%s\", has won !\n", winner, arn->players[winner - 1].name);
 }
 
-void	run_cycle(t_arena *arn)
+void		run_cycle(t_arena *arn, int dump)
 {
 	int		next_cycle_to_die;
 	int		cycle_to_die;
@@ -175,6 +177,8 @@ void	run_cycle(t_arena *arn)
 			kill_and_refresh_processes(arn, &(arn->process), &next_cycle_to_die, &cycle_to_die);
 	//	ft_printf("cycle: %d\n", arn->nb_cycle);
 		run_processes(arn);
+		if (dump == arn->nb_cycle)
+			return (dump_mem(*arn));
 		arn->nb_cycle++;
 	}
 	find_winner(arn);

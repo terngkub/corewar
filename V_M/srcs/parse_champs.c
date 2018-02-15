@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:32:42 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/15 18:08:56 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/15 18:54:23 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ int		ft_check_dump(char **argv, int argc, unsigned int *dump, int *i)
 			*dump = nb % 4294967296;
 			*i += 1;
 			free(flag);
-			if (*dump == 0)
-				return (0);
+//			if (*dump == 0)
+//				return (0);
 		}
 		else
 			free(flag);
@@ -92,8 +92,8 @@ int		ft_check_dump(char **argv, int argc, unsigned int *dump, int *i)
 				*dump = nb % 4294967296;
 				*i += 1;
 				free(flag);
-				if (*dump == 0)
-					return (0);
+//				if (*dump == 0)
+//					return (0);
 			}
 		}
 		else
