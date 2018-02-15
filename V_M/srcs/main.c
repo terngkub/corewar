@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:18:27 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/15 18:09:04 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/15 18:53:30 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		main(int argc, char **argv)
 	unsigned int	dump;
 
 	i = 1;
-	dump = 0;
+	dump = -1;
 	if (!(nb_players = parse_champs(argc, argv, &i, &dump)))
 		return (0);
 	if (!(arn.mem = (char*)malloc(sizeof(char) * MEM_SIZE)))
@@ -71,8 +71,8 @@ int		main(int argc, char **argv)
 		return (0);
 	init_arena(&arn, nb_players, argv, i);
 //	print_arena(arn);
-	run_cycle(&arn);
+	run_cycle(&arn, dump);
 //	print_arena(arn);
-	//print_mem(arn.mem, MEM_SIZE);
+//	print_mem(arn.mem, MEM_SIZE);
 	return (0);
 }

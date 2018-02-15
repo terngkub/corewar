@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/15 17:27:13 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/15 18:40:10 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ void	find_winner(t_arena *arn)
 	ft_printf("Contestant %d, \"%s\", has won !\n", winner, arn->players[winner - 1].name);
 }
 
-void	run_cycle(t_arena *arn)
+void		run_cycle(t_arena *arn, int dump)
 {
 	int		next_cycle_to_die;
 	int		cycle_to_die;
@@ -173,6 +173,8 @@ void	run_cycle(t_arena *arn)
 			kill_and_refresh_processes(arn, &(arn->process), &next_cycle_to_die, &cycle_to_die);
 	//	ft_printf("cycle: %d\n", arn->nb_cycle);
 		run_processes(arn);
+		if (dump == arn->nb_cycle)
+			return (dump_mem(*arn));
 		arn->nb_cycle++;
 	}
 	find_winner(arn);
