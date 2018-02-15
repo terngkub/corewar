@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/15 18:40:10 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/15 20:07:40 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	do_instruction(t_arena *arn, t_process *process)
 {
 	if (process->opc == 1)
 		live(arn, process);
+	else if (process->opc == 16)
+		aff(arn, process);
 	else
 		process->pc = (process->pc + 1) % MEM_SIZE;
 	process->opc = arn->mem[process->pc];
