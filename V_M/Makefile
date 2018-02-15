@@ -6,7 +6,7 @@
 #    By: pnardozi <pnardozi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/19 14:34:26 by pnardozi          #+#    #+#              #
-#    Updated: 2018/02/14 23:17:13 by nkamolba         ###   ########.fr        #
+#    Updated: 2018/02/15 14:32:43 by nkamolba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,9 @@ COREWAR_SRCS_NAME = main.c \
 					init_arena.c \
 					init_players.c \
 					init_process.c \
+					run_cycle.c \
+					hex_to_dec.c \
+					find_player.c \
 					live.c \
 
 COREWAR_OBJ_NAME =$(COREWAR_SRCS_NAME:.c=.o)

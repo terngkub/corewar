@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   live.c                                             :+:      :+:    :+:   */
+/*   find_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/14 22:27:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/15 14:29:32 by nkamolba         ###   ########.fr       */
+/*   Created: 2018/02/15 14:28:32 by nkamolba          #+#    #+#             */
+/*   Updated: 2018/02/15 14:28:50 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void		live(t_arena *arn, t_process *process)
+t_player	*find_player(t_arena *arn, int number)
 {
-	int			number;
-	t_player	*player;
+	int		player_no;
+	int		i;
 
-	number = hex_to_dec(&arn->mem[process->pc + 1], 4);
-	process->alive = 1;
-	process->pc += 5;
-	if (!(player = find_player(arn, number)))
-		return ;
-	player->nb_live++;
-	player->last_live = arn->nb_cycle;
+	i = 0;
+	while (i < arn->nb_players)
+	{
+		player_no = arn->players[i].number;
+		if (player_no == number)
+			return (&arn->players[i]);
+		i++;
+	}
+	return (NULL);
 }

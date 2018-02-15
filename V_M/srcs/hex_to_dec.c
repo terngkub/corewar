@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   live.c                                             :+:      :+:    :+:   */
+/*   hex_to_dec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/14 22:27:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/15 14:29:32 by nkamolba         ###   ########.fr       */
+/*   Created: 2018/02/15 14:28:09 by nkamolba          #+#    #+#             */
+/*   Updated: 2018/02/15 14:28:17 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void		live(t_arena *arn, t_process *process)
+int			hex_to_dec(char *str, int len)
 {
-	int			number;
-	t_player	*player;
+	int		sum;
 
-	number = hex_to_dec(&arn->mem[process->pc + 1], 4);
-	process->alive = 1;
-	process->pc += 5;
-	if (!(player = find_player(arn, number)))
-		return ;
-	player->nb_live++;
-	player->last_live = arn->nb_cycle;
+	sum = 0;
+	while (len--)
+		sum = sum * 256 + (unsigned char)*str++;
+	return (sum);
 }
