@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/15 14:31:51 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/15 15:00:21 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 void	do_instruction(t_arena *arn, t_process *process)
 {
-	char		byte;
-
-	byte = arn->mem[process->pc];
-	if (byte == 1)
+	if (process->opc == 1)
 		live(arn, process);
 	else
-		process->pc++;
+		process->pc = (process->pc + 1) % MEM_SIZE;
+	process->opc = arn->mem[process->pc];
+	process->cycle_to_wait = arn->nb_cycle + opc_nb_cycle(arn->mem[process->pc]);
 }
 
 void	run_processes(t_arena *arn)
@@ -31,7 +30,8 @@ void	run_processes(t_arena *arn)
 	while (process)
 	{
 		ft_printf("pc: %d\n", process->pc);
-		do_instruction(arn, process);
+		if (process->cycle_to_wait == arn->nb_cycle)
+			do_instruction(arn, process);
 		process = process->next;
 	}
 }

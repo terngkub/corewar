@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:18:27 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/15 14:38:04 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/15 15:01:21 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ int		main(int argc, char **argv)
 	if (!(load_champs(arn, argv, nb_players)))
 		return (0);
 	init_arena(&arn, nb_players, argv);
-	print_arena(arn);
+//	print_arena(arn);
 	run_cycle(&arn);
-	print_arena(arn);
+//	print_arena(arn);
 	//print_mem(arn.mem, MEM_SIZE);
 	return (0);
 }
