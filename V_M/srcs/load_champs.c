@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:35:23 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/14 20:02:56 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/15 12:14:06 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ int		print_error_max_size(int p, int save, char *champ)
 	return (0);
 }
 
-int		load_one_champ(t_arena arn, char *champ, int p)
+int		load_one_champ(t_arena arn, char *champ, int p, int fd)
 {
-	int		fd;
 	char	*l;
 	int		i;
 	int		save;
@@ -30,7 +29,6 @@ int		load_one_champ(t_arena arn, char *champ, int p)
 	save = p;
 	if (!(l = ft_strnew(1)))
 		exit(0);
-	fd = open(champ, O_RDONLY);
 	while (read(fd, l, 1))
 	{
 		i++;
@@ -44,7 +42,6 @@ int		load_one_champ(t_arena arn, char *champ, int p)
 	if (p - save > CHAMP_MAX_SIZE)
 		return (print_error_max_size(p, save, champ));
 	return (1);
-	close(fd);
 }
 
 int		start_of_input(int i, int nb_players)
@@ -60,12 +57,15 @@ int		start_of_input(int i, int nb_players)
 int		load_champs(t_arena arn, char **argv, int nb_players)
 {
 	int		i;
+	int		fd;
 
 	i = 1;
 	while (i <= nb_players)
 	{
-		if (!(load_one_champ(arn, argv[i], start_of_input(i, nb_players))))
+		fd = open(argv[i], O_RDONLY);
+		if (!(load_one_champ(arn, argv[i], start_of_input(i, nb_players), fd)))
 			return (0);
+		close(fd);
 		i++;
 	}
 	return (1);

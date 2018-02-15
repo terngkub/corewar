@@ -6,13 +6,13 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 22:27:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/14 23:57:09 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/15 10:55:11 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-int			hex_to_dec(char	*str, int len)
+int			hex_to_dec(char *str, int len)
 {
 	int		sum;
 
@@ -38,7 +38,7 @@ t_player	*find_player(t_arena *arena, int number)
 	return (NULL);
 }
 
-void	live(t_arena *arena, t_process *process, int cycle)
+void		live(t_arena *arena, t_process *process, int cycle)
 {
 	int			number;
 	t_player	*player;
@@ -50,4 +50,3 @@ void	live(t_arena *arena, t_process *process, int cycle)
 	player->nb_live++;
 	player->last_live = cycle;
 }
-
