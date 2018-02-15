@@ -6,11 +6,23 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 13:56:48 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/15 13:55:49 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/15 20:47:10 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+void	print_registry(char **regs)
+{
+	int		i;
+
+	i = 0;
+	while (i < 16)
+	{
+		ft_printf("Registry %d: %.2hhx %.2hhx %.2hhx %2.hhx\n", i, regs[i][0], regs[i][1], regs[i][2], regs[i][3]);
+		i++;
+	}
+}
 
 void	print_mem(char *mem, int size)
 {
