@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:32:42 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/15 18:03:48 by pnardozi         ###   ########.fr       */
+/*   Updated: 2018/02/15 18:08:56 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int		parse_champs(int argc, char **argv, int *i, unsigned int *dump)
 					, argv[j]);
 			return (0);
 		}
-		i++;
+		j++;
 	}
 	return (argc - *i);
 }
