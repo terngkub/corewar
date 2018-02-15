@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/15 16:16:51 by fbabin            #+#    #+#             */
-/*   Updated: 2018/01/29 13:44:08 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/15 14:20:46 by pnardozi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,5 +191,9 @@ int					ft_toupper(int c);
 int					ft_tolower(int c);
 int					ft_abs(int nb);
 void				ft_swap(int *a, int *b);
+int					ft_iswp(char c);
+long long			ft_long_atoi(const char *str);
+char				*ft_strndup(const char *s, int start, int end);
+
 
 #endif
