@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:43:46 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/14 20:24:28 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/15 14:14:21 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ void		init_process(t_arena arn, t_process **begin_list)
 		i++;
 	}
 	lst = *begin_list;
-	i = 0;
+	i = -1;
 	while (lst)
 	{
-		lst->regs[i][0] = i + 1;
-		i++;
+		lst->regs[0][0] = i;
+		i--;
 		lst = lst->next;
 	}
 }
