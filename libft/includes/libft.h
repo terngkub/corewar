@@ -6,7 +6,7 @@
 /*   By: fbabin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/15 16:16:51 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/15 14:20:46 by pnardozi         ###   ########.fr       */
+/*   Updated: 2018/02/16 17:56:43 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void				*ft_realloc(void *ptr, size_t size);
 
 size_t				ft_strlen(const char *s);
 char				*ft_strdup(const char *s);
+char				*ft_strndup(const char *s, int start, int end);
 char				*ft_strcpy(char *dest, const char *src);
 char				*ft_strncpy(char *dest, const char *src, size_t n);
 char				*ft_strcat(char *s1, const char *s2);
@@ -119,6 +120,7 @@ char				*ft_itoa_base(int nb, const char *base);
 char				*ft_ltoa_base(long nb, const char *base);
 char				*ft_lltoa_base(long long nb, const char *base);
 char				*ft_llutoa_base(unsigned long long nb, const char *base);
+long long			ft_long_atoi(const char *str);
 
 /*
 ** --------------------------- ARRAY FUNCTIONS ----------------------------
@@ -182,6 +184,7 @@ void				ft_elemdel(void *content, size_t content_size);
 */
 
 int					ft_isalnum(int c);
+int					ft_iswp(char c);
 int					ft_isalpha(int c);
 int					ft_isascii(int c);
 int					ft_isdigit(int c);
@@ -191,9 +194,5 @@ int					ft_toupper(int c);
 int					ft_tolower(int c);
 int					ft_abs(int nb);
 void				ft_swap(int *a, int *b);
-int					ft_iswp(char c);
-long long			ft_long_atoi(const char *str);
-char				*ft_strndup(const char *s, int start, int end);
-
 
 #endif

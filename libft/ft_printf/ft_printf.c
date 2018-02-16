@@ -3,26 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: misteir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/20 15:25:39 by fbabin            #+#    #+#             */
-/*   Updated: 2017/12/15 20:51:16 by fbabin           ###   ########.fr       */
+/*   Created: 2017/12/21 21:43:07 by misteir           #+#    #+#             */
+/*   Updated: 2018/02/16 18:53:28 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int				ft_read_bis(char *str, int *len)
+void		bflush(t_buff *b, const char *str, int n)
 {
-	if (!str && *len == -1)
-		return (0);
-	else if (*len == -1)
-		return (0);
-	return (1);
+	int		i;
+
+	i = 0;
+	if (b->err == 1)
+		return ;
+	while ((b->pos + n) > BUF_SIZE)
+	{
+		i = (BUFF_SIZE - b->pos);
+		ft_memcpy((b->buff) + b->pos, str, i);
+		write(b->fd, &(b->buff), b->pos + i);
+		ft_bzero(b->buff, BUF_SIZE + 1);
+		b->pos = 0;
+		b->len += i;
+		str += i;
+		n -= i;
+	}
+	ft_memcpy((b->buff) + b->pos, str, n);
+	b->len += n;
+	b->pos += n;
 }
 
-char			*ft_readf(const char *fmt, va_list args, char *buff, int *len)
+void		ft_readf(const char *fmt, t_buff *b, va_list args)
 {
+	t_printf	t;
 	int			idx;
 	int			i;
 
@@ -30,57 +45,53 @@ char			*ft_readf(const char *fmt, va_list args, char *buff, int *len)
 	idx = 0;
 	while (fmt[++i])
 	{
-		if (fmt[i] == '%')
+		if (fmt[i] == '%' && b->err == 0)
 		{
-			buff = ft_strmjoin(buff, fmt, *len, i);
+			bflush(b, fmt, i);
+			b->err_len = i;
 			fmt += i + 1;
-			*len += i;
-			idx = ft_strspn(fmt, " #+-.0123456789hljz");
+			idx = ft_xtractor(&t, fmt, args);
 			if (!fmt[idx])
 				break ;
-			buff = ft_handler(buff, (char*)fmt, args, len);
-			if ((i = -1) && (fmt += idx + 1) && !ft_read_bis(buff, len))
-				return (NULL);
+			ft_handler(b, &t, args);
+			fmt += idx + 1;
+			i = -1;
 		}
 	}
-	if (!fmt[0] && fmt[-1] == '%')
-		return (buff);
-	buff = ft_strmjoin(buff, fmt, *len, i);
-	*len += (fmt[i - 1] != '%') ? i : 0;
-	return (buff);
+	bflush(b, fmt, i);
 }
 
-int				ft_vfprintf(int fd, const char *format, va_list ap)
+int			ft_vfprintf(int fd, const char *format, va_list args)
 {
-	char		*str;
-	int			len;
-	char		*buff;
+	t_buff		b;
 
 	if (!format)
 		return (-1);
-	if (!(buff = ft_strnew(0)))
-		return (0);
-	len = 0;
-	if (!(str = ft_readf(format, ap, buff, &len)))
-	{
-		if (len != -1)
-			free(buff);
-		return (-1);
-	}
-	str = ft_handle_colors(str, &len);
-	str = ft_rep(str, -1, 0);
-	write(fd, str, len);
-	free(str);
-	return (len);
+	ft_memset(&b, 0, sizeof(t_buff));
+	b.fd = fd;
+	ft_readf(format, &b, args);
+	write(b.fd, &(b.buff), b.pos);
+	return ((b.err == 1) ? -1 : b.len);
 }
 
-int				ft_printf(const char *format, ...)
+int			ft_dprintf(int fd, const char *format, ...)
 {
 	va_list		args;
-	int			len;
+	int			ret;
 
 	va_start(args, format);
-	len = ft_vfprintf(1, format, args);
+	ret = ft_vfprintf(fd, format, args);
 	va_end(args);
-	return (len);
+	return (ret);
+}
+
+int			ft_printf(const char *format, ...)
+{
+	va_list		args;
+	int			ret;
+
+	va_start(args, format);
+	ret = ft_vfprintf(1, format, args);
+	va_end(args);
+	return (ret);
 }

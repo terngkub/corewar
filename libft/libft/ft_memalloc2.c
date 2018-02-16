@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/27 16:54:05 by fbabin            #+#    #+#             */
-/*   Updated: 2018/01/30 16:01:07 by arobion          ###   ########.fr       */
+/*   Updated: 2018/01/27 17:12:47 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_free2(void **tab)
 	free(tab);
 }
 
-void	**ft_memalloc2(size_t si1, size_t si2, size_t size)
+void		**ft_memalloc2(size_t si1, size_t si2, size_t size)
 {
 	void		**t;
 	size_t		i;

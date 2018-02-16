@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 21:30:41 by fbabin            #+#    #+#             */
-/*   Updated: 2018/01/30 16:00:49 by arobion          ###   ########.fr       */
+/*   Updated: 2018/01/27 17:03:19 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,11 @@ void	ft_int2dump(int **array)
 		ft_putnbr(*array[i]);
 		ft_putstr("] ");
 	}
+	/*while (++i < size + 1)
+	{
+		ft_putstr("[");
+		ft_putnbr(*array[i]);
+		ft_putstr("] ");
+	}*/
 	ft_putstr("\n");
 }

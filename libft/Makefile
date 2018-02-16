@@ -6,7 +6,7 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/09 17:49:24 by fbabin            #+#    #+#              #
-#    Updated: 2018/02/15 14:15:46 by pnardozi         ###   ########.fr        #
+#    Updated: 2018/02/16 17:55:57 by fbabin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,14 +44,12 @@ _LIBS			=	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c \
 					ft_char2dump.c ft_int2dump.c ft_strspn.c ft_strcspn.c \
 					ft_strbspn.c ft_strbcspn.c ft_atol.c ft_atoll.c \
 					ft_atollu.c ft_char2alloc.c ft_memalloc2.c ft_free2.c \
-					ft_long_atoi.c ft_strndup.c ft_iswp.c ft_swap.c
+					ft_strndup.c ft_iswp.c ft_long_atoi.c \
 
 _GNLS			=	get_next_line.c sget_next_line.c \
 
-_PRINTFS		=	init.c handlers_scp.c handlers_wc.c \
-					handlers_ws.c handlers_iox.c handlers_fpb.c \
-					handlers_du.c utils.c utils_2.c ft_printf.c \
-					ft_printf_alt.c padding.c xtract.c \
+_PRINTFS		=	ft_printf.c padding.c xtract.c handler_wc.c handler_ws.c \
+					handler_num.c handler_fnk.c \
 
 LIBS_DIR		= libft
 GNLS_DIR		= get_next_line
