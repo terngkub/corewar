@@ -6,7 +6,7 @@
 /*   By: misteir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 21:43:07 by misteir           #+#    #+#             */
-/*   Updated: 2018/02/16 18:53:28 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/16 22:36:43 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		bflush(t_buff *b, const char *str, int n)
 		return ;
 	while ((b->pos + n) > BUF_SIZE)
 	{
-		i = (BUFF_SIZE - b->pos);
+		i = (BUF_SIZE - b->pos);
 		ft_memcpy((b->buff) + b->pos, str, i);
 		write(b->fd, &(b->buff), b->pos + i);
 		ft_bzero(b->buff, BUF_SIZE + 1);
