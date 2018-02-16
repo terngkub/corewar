@@ -6,7 +6,7 @@
 #    By: pnardozi <pnardozi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/19 14:34:26 by pnardozi          #+#    #+#              #
-#    Updated: 2018/02/15 22:10:33 by nkamolba         ###   ########.fr        #
+#    Updated: 2018/02/16 23:47:27 by nkamolba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,9 @@ COREWAR_SRCS_NAME = main.c \
 					run_cycle.c \
 					hex_to_dec.c \
 					find_player.c \
+					check_param_type.c \
+					get.c \
+					set.c \
 					live.c \
 					ld.c \
 					aff.c \

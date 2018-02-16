@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/15 22:10:58 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/16 23:46:00 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,35 +28,24 @@ typedef struct			s_process
 	int					carry;
 	struct s_process	*next;
 }						t_process;
-/*
-typedef struct			s_arena
-{
-	int			nb_cycle;
-	int			nb_live_1;
-	int			nb_live_2;
-	int			last_live_1;
-	int			last_live_2;
-	char		*mem;
-	t_process	*process;
-}						t_arena;
-*/
+
 typedef struct			s_player
 {
-	int			number;
-	char		*name;
-	char		*comment;
-	int			nb_live;
-	int			last_live;
+	int					number;
+	char				*name;
+	char				*comment;
+	int					nb_live;
+	int					last_live;
 }						t_player;
 
 typedef struct			s_arena
 {
-	char		*mem;
-	int			nb_cycle;
-	int			nb_players;
-	t_player	*players;
-	int			nb_checks;
-	t_process	*process;
+	char				*mem;
+	int					nb_cycle;
+	int					nb_players;
+	t_player			*players;
+	int					nb_checks;
+	t_process			*process;
 }						t_arena;
 
 
@@ -81,6 +70,18 @@ int						hex_to_dec(char *str, int len);
 int						x_char_to_int(char *str, int len);
 void					int_to_x_char(char *str, int len, int value);
 t_player				*find_player(t_arena *arn, int number);
+
+int						check_param_type(t_arena *arn, t_process *process,
+							char rule[3], char type[3]);
+
+int						read_mem(t_arena *arn, int index, int len);
+int						get_registry(t_process *process, int reg_nb);
+int						get_direct_2(t_arena *arn, t_process *process, int pos);
+int						get_direct_4(t_arena *arn, t_process *process, int pos);
+int						get_indirect(t_arena *arn, t_process *process, int pos);
+
+void					set_registry(char *registry, int value);
+void					set_mem(t_arena *arn, int index, int value);
 
 void					live(t_arena *arena, t_process *process);
 void					ld(t_arena *arn, t_process *process);

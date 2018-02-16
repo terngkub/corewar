@@ -6,59 +6,49 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:57:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/15 22:08:52 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/16 23:58:36 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	load_to_registry(int value, char *registry)
-{
-	int		i;
-	
-	i = 3;
-	while (i >= 0)
-	{
-		registry[i] = value % 256;
-		value /= 256;
-		i--;
-	}
-}
-
 void	ld(t_arena *arn, t_process *process)
 {
-	int		opc;
+	char	rule[3];
+	char	type[3];
+	int		position;
 	int		param[2];
-	int		index;
-	int		move;
 
-	opc = hex_to_dec(&arn->mem[(process->pc + 1) % MEM_SIZE], 1);
-	if (opc != 144 && opc != 208)
+	rule[0] = T_IND | T_DIR;
+	rule[1] = T_REG;
+	rule[2] = 0;
+	ft_printf("start\n");
+	if (!check_param_type(arn, process, rule, type))
 	{
+		ft_printf("%d %d %d\n", (int)type[0], (int)type[1], (int)type[2]);
+		ft_printf("wrong type\n");
 		process->pc = (process->pc + 1) % MEM_SIZE;
 		return;
 	}
-	move = 0;
-	if (opc == 144)
+	position = 2;
+	if (type[0] == T_DIR)
 	{
-		param[0] = hex_to_dec(&arn->mem[(process->pc + 2) % MEM_SIZE], 4);
-		param[1] = hex_to_dec(&arn->mem[(process->pc + 6) % MEM_SIZE], 1);
-		move = 7;
+		param[0] = get_direct_4(arn, process, position);
+		position += 4;
 	}
-	else if (opc == 208)
+	else if (type[0] == T_IND)
 	{
-		index = hex_to_dec(&arn->mem[(process->pc + 2) % MEM_SIZE], 2);
-		index = (process->pc + index) % MEM_SIZE;
-		param[0] = hex_to_dec(&arn->mem[index % MEM_SIZE], 4);
-		param[0] = param[0] % MEM_SIZE;
-		param[1] = hex_to_dec(&arn->mem[(process->pc + 4) % MEM_SIZE], 1);
-		move = 5;
+		param[0] = get_indirect(arn, process, position);
+		position += 2;
 	}
+	param[1] = read_mem(arn, (process->pc + position) % MEM_SIZE, 1);
+	ft_printf("%d %d\n", param[0], param[1]);
+	position += 1;
 	if (param[1] >= 1 && param[1] <= REG_NUMBER)
 	{
 		print_registry(process->regs);
-		load_to_registry(param[0], process->regs[param[1] - 1]);
+		set_registry(process->regs[param[1] - 1], param[0]);
 		print_registry(process->regs);
 	}
-	process->pc = (process->pc + move) % MEM_SIZE;
+	process->pc = (process->pc + position) % MEM_SIZE;
 }
