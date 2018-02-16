@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:38:23 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/15 17:46:13 by pnardozi         ###   ########.fr       */
+/*   Updated: 2018/02/16 15:34:57 by pnardozi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,26 @@ int		weigh_champ(char *str)
 	return (i - (PROG_NAME_LENGTH + COMMENT_LENGTH + 16));
 }
 
-void	introduce_players(t_arena arn, char **argv, int start)
+void	introduce_players(t_arena arn, char **argv, int start, int argc)
 {
 	int		i;
+	int		index;
 
+	index = start;
 	i = 0;
 	ft_printf("Introducing contestants...\n");
 	while (i < arn.nb_players)
 	{
+		check_number(argc, argv, &index);
 		ft_printf("* Player %d, wheighing %d bytes, \"%s\" (\"%s\") !\n"\
-				, i + 1, weigh_champ(argv[start]), arn.players[i].name\
+				, i + 1, weigh_champ(argv[index]), arn.players[i].name\
 				, arn.players[i].comment);
 		i++;
-		start++;
+		index++;
 	}
 }
 
-void	init_arena(t_arena *arn, int nb_players, char **argv, int i)
+void	init_arena(t_arena *arn, int nb_players, char **argv, int i, int argc)
 {
 	(*arn).nb_cycle = 0;
 	(*arn).nb_players = nb_players;
@@ -55,5 +58,5 @@ void	init_arena(t_arena *arn, int nb_players, char **argv, int i)
 	init_players((*arn).players, nb_players, argv, i);
 	(*arn).process = NULL;
 	init_process(*arn, &(arn->process));
-	introduce_players(*arn, argv, i);
+	introduce_players(*arn, argv, i, argc);
 }

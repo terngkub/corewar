@@ -6,15 +6,16 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:32:42 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/16 14:15:04 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/16 16:07:58 by pnardozi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+#include <stdio.h>
 
 int		write_usage(void)
 {
-	ft_printf("Usage: ./corewar <champion1.cor> <...>\n");
+	ft_printf("Usage: ./corewar <champion1.cor> <...>\nRobion pd\n");
 	return (0);
 }
 
@@ -54,7 +55,7 @@ int		print_no_file(char *str)
 	return (0);
 }
 
-int		ft_check_dump(char **argv, int argc, unsigned int *dump, int *i)
+int		check_dump(char **argv, int argc, unsigned int *dump, int *i)
 {
 	size_t		len;
 	char		*flag;
@@ -98,22 +99,68 @@ int		ft_check_dump(char **argv, int argc, unsigned int *dump, int *i)
 	return (1);
 }
 
+int		check_number(int argc, char **argv, int *j)
+{
+	size_t		len;
+	char		*flag;
+	long long	nb;
+
+	len	 = ft_strlen(argv[*j]);
+	if (len > 2)
+	{
+		flag = ft_strndup(argv[*j], 0, 2);
+		if (ft_strcmp(flag, "-n ") == 0)
+		{
+			free(flag);
+			flag = ft_strndup(argv[*j], 3, len);
+			ft_printf("%s\n", flag);
+			nb = ft_long_atoi(flag);
+			*j += 1;
+			free(flag);
+			if (nb <= 0 || nb > INT_MAX)
+				return (0);
+		}
+		else
+			free(flag);
+	}
+	else if (len == 2)
+	{
+		flag = ft_strdup(argv[*j]);
+		if (ft_strcmp(flag, "-n") == 0)
+		{
+			if (argc > *j + 1)
+			{
+				free(flag);
+				*j += 1;
+				flag = ft_strdup(argv[*j]);
+				nb = ft_long_atoi(flag);
+				*j += 1;
+				free(flag);
+				if (nb <= 0 || nb > INT_MAX)
+					return (0);
+			}
+		}
+		else
+			free(flag);
+	}
+	return (1);
+}
+
 int		parse_champs(int argc, char **argv, int *i, unsigned int *dump)
 {
 	int		j;
+	int		nb_player;
 
+	nb_player = 0;
 	if (argc <= 1)
 		return (write_usage());
-	if (!(ft_check_dump(argv, argc, dump, i)) || *i >= argc)
+	if (!(check_dump(argv, argc, dump, i)) || *i >= argc)
 		return (write_usage());
 	j = *i;
-	if (argc - *i > MAX_PLAYERS)
-	{
-		ft_printf("Too many champions\n");
-		return (0);
-	}
 	while (j < argc)
 	{
+		if (!(check_number(argc, argv, &j)) || j >= argc)
+			return(write_usage());
 		if (ft_checkfile(argv[j]) == 0)
 			return (print_no_file(argv[j]));
 		if (ft_checkname(argv[j]) == 0)
@@ -122,7 +169,14 @@ int		parse_champs(int argc, char **argv, int *i, unsigned int *dump)
 					, argv[j]);
 			return (0);
 		}
+		else
+			nb_player++;
+		if (nb_player > MAX_PLAYERS)
+		{
+			ft_printf("Too many champions\n");
+			return (0);
+		}
 		j++;
 	}
-	return (argc - *i);
+	return (nb_player);
 }
