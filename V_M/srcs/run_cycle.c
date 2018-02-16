@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/15 22:11:53 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/16 17:36:36 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ void	find_winner(t_arena *arn)
 		}
 		i--;
 	}
-	ft_printf("Contestant %d, \"%s\", has won !\n", winner, arn->players[winner - 1].name);
+	ft_printf("Contestant %d, \"%s\", has won !\n", arn->players[winner - 1].number, arn->players[winner - 1].name);
 }
 
 void		run_cycle(t_arena *arn, int dump)

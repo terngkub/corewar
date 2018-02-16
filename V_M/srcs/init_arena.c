@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:38:23 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/16 16:42:29 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/16 17:35:37 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	introduce_players(t_arena arn, char **argv, int start, int argc)
 	{
 		check_number(argc, argv, &index);
 		ft_printf("* Player %d, wheighing %d bytes, \"%s\" (\"%s\") !\n"\
-				, i + 1, weigh_champ(argv[index]), arn.players[i].name\
+				, arn.players[i].number, weigh_champ(argv[index]), arn.players[i].name\
 				, arn.players[i].comment);
 		i++;
 		index++;
