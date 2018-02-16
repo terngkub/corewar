@@ -6,16 +6,15 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:32:42 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/16 16:07:58 by pnardozi         ###   ########.fr       */
+/*   Updated: 2018/02/16 16:45:38 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-#include <stdio.h>
 
 int		write_usage(void)
 {
-	ft_printf("Usage: ./corewar <champion1.cor> <...>\nRobion pd\n");
+	ft_printf("Usage: ./corewar [-dump N] [-n N] <champion1.cor> <...>\n");
 	return (0);
 }
 

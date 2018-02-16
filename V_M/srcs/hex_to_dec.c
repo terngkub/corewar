@@ -6,13 +6,12 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:28:09 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/16 15:48:12 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/16 16:22:43 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "vm.h"
-#include <stdlib.h>
-#include <stdio.h>
+#include "vm.h"
+
 int			hex_to_dec(char *str, int len)
 {
 	int		sum;
