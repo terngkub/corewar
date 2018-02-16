@@ -6,12 +6,13 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:28:09 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/15 21:55:22 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/16 15:48:12 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
-
+//#include "vm.h"
+#include <stdlib.h>
+#include <stdio.h>
 int			hex_to_dec(char *str, int len)
 {
 	int		sum;
@@ -24,18 +25,21 @@ int			hex_to_dec(char *str, int len)
 
 int			x_char_to_int(char *str, int len)
 {
-	long long	ret;
-	int			i;
+	long long		ret;
+	int				i;
+	unsigned char	cro;
 
 	i = 0;
 	ret = 0;
 	while (i < len - 1)
 	{
-		ret = ret ^ str[i];
+		cro = str[i];
+		ret = ret ^ cro;
 		ret = ret << 8;
 		i++;
 	}
-	ret = ret ^ str[i];
+	cro = str[i];
+	ret = ret ^ cro;
 	return ((int)ret);
 }
 

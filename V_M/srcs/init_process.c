@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:43:46 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/15 21:41:25 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/16 15:50:23 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ void		init_process(t_arena arn, t_process **begin_list)
 		i++;
 	}
 	lst = *begin_list;
-	i = -1;
+	i = arn.nb_players - 1;
 	while (lst)
 	{
-		lst->regs[0][0] = i;
+
+		int_to_x_char(lst->regs[0], REG_SIZE, -arn.players[i].number);
 		i--;
 		lst = lst->next;
 	}
