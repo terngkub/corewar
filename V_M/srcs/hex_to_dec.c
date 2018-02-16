@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:28:09 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/16 22:39:36 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/17 00:10:30 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,21 @@ int			hex_to_dec(char *str, int len)
 
 int			x_char_to_int(char *str, int len)
 {
-	long long	ret;
-	int			i;
+	long long		ret;
+	int				i;
+	unsigned char	cro;
 
 	i = 0;
 	ret = 0;
 	while (i < len - 1)
 	{
-		ret = ret ^ str[i];
+		cro = str[i];
+		ret = ret ^ cro;
 		ret = ret << 8;
 		i++;
 	}
-	ret = ret ^ str[i];
+	cro = str[i];
+	ret = ret ^ cro;
 	return ((int)ret);
 }
 

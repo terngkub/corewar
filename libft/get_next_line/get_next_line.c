@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/18 14:04:29 by fbabin            #+#    #+#             */
-/*   Updated: 2018/01/29 20:45:29 by arobion          ###   ########.fr       */
+/*   Updated: 2018/01/24 22:40:38 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int				get_next_char(const int fd, char **line, char *buff, char c)
 	int				endl;
 	int				idx;
 
+	ret = 0;
 	if (!line || !(*line = ft_strnew(BUFF_SIZE)) || BUFF_SIZE < 1)
 		return (-1);
 	while (1)

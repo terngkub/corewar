@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/16 23:46:00 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/17 00:11:05 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "libft.h"	
 # include "../../libft/includes/get_next_line.h"
 # include "ft_printf.h"
+
+# define INT_MAX 2147483648
 
 typedef struct			s_process
 {
@@ -49,14 +51,14 @@ typedef struct			s_arena
 }						t_arena;
 
 
-
+int						check_number(int argc, char **argv, int *j);
 int						parse_champs(int argc, char **argv, int *i, unsigned int *dump);
-int						load_champs(t_arena arn, char **argv, int nb_players, int i);
+int						load_champs(t_arena arn, char **argv, int nb_players, int i, int argc);
 int						start_of_input(int i, int nb_players);
 int						opc_nb_cycle(int opc);
 
-void					init_arena(t_arena *arn, int nb_players, char **argv, int i);
-void					init_players(t_player *players, int nb_players, char **argv, int i);
+int						init_arena(t_arena *arn, int nb_players, char **argv, int i, int argc);
+int						init_players(t_player *players, int nb_players, char **argv, int i);
 void					init_process(t_arena arn, t_process **begin_list);
 
 void					run_cycle(t_arena *arn, int dump);
@@ -65,6 +67,7 @@ void					print_registry(char **regs);
 void					print_mem(char *mem, int size);
 void					dump_mem(t_arena arn);
 void					print_arena(t_arena arn);
+int						write_usage(void);
 
 int						hex_to_dec(char *str, int len);
 int						x_char_to_int(char *str, int len);

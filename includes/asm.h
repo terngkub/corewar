@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 18:40:36 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/12 20:40:23 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/16 22:32:35 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int				skip_space(char *str, int i);
 void			print_inst_list(t_list *list);
 void			print_labels_list(t_list *list);
 
-
 /*
 ** ------------------------------ CHECK FUNCTIONS ------------------------------
 */
@@ -107,8 +106,10 @@ void			init_asm(t_champ *champ, t_check *check, t_file *f);
 
 void			check_name(t_champ *champ, t_file *f, t_check *check);
 void			check_comment(t_champ *champ, t_file *f, t_check *check);
-int				check_instruction_line(t_champ *champ, char *line_str, int line_nb);
-void			check_parameters(char *str, t_op *op, t_inst *inst, int line_nb);
+int				check_instruction_line(t_champ *champ, char *line_str,
+					int line_nb);
+void			check_parameters(char *str, t_op *op, t_inst *inst,
+					int line_nb);
 char			get_param_type(char *str, t_inst *inst, int value);
 void			check_type(char *str, int type, int line_nb);
 

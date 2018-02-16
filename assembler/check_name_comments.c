@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 17:20:30 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/13 14:45:05 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/16 19:02:13 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void		ft_exit_error_line(t_file *f, t_champ *champ,
 				char *message, int ret)
 {
 	ft_putendl_fd(f->line, 2);
-	ft_fprintf(2, "\033[01;31merror{eoc}: line \033[01;32m%d{eoc} : %s\n",
-		f->line_nb, message);
+	ft_dprintf(2, "%+kerror%k: line %k%d%k : %s\n",
+		LRED, EOC, LGREEN, f->line_nb, RESET, message);
 	free(f->line);
 	free_return(f, champ, 0);
 	exit(ret);

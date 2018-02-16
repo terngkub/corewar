@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:18:27 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/15 22:11:12 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/16 17:40:07 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ int		main(int argc, char **argv)
 		return (0);
 	if (!(arn.mem = (char*)malloc(sizeof(char) * MEM_SIZE)))
 		exit(0);
-	if (!(load_champs(arn, argv, nb_players, i)))
+	if (!(load_champs(arn, argv, nb_players, i, argc)))
 		return (0);
-	init_arena(&arn, nb_players, argv, i);
-//	print_arena(arn);
+	if (!(init_arena(&arn, nb_players, argv, i, argc)))
+		return (write_usage());
+	print_arena(arn);
 	run_cycle(&arn, dump);
 //	print_arena(arn);
 //	print_mem(arn.mem, MEM_SIZE);

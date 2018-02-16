@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 16:15:05 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/12 19:35:37 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/16 18:56:55 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 void	ft_error_line(char *str, int line_nb)
 {
-	ft_fprintf(2, "\033[01;31mERROR{eoc}, line %d : %s\n", line_nb, str);
+	ft_dprintf(2, "%+kERROR%k, line %d : %s\n", LRED, RESET, line_nb, str);
 	exit(EXIT_FAILURE);
 }
 
 void	ft_error(char *str)
 {
-	ft_fprintf(2, "\033[01;31mERROR{eoc}: %s\n", str);
+	ft_dprintf(2, "%+kERROR%k: %s\n", LRED, RESET, str);
 	exit(EXIT_FAILURE);
 }
 
 int		ft_error_return(char *str, int ret)
 {
-	ft_fprintf(2, "\033[01;31mERROR{eoc}: %s\n", str);
+	ft_dprintf(2, "%+kERROR%k: %s\n", LRED, RESET, str);
 	return (ret);
 }

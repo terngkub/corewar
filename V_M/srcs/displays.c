@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 13:56:48 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/15 22:12:18 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/16 16:30:18 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	print_process(t_process **begin_list)
 	lst = *begin_list;
 	while (lst)
 	{
-		ft_printf("playernumber = %d\n", lst->regs[0][0]);
+		ft_printf("playernumber = %d\n", x_char_to_int(lst->regs[0], REG_SIZE));
 		ft_printf("opc = %.2x\ncycle_to_wait = %d\npc = %d\ncarry = %d\n\n",\
 				lst->opc, lst->cycle_to_wait, lst->pc, lst->carry);
 		lst = lst->next;
