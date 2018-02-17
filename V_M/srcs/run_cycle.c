@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/17 19:55:29 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/17 21:53:10 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	do_instruction(t_arena *arn, t_process *process)
 	else if (process->opc == 16)
 		aff(arn, process);
 	else if (process->opc == 12)
-		ft_fork(arn, process);
+		ft_fork(arn, process, 0);
 	else if (process->opc == 13)
 		ld(arn, process, 1);
 	else if (process->opc == 15)
-		long_fork(arn, process);
+		ft_fork(arn, process, 1);
 	else
 		process->pc = (process->pc + 1) % MEM_SIZE;
 	process->opc = arn->mem[process->pc];
@@ -178,7 +178,7 @@ void	find_winner(t_arena *arn)
 
 void		print_test(t_arena arn)
 {
-	if (arn.nb_cycle == 816)
+	if (arn.nb_cycle == 800)
 	{
 		(void)arn;
 		ft_printf("\n\n YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYy\n");
