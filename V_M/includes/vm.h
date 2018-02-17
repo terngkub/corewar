@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/17 20:06:37 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/17 22:27:32 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ void					set_mem(t_arena *arn, int index, int value);
 void					live(t_arena *arena, t_process *process);
 void					ld(t_arena *arn, t_process *process, int l);
 void					st(t_arena *arn, t_process *process);
+void					add(t_arena *arn, t_process *process);
+void					sub(t_arena *arn, t_process *process);
 void					ft_fork(t_arena *arn, t_process *process, int l);
 void					long_fork(t_arena *arn, t_process *process);
 void					aff(t_arena *arn, t_process *process);
