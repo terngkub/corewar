@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/17 19:55:29 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/17 21:31:59 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ void	do_instruction(t_arena *arn, t_process *process)
 		ld(arn, process, 0);
 	else if (process->opc == 3)
 		st(arn, process);
+	else if (process->opc == 4)
+		add(arn, process);
+	else if (process->opc == 5)
+		sub(arn, process);
 	else if (process->opc == 16)
 		aff(arn, process);
 	else if (process->opc == 12)
@@ -178,7 +182,7 @@ void	find_winner(t_arena *arn)
 
 void		print_test(t_arena arn)
 {
-	if (arn.nb_cycle == 816)
+	if (arn.nb_cycle == 10)
 	{
 		(void)arn;
 		ft_printf("\n\n YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYy\n");

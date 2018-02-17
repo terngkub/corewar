@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 16:22:31 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/17 19:58:17 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/17 20:30:27 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void		ft_fork_front(t_process **begin_list, t_process *curr, t_arena *arn, int n
 		exit(0);
 }
 
-void		ft_fork(t_arena *arn, t_process *process, int l)
+void		ft_fork(t_arena *arn, t_process *process)
 {
 	int		new_pc;
 
@@ -81,7 +81,7 @@ void		ft_fork(t_arena *arn, t_process *process, int l)
 	new_pc = new_pc % MEM_SIZE;
 	new_pc = new_pc % IDX_MOD;
 	*/
-	new_pc = (process->pc + get_direct_2(arn, process, l, 1)) % MEM_SIZE;
-	ft_fork_front(&arn->process, process, arn, new_pc);
+	new_pc = (process->pc + get_direct_2(arn, process, 1, 1));
+	ft_fork_front(&arn->process, process, arn, (int)new_pc);
 	process->pc = (process->pc + 3) % MEM_SIZE;
 }
