@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 13:56:48 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/16 16:30:18 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/17 19:56:49 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,13 @@ void	print_mem(char *mem, int size)
 void	print_process(t_process **begin_list)
 {
 	t_process *lst;
+	int			i;
 
+	i = 1;
 	lst = *begin_list;
 	while (lst)
 	{
+		ft_printf("process number %d : \n", i++);
 		ft_printf("playernumber = %d\n", x_char_to_int(lst->regs[0], REG_SIZE));
 		ft_printf("opc = %.2x\ncycle_to_wait = %d\npc = %d\ncarry = %d\n\n",\
 				lst->opc, lst->cycle_to_wait, lst->pc, lst->carry);
@@ -82,7 +85,7 @@ void	print_players(t_player *players, t_arena arn)
 	i = 0;
 	while (i < arn.nb_players)
 	{
-		ft_printf("player number = %d\n", players[i].number);
+		ft_printf("player number %d\n", players[i].number);
 		ft_printf("name player %d = %s\ncomment player %d = %s\nnb_live player %d = %d\nlast_live player %d = %d\n\n", i + 1, players[i].name\
 				, i + 1, players[i].comment, i + 1, players[i].nb_live, i + 1\
 				, players[i].last_live);

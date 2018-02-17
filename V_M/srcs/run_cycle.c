@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/17 18:40:02 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/17 19:55:29 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,16 @@ void	find_winner(t_arena *arn)
 	ft_printf("Contestant %d, \"%s\", has won !\n", arn->players[winner - 1].number, arn->players[winner - 1].name);
 }
 
+void		print_test(t_arena arn)
+{
+	if (arn.nb_cycle == 816)
+	{
+		(void)arn;
+		ft_printf("\n\n YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYy\n");
+		print_arena(arn);
+	}
+}
+
 void		run_cycle(t_arena *arn, int dump)
 {
 	int		next_cycle_to_die;
@@ -189,6 +199,7 @@ void		run_cycle(t_arena *arn, int dump)
 			kill_and_refresh_processes(arn, &(arn->process), &next_cycle_to_die, &cycle_to_die);
 	//	ft_printf("cycle: %d\n", arn->nb_cycle);
 		run_processes(arn);
+		print_test(*arn);
 		if (dump == arn->nb_cycle)
 			return (dump_mem(*arn));
 		arn->nb_cycle++;
