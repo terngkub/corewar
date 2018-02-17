@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/17 17:46:35 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/17 17:57:49 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ void	do_instruction(t_arena *arn, t_process *process)
 		st(arn, process);
 	else if (process->opc == 16)
 		aff(arn, process);
+	else if (process->opc == 12)
+		ft_fork(arn, process);
+	else if (process->opc == 15)
+		long_fork(arn, process);
 	else
 		process->pc = (process->pc + 1) % MEM_SIZE;
 	process->opc = arn->mem[process->pc];
