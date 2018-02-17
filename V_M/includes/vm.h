@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/17 00:11:05 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/17 16:58:40 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct			s_process
 	int					cycle_to_wait;
 	int					pc;
 	int					carry;
+	struct s_op			*op;
 	struct s_process	*next;
 }						t_process;
 
@@ -49,6 +50,19 @@ typedef struct			s_arena
 	int					nb_checks;
 	t_process			*process;
 }						t_arena;
+
+typedef struct			s_op
+{
+	char				*instruction;
+	char				param_num;
+	char				param_type[3];
+	char				opcode;
+	int					cycle;
+	char				*name;
+	char				ocp;
+	char				carry;
+	char				direct_len;
+}						t_op;
 
 
 int						check_number(int argc, char **argv, int *j);
@@ -74,8 +88,10 @@ int						x_char_to_int(char *str, int len);
 void					int_to_x_char(char *str, int len, int value);
 t_player				*find_player(t_arena *arn, int number);
 
+t_op					*get_op(int opc);
+
 int						check_param_type(t_arena *arn, t_process *process,
-							char rule[3], char type[3]);
+							char type[3]);
 
 int						read_mem(t_arena *arn, int index, int len);
 int						get_registry(t_process *process, int reg_nb);

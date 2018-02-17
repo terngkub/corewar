@@ -6,22 +6,23 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 22:39:50 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/17 16:11:03 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/17 17:06:21 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-int	check_param_type(t_arena *arn, t_process *process, char rule[3], char type[3])
+int	check_param_type(t_arena *arn, t_process *process, char type[3])
 {
-	int		pc;
+	char	*rule;
+	int		byte_code;
 	int		i;
 
-	pc = read_mem(arn, (process->pc + 1) % MEM_SIZE, 1);
-	type[0] = (pc / 64) % 4;
-	type[1] = (pc / 16) % 4;
-	type[2] = (pc / 4) % 4;
-	ft_printf("%d %d %d\n", (int)type[0], (int)type[1], (int)type[2]);
+	rule = process->op->param_type;
+	byte_code = read_mem(arn, (process->pc + 1) % MEM_SIZE, 1);
+	type[0] = (byte_code / 64) % 4;
+	type[1] = (byte_code / 16) % 4;
+	type[2] = (byte_code / 4) % 4;
 	i = -1;
 	while (++i < 3)
 	{

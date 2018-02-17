@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/17 16:06:42 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/17 16:50:13 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	do_instruction(t_arena *arn, t_process *process)
 {
+	int		inst_cycle;
+
 	if (process->opc == 1)
 		live(arn, process);
 	else if (process->opc == 2)
@@ -23,7 +25,9 @@ void	do_instruction(t_arena *arn, t_process *process)
 	else
 		process->pc = (process->pc + 1) % MEM_SIZE;
 	process->opc = arn->mem[process->pc];
-	process->cycle_to_wait = arn->nb_cycle + opc_nb_cycle(arn->mem[process->pc]);
+	process->op = get_op(process->opc);
+	inst_cycle = process->op ? process->op->cycle : 1;
+	process->cycle_to_wait = arn->nb_cycle + inst_cycle;
 }
 
 void	run_processes(t_arena *arn)

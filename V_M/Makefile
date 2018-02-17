@@ -6,7 +6,7 @@
 #    By: pnardozi <pnardozi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/19 14:34:26 by pnardozi          #+#    #+#              #
-#    Updated: 2018/02/16 23:47:27 by nkamolba         ###   ########.fr        #
+#    Updated: 2018/02/17 16:55:16 by nkamolba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ COREWAR_INCLUDES_PATH = ./includes/
 COREWAR_OBJ_PATH = ./obj/
 
 COREWAR_SRCS_NAME = main.c \
+					op.c \
 					displays.c \
 					parse_champs.c \
 					load_champs.c \

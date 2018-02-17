@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:43:46 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/16 16:36:45 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/17 16:58:11 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_process	*lst_new_process(int opc, int cycle, int pc)
 		exit(0);
 	lst->alive = 0;
 	lst->opc = opc;
+	lst->op = get_op(opc);
 	lst->cycle_to_wait = cycle;
 	lst->pc = pc;
 	lst->carry = 0;
