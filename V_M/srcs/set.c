@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 22:10:54 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/17 00:07:50 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/17 19:32:57 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ void	set_registry(char *registry, int value)
 		i--;
 	}
 }
+
+/*
+void	set_registry_bymem(t_arena *arn, t_process *process, int pos, int value)
+{
+	get_registry(arn, process, pos);
+
+}
+*/
 
 void	set_mem(t_arena *arn, int index, int value)
 {

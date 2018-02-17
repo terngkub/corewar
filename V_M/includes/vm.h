@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/17 17:58:36 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/17 19:32:37 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,15 @@ int						check_param_type(t_arena *arn, t_process *process,
 
 int						read_mem(t_arena *arn, int index, int len);
 int						get_registry(t_arena *arn, t_process *process, int pos);
-int						get_direct_2(t_arena *arn, t_process *process, int pos);
+int						get_direct_2(t_arena *arn, t_process *process, int pos, int l);
 int						get_direct_4(t_arena *arn, t_process *process, int pos);
-int						get_indirect(t_arena *arn, t_process *process, int pos);
+int						get_indirect(t_arena *arn, t_process *process, int pos, int l);
 
 void					set_registry(char *registry, int value);
 void					set_mem(t_arena *arn, int index, int value);
 
 void					live(t_arena *arena, t_process *process);
-void					ld(t_arena *arn, t_process *process);
+void					ld(t_arena *arn, t_process *process, int l);
 void					st(t_arena *arn, t_process *process);
 void					ft_fork(t_arena *arn, t_process *process);
 void					long_fork(t_arena *arn, t_process *process);

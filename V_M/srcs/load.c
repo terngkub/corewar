@@ -6,13 +6,13 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:57:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/17 17:07:35 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/17 19:27:05 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	ld(t_arena *arn, t_process *process)
+void	ld(t_arena *arn, t_process *process, int l)
 {
 	char	type[3];
 	int		position;
@@ -31,10 +31,12 @@ void	ld(t_arena *arn, t_process *process)
 	}
 	else if (type[0] == T_IND)
 	{
-		param[0] = get_indirect(arn, process, position);
+		param[0] = get_indirect(arn, process, position, l);
 		position += 2;
 	}
 	param[1] = read_mem(arn, (process->pc + position) % MEM_SIZE, 1);
+	if (param[1] == 0)
+		process->carry = 1;
 	position += 1;
 	if (param[1] >= 1 && param[1] <= REG_NUMBER)
 	{
@@ -46,3 +48,32 @@ void	ld(t_arena *arn, t_process *process)
 	}
 	process->pc = (process->pc + position) % MEM_SIZE;
 }
+
+/*
+void	ldi(t_arena *arn, t_process *process, int l)
+{
+	char	type[3];
+	int		position;
+	int		param[2];
+
+	if (!check_param_type(arn, process, type))
+	{
+		process->pc = (process->pc + 1) % MEM_SIZE;
+		return;
+	}
+	position = 2;
+	if (type[0] == T_REG)
+		;
+	else if (type[0] == T_DIR)
+		;
+	else if (type[0] == T_IND)
+		;
+	if (type[1] == T_DIR)
+		;
+	else if (type[1] == T_REG)
+		;
+	param[0] + param[1];
+	set_registry(process->regs[param[1] - 1], ...);
+	process->pc = (process->pc + position) % MEM_SIZE;
+}
+*/

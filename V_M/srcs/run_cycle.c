@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/17 17:57:49 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/17 18:40:02 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@ void	do_instruction(t_arena *arn, t_process *process)
 	if (process->opc == 1)
 		live(arn, process);
 	else if (process->opc == 2)
-		ld(arn, process);
+		ld(arn, process, 0);
 	else if (process->opc == 3)
 		st(arn, process);
 	else if (process->opc == 16)
 		aff(arn, process);
 	else if (process->opc == 12)
 		ft_fork(arn, process);
+	else if (process->opc == 13)
+		ld(arn, process, 1);
 	else if (process->opc == 15)
 		long_fork(arn, process);
 	else

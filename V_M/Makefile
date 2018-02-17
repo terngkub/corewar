@@ -6,7 +6,7 @@
 #    By: pnardozi <pnardozi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/19 14:34:26 by pnardozi          #+#    #+#              #
-#    Updated: 2018/02/17 17:58:13 by nkamolba         ###   ########.fr        #
+#    Updated: 2018/02/17 18:33:27 by nkamolba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,8 +38,8 @@ COREWAR_SRCS_NAME = main.c \
 					get.c \
 					set.c \
 					live.c \
-					ld.c \
-					st.c \
+					load.c \
+					store.c \
 					fork.c \
 					long_fork.c \
 					aff.c \
