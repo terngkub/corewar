@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/17 16:58:40 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/17 17:34:24 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ int						parse_champs(int argc, char **argv, int *i, unsigned int *dump);
 int						load_champs(t_arena arn, char **argv, int nb_players, int i, int argc);
 int						start_of_input(int i, int nb_players);
 int						opc_nb_cycle(int opc);
+void					ft_fork_front(t_process **begin_list, t_process *curr, t_arena *arn, int new_pc);
+t_process				*cpy_process(t_process *curr, t_arena *arn, int new_pc);
+void					cpy_regs(t_process *curr, t_process *lst);
 
 int						init_arena(t_arena *arn, int nb_players, char **argv, int i, int argc);
 int						init_players(t_player *players, int nb_players, char **argv, int i);
@@ -104,6 +107,8 @@ void					set_mem(t_arena *arn, int index, int value);
 
 void					live(t_arena *arena, t_process *process);
 void					ld(t_arena *arn, t_process *process);
+void					ft_fork(t_arena *arn, t_process *process);
+void					long_fork(t_arena *arn, t_process *process);
 void					aff(t_arena *arn, t_process *process);
 
 #endif
