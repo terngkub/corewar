@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/17 22:30:13 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/18 22:09:06 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,26 @@ void	do_instruction(t_arena *arn, t_process *process)
 		add(arn, process);
 	else if (process->opc == 5)
 		sub(arn, process);
-	else if (process->opc == 16)
-		aff(arn, process);
+	else if (process->opc == 6)
+		bitwise(arn, process, '&');
+	else if (process->opc == 7)
+		bitwise(arn, process, '|');
+	else if (process->opc == 8)
+		bitwise(arn, process, '^');
+	else if (process->opc == 10)
+		ldi(arn, process, 0);
+	else if (process->opc == 11)
+		sti(arn, process);
 	else if (process->opc == 12)
 		ft_fork(arn, process, 0);
 	else if (process->opc == 13)
 		ld(arn, process, 1);
+	else if (process->opc == 14)
+		ldi(arn, process, 1);
 	else if (process->opc == 15)
 		ft_fork(arn, process, 1);
+	else if (process->opc == 16)
+		aff(arn, process);
 	else
 		process->pc = (process->pc + 1) % MEM_SIZE;
 	process->opc = arn->mem[process->pc];

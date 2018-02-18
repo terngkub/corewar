@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/17 22:27:32 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/18 22:10:06 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ t_op					*get_op(int opc);
 
 int						check_param_type(t_arena *arn, t_process *process,
 							char type[3]);
+int						handle_idx(int value);
 
 int						read_mem(t_arena *arn, int index, int len);
 int						get_registry(t_arena *arn, t_process *process, int pos);
@@ -107,9 +108,12 @@ void					set_mem(t_arena *arn, int index, int value);
 
 void					live(t_arena *arena, t_process *process);
 void					ld(t_arena *arn, t_process *process, int l);
+void					ldi(t_arena *arn, t_process *process, int l);
 void					st(t_arena *arn, t_process *process);
+void					sti(t_arena *arn, t_process *process);
 void					add(t_arena *arn, t_process *process);
 void					sub(t_arena *arn, t_process *process);
+void					bitwise(t_arena *arn, t_process *process, char op);
 void					ft_fork(t_arena *arn, t_process *process, int l);
 void					long_fork(t_arena *arn, t_process *process);
 void					aff(t_arena *arn, t_process *process);
