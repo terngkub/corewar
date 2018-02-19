@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/19 21:28:43 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/19 21:32:34 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,21 +85,6 @@ int		nb_of_process(t_process **begin_list)
 	return (i);
 }
 
-int		nb_lives(t_player *players, t_arena *arn)
-{
-	int		i;
-	int		ret;
-
-	i = 0;
-	ret = 0;
-	while (i < arn->nb_players)
-	{
-		ret += players[i].nb_live;
-		i++;
-	}
-	return (ret);
-}
-
 void	change_cycle_to_die(t_arena *arn, int *next, int *die)
 {
 	int		lives;
@@ -112,7 +97,7 @@ void	change_cycle_to_die(t_arena *arn, int *next, int *die)
 		{
 			*die -= CYCLE_DELTA;
 			if (*die < 0)
-				*die = 0;
+				*die = 1;
 			arn->nb_checks = 0;
 		}
 	}
@@ -121,7 +106,7 @@ void	change_cycle_to_die(t_arena *arn, int *next, int *die)
 		arn->nb_checks = 0;
 		*die -= CYCLE_DELTA;
 		if (*die < 0)
-			*die = 0;
+			*die = 1;
 	}
 	*next += *die;
 	arn->lives = 0;
@@ -220,7 +205,7 @@ void		run_cycle(t_arena *arn, int dump)
 		if (arn->nb_cycle == next_cycle_to_die)
 			kill_and_refresh_processes(arn, &(arn->process),\
 					&next_cycle_to_die, &cycle_to_die);
-		//ft_printf("cycle = %d nb proc = %d next to die = %d cycle to die = %d nb live done %d\n", arn->nb_cycle, proc, next_cycle_to_die, cycle_to_die, arn->lives);
+		ft_printf("cycle = %d nb proc = %d next to die = %d cycle to die = %d nb live done %d\n", arn->nb_cycle, proc, next_cycle_to_die, cycle_to_die, arn->lives);
 		run_processes(arn);
 		//print_test(*arn);
 		if (dump == arn->nb_cycle)
