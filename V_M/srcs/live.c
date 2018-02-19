@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 22:27:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/19 21:10:22 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/19 21:25:39 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void		live(t_arena *arn, t_process *process)
 	number = -number;
 	process->alive = 1;
 	process->pc += 5;
+	arn->lives += 1;
+	arn->winner = number;
 	if (!(player = find_player(arn, number)))
 		return ;
 	player->nb_live++;

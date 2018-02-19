@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/19 20:32:09 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/19 21:28:43 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	change_cycle_to_die(t_arena *arn, int *next, int *die)
 {
 	int		lives;
 
-	lives = nb_lives(arn->players, arn);
+	lives = arn->lives;
 	if (lives < NBR_LIVE)
 	{
 		arn->nb_checks += 1;
@@ -124,6 +124,7 @@ void	change_cycle_to_die(t_arena *arn, int *next, int *die)
 			*die = 0;
 	}
 	*next += *die;
+	arn->lives = 0;
 	//ft_printf("next = %d die = %d\n", *next, *die);
 }
 
@@ -183,19 +184,14 @@ void	kill_and_refresh_processes(t_arena *arn, t_process **begin_list,\
 void	find_winner(t_arena *arn)
 {
 	int		i;
-	int		ret;
 	int		winner;
 
 	i = arn->nb_players - 1;
-	ret = arn->players[i].last_live;
-	winner = arn->nb_players;
+	winner = i + 1;
 	while (i >= 0)
 	{
-		if (arn->players[i].last_live > ret)
-		{
-			ret = arn->players[i].last_live;
+		if (arn->players[i].number == arn->winner)
 			winner = i + 1;
-		}
 		i--;
 	}
 	ft_printf("Contestant %d, \"%s\", has won !\n",\
@@ -206,7 +202,6 @@ void		print_test(t_arena arn)
 {
 	if (arn.nb_cycle == 1640)
 	{
-		(void)arn;
 		ft_printf("\n\n YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYy\n");
 		print_arena(arn);
 	}
@@ -220,21 +215,17 @@ void		run_cycle(t_arena *arn, int dump)
 
 	cycle_to_die = CYCLE_TO_DIE;
 	next_cycle_to_die = CYCLE_TO_DIE;
-	print_arena(*arn);
 	while ((proc = nb_of_process(&(arn->process))))
 	{
 		if (arn->nb_cycle == next_cycle_to_die)
 			kill_and_refresh_processes(arn, &(arn->process),\
 					&next_cycle_to_die, &cycle_to_die);
-//		ft_printf("%d %d %d\n", arn->nb_cycle, proc, next_cycle_to_die);
+		//ft_printf("cycle = %d nb proc = %d next to die = %d cycle to die = %d nb live done %d\n", arn->nb_cycle, proc, next_cycle_to_die, cycle_to_die, arn->lives);
 		run_processes(arn);
-//		print_test(*arn);
+		//print_test(*arn);
 		if (dump == arn->nb_cycle)
 			return (dump_mem(*arn));
 		arn->nb_cycle++;
-		if (arn->nb_cycle == 1000)
-			break ;
 	}
-	print_arena(*arn);
 	find_winner(arn);
 }

@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/19 14:35:17 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/19 21:25:15 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ typedef struct			s_player
 typedef struct			s_arena
 {
 	char				*mem;
+	int					lives;
+	int					winner;
 	int					nb_cycle;
 	int					nb_players;
 	t_player			*players;
