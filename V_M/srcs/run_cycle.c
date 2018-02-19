@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/19 19:34:23 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/19 20:32:09 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,7 @@ void		run_cycle(t_arena *arn, int dump)
 
 	cycle_to_die = CYCLE_TO_DIE;
 	next_cycle_to_die = CYCLE_TO_DIE;
+	print_arena(*arn);
 	while ((proc = nb_of_process(&(arn->process))))
 	{
 		if (arn->nb_cycle == next_cycle_to_die)
@@ -231,7 +232,9 @@ void		run_cycle(t_arena *arn, int dump)
 		if (dump == arn->nb_cycle)
 			return (dump_mem(*arn));
 		arn->nb_cycle++;
+		if (arn->nb_cycle == 1000)
+			break ;
 	}
-	ft_printf("cyclees = %d\n", arn->nb_cycle);
+	print_arena(*arn);
 	find_winner(arn);
 }
