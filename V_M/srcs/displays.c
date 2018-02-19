@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 13:56:48 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/17 19:56:49 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/19 16:59:29 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void	print_registry(char **regs)
 	i = 0;
 	while (i < 16)
 	{
-		ft_printf("Registry %d: %.2hhx %.2hhx %.2hhx %2.hhx\n", i, regs[i][0], regs[i][1], regs[i][2], regs[i][3]);
+		ft_printf("Registry %d: %.2hhx %.2hhx %.2hhx %2.hhx\n", i,\
+				regs[i][0], regs[i][1], regs[i][2], regs[i][3]);
 		i++;
 	}
 }

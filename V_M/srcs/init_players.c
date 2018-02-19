@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:40:33 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/16 17:34:52 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/19 17:02:27 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		get_number(char **argv, int *j)
 	long long	nb;
 
 	nb = 0;
-	len	 = ft_strlen(argv[*j]);
+	len = ft_strlen(argv[*j]);
 	if (len > 2)
 	{
 		flag = ft_strndup(argv[*j], 0, 2);
@@ -40,12 +40,12 @@ int		get_number(char **argv, int *j)
 		flag = ft_strdup(argv[*j]);
 		if (ft_strcmp(flag, "-n") == 0)
 		{
-				free(flag);
-				*j += 1;
-				flag = ft_strdup(argv[*j]);
-				nb = ft_long_atoi(flag);
-				*j += 1;
-				free(flag);
+			free(flag);
+			*j += 1;
+			flag = ft_strdup(argv[*j]);
+			nb = ft_long_atoi(flag);
+			*j += 1;
+			free(flag);
 		}
 		else
 			free(flag);
@@ -143,7 +143,7 @@ int			choose_player_number(t_player *players, int nb_players)
 	while (ft_is_in(j, tab, nb_players) == 1)
 		j++;
 	free(tab);
-	return (j); 
+	return (j);
 }
 
 int			verif_unicity_of_player(t_player *players, int nb_players)
@@ -182,7 +182,8 @@ int			reaffect_number(t_player *players, int nb_players)
 	return (1);
 }
 
-int			init_players(t_player *players, int nb_players, char **argv, int start)
+int			init_players(t_player *players, int nb_players,\
+		char **argv, int start)
 {
 	int		i;
 	int		nb_for_player;
@@ -202,4 +203,3 @@ int			init_players(t_player *players, int nb_players, char **argv, int start)
 		return (0);
 	return (1);
 }
-

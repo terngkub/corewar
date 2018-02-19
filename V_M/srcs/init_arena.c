@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:38:23 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/16 17:35:37 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/19 16:57:44 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	introduce_players(t_arena arn, char **argv, int start, int argc)
 	{
 		check_number(argc, argv, &index);
 		ft_printf("* Player %d, wheighing %d bytes, \"%s\" (\"%s\") !\n"\
-				, arn.players[i].number, weigh_champ(argv[index]), arn.players[i].name\
-				, arn.players[i].comment);
+				, arn.players[i].number, weigh_champ(argv[index]),\
+				arn.players[i].name, arn.players[i].comment);
 		i++;
 		index++;
 	}
@@ -51,7 +51,6 @@ void	introduce_players(t_arena arn, char **argv, int start, int argc)
 int		init_arena(t_arena *arn, int nb_players, char **argv, int i, int argc)
 {
 	(*arn).nb_cycle = 0;
-	//ft_printf("arn cycle = %d\n", arn->nb_cycle);
 	(*arn).nb_players = nb_players;
 	(*arn).nb_checks = 0;
 	if (!((*arn).players = (t_player*)malloc(sizeof(t_player) * nb_players)))
