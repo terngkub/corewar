@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/18 22:09:06 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/19 14:38:14 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	do_instruction(t_arena *arn, t_process *process)
 		bitwise(arn, process, '|');
 	else if (process->opc == 8)
 		bitwise(arn, process, '^');
+	else if (process->opc == 9)
+		zjmp(arn, process);
 	else if (process->opc == 10)
 		ldi(arn, process, 0);
 	else if (process->opc == 11)
@@ -194,7 +196,7 @@ void	find_winner(t_arena *arn)
 
 void		print_test(t_arena arn)
 {
-	if (arn.nb_cycle == 800)
+	if (arn.nb_cycle == 560)
 	{
 		(void)arn;
 		ft_printf("\n\n YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYy\n");
@@ -218,6 +220,7 @@ void		run_cycle(t_arena *arn, int dump)
 		print_test(*arn);
 		if (dump == arn->nb_cycle)
 			return (dump_mem(*arn));
+		
 		arn->nb_cycle++;
 	}
 	find_winner(arn);
