@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:32:42 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/16 16:45:38 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/19 14:24:02 by pnardozi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,29 @@ int		check_number(int argc, char **argv, int *j)
 	return (1);
 }
 
-int		parse_champs(int argc, char **argv, int *i, unsigned int *dump)
+int		check_display(char **argv, int argc, int *display, int *i)
+{
+	char		*flag;
+
+	if (ft_strlen(argv[*i]) == 2)
+	{
+		flag = ft_strdup(argv[*i]);
+		if (ft_strcmp(flag, "-v") == 0)
+		{
+			if (argc >= 3)
+			{
+				free(flag);
+				*i += 1;
+				*display = 1;
+			}
+		}
+		else
+			free(flag);
+	}
+	return (1);
+}
+
+int		parse_champs(int argc, char **argv, int *i, unsigned int *dump, int *display)
 {
 	int		j;
 	int		nb_player;
@@ -154,6 +176,13 @@ int		parse_champs(int argc, char **argv, int *i, unsigned int *dump)
 	if (argc <= 1)
 		return (write_usage());
 	if (!(check_dump(argv, argc, dump, i)) || *i >= argc)
+		return (write_usage());
+	if (!(check_display(argv, argc, display, i) || *i >= argc))
+		return (write_usage());
+	if (*display == 1)
+		if (!(check_dump(argv, argc, dump, i)) || *i >= argc)
+			return (write_usage());
+	if (*display == 1 && (int)*dump != -1)
 		return (write_usage());
 	j = *i;
 	while (j < argc)

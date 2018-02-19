@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/18 22:10:06 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/19 14:24:03 by pnardozi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct			s_op
 
 
 int						check_number(int argc, char **argv, int *j);
-int						parse_champs(int argc, char **argv, int *i, unsigned int *dump);
+int						parse_champs(int argc, char **argv, int *i, unsigned int *dump, int *display);
 int						load_champs(t_arena arn, char **argv, int nb_players, int i, int argc);
 int						start_of_input(int i, int nb_players);
 int						opc_nb_cycle(int opc);

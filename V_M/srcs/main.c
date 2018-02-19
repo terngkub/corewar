@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:18:27 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/17 19:57:32 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/19 14:24:11 by pnardozi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,12 @@ int		main(int argc, char **argv)
 	int				nb_players;
 	int				i;
 	unsigned int	dump;
+	int				display;
 
 	i = 1;
 	dump = -1;
-	if (!(nb_players = parse_champs(argc, argv, &i, &dump)))
+	display = 0;
+	if (!(nb_players = parse_champs(argc, argv, &i, &dump, &display)))
 		return (0);
 	if (!(arn.mem = (char*)malloc(sizeof(char) * MEM_SIZE)))
 		exit(0);
