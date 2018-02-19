@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 20:32:58 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/17 21:22:39 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/19 16:54:05 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,12 @@ void	add(t_arena *arn, t_process *process)
 	process->pc = (process->pc + 1) % MEM_SIZE;
 	if (!(check_add_param(arn, process)))
 		return ;
-	res = x_char_to_int(process->regs[arn->mem[(process->pc + 1) % MEM_SIZE] - 1], REG_SIZE);
-	res += x_char_to_int(process->regs[arn->mem[(process->pc + 2) % MEM_SIZE] - 1], REG_SIZE);
-	int_to_x_char(process->regs[arn->mem[(process->pc + 3) % MEM_SIZE] - 1], REG_SIZE, res);
+	res = x_char_to_int(process->regs[arn->mem[(process->pc + 1) %\
+			MEM_SIZE] - 1], REG_SIZE);
+	res += x_char_to_int(process->regs[arn->mem[(process->pc + 2) %\
+			MEM_SIZE] - 1], REG_SIZE);
+	int_to_x_char(process->regs[arn->mem[(process->pc + 3) %\
+			MEM_SIZE] - 1], REG_SIZE, res);
 	process->pc = (process->pc + 4) % MEM_SIZE;
 	if (res == 0)
 		process->carry = 1;

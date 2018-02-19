@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/18 21:59:40 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/18 22:14:59 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/19 16:55:09 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	bitwise(t_arena *arn, t_process *process, char op)
 {
 	char	type[3];
-	int 	position;
+	int		position;
 	int		param[3];
 	int		i;
 	int		value;
@@ -23,7 +23,7 @@ void	bitwise(t_arena *arn, t_process *process, char op)
 	if (!check_param_type(arn, process, type))
 	{
 		process->pc = (process->pc + 1) % MEM_SIZE;
-		return;
+		return ;
 	}
 	position = 2;
 	i = 0;

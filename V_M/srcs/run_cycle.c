@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/19 14:38:14 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/19 17:08:08 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	run_processes(t_arena *arn)
 	process = arn->process;
 	while (process)
 	{
-//		ft_printf("pc: %d\n", process->pc);
 		if (process->cycle_to_wait == arn->nb_cycle)
 			do_instruction(arn, process);
 		process = process->next;
@@ -126,7 +125,7 @@ void	kill_dead_processes(t_process **begin_list)
 {
 	t_process	*lst;
 	t_process	*tmp;
-	
+
 	while (*begin_list && (*begin_list)->alive == 0)
 	{
 		tmp = *begin_list;
@@ -149,9 +148,9 @@ void	kill_dead_processes(t_process **begin_list)
 
 void	refresh_processes(t_process **begin_list, t_arena *arn)
 {
-	t_process *lst;
-	int		i;
-	
+	t_process	*lst;
+	int			i;
+
 	i = 0;
 	lst = *begin_list;
 	while (lst)
@@ -166,7 +165,8 @@ void	refresh_processes(t_process **begin_list, t_arena *arn)
 	}
 }
 
-void	kill_and_refresh_processes(t_arena *arn, t_process **begin_list, int *next, int *die)
+void	kill_and_refresh_processes(t_arena *arn, t_process **begin_list,\
+		int *next, int *die)
 {
 	change_cycle_to_die(arn, next, die);
 	kill_dead_processes(begin_list);
@@ -191,7 +191,8 @@ void	find_winner(t_arena *arn)
 		}
 		i--;
 	}
-	ft_printf("Contestant %d, \"%s\", has won !\n", arn->players[winner - 1].number, arn->players[winner - 1].name);
+	ft_printf("Contestant %d, \"%s\", has won !\n",\
+			arn->players[winner - 1].number, arn->players[winner - 1].name);
 }
 
 void		print_test(t_arena arn)
@@ -214,13 +215,12 @@ void		run_cycle(t_arena *arn, int dump)
 	while (nb_of_process(&(arn->process)))
 	{
 		if (arn->nb_cycle == next_cycle_to_die)
-			kill_and_refresh_processes(arn, &(arn->process), &next_cycle_to_die, &cycle_to_die);
-	//	ft_printf("cycle: %d\n", arn->nb_cycle);
+			kill_and_refresh_processes(arn, &(arn->process),\
+					&next_cycle_to_die, &cycle_to_die);
 		run_processes(arn);
 		print_test(*arn);
 		if (dump == arn->nb_cycle)
 			return (dump_mem(*arn));
-		
 		arn->nb_cycle++;
 	}
 	find_winner(arn);
