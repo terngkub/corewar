@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 16:22:31 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/17 22:28:19 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/19 18:19:54 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ t_process	*cpy_process(t_process *curr, t_arena *arn, int new_pc)
 	i = 0;
 	if (!(lst = (t_process*)malloc(sizeof(t_process))))
 		exit(0);
-	lst->alive = 0;
+	lst->alive = curr->alive;
 	lst->opc = arn->mem[new_pc];
+	lst->op = get_op(arn->mem[new_pc]);
 	lst->cycle_to_wait = arn->nb_cycle + opc_nb_cycle(lst->opc);
 	lst->pc = new_pc;
 	lst->carry = curr->carry;

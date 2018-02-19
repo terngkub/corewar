@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:57:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/18 21:24:23 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/19 18:12:57 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,8 @@ void	ld(t_arena *arn, t_process *process, int l)
 	position += 1;
 	if (param[1] >= 1 && param[1] <= REG_NUMBER)
 	{
-		ft_printf("before\n");
-		print_registry(process->regs);
 		set_registry(process->regs[param[1] - 1], param[0]);
-		ft_printf("\nafter\n");
-		print_registry(process->regs);
+		//print_registry(process->regs);
 	}
 	process->pc = (process->pc + position) % MEM_SIZE;
 }
@@ -94,5 +91,5 @@ void	ldi(t_arena *arn, t_process *process, int l)
 	value = read_mem(arn, (process->pc + index) % MEM_SIZE, DIR_SIZE);
 	set_registry(process->regs[param[2] - 1], value);
 	process->pc = (process->pc + position) % MEM_SIZE;
-	print_registry(process->regs);
+	//print_registry(process->regs);
 }

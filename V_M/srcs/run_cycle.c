@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/19 14:38:14 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/19 19:19:47 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	do_instruction(t_arena *arn, t_process *process)
 {
 	int		inst_cycle;
 
+	//ft_printf("pc %d %d %d\n", process->pc, arn->nb_cycle, process->opc);
 	if (process->opc == 1)
 		live(arn, process);
 	else if (process->opc == 2)
@@ -111,6 +112,8 @@ void	change_cycle_to_die(t_arena *arn, int *next, int *die)
 		if (arn->nb_checks == MAX_CHECKS)
 		{
 			*die -= CYCLE_DELTA;
+			if (*die < 0)
+				*die = 0;
 			arn->nb_checks = 0;
 		}
 	}
@@ -118,8 +121,11 @@ void	change_cycle_to_die(t_arena *arn, int *next, int *die)
 	{
 		arn->nb_checks = 0;
 		*die -= CYCLE_DELTA;
+		if (*die < 0)
+			*die = 0;
 	}
 	*next += *die;
+	//ft_printf("next = %d die = %d\n", *next, *die);
 }
 
 void	kill_dead_processes(t_process **begin_list)
@@ -127,7 +133,7 @@ void	kill_dead_processes(t_process **begin_list)
 	t_process	*lst;
 	t_process	*tmp;
 	
-	while (*begin_list && (*begin_list)->alive == 0)
+	while (*begin_list && ((*begin_list)->alive == 0))
 	{
 		tmp = *begin_list;
 		*begin_list = (*begin_list)->next;
@@ -142,7 +148,7 @@ void	kill_dead_processes(t_process **begin_list)
 			lst->next = tmp->next;
 			free(tmp);
 		}
-		if (lst->next)
+		else if (lst->next)
 			lst = lst->next;
 	}
 }
@@ -169,6 +175,7 @@ void	refresh_processes(t_process **begin_list, t_arena *arn)
 void	kill_and_refresh_processes(t_arena *arn, t_process **begin_list, int *next, int *die)
 {
 	change_cycle_to_die(arn, next, die);
+//	ft_printf("arn ->cycle = %d die = %d\n", arn->nb_cycle, *die);
 	kill_dead_processes(begin_list);
 	refresh_processes(begin_list, arn);
 }
@@ -196,7 +203,7 @@ void	find_winner(t_arena *arn)
 
 void		print_test(t_arena arn)
 {
-	if (arn.nb_cycle == 560)
+	if (arn.nb_cycle == 1640)
 	{
 		(void)arn;
 		ft_printf("\n\n YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYy\n");
@@ -208,20 +215,21 @@ void		run_cycle(t_arena *arn, int dump)
 {
 	int		next_cycle_to_die;
 	int		cycle_to_die;
+	int		proc;
 
 	cycle_to_die = CYCLE_TO_DIE;
 	next_cycle_to_die = CYCLE_TO_DIE;
-	while (nb_of_process(&(arn->process)))
+	while ((proc = nb_of_process(&(arn->process))))
 	{
 		if (arn->nb_cycle == next_cycle_to_die)
 			kill_and_refresh_processes(arn, &(arn->process), &next_cycle_to_die, &cycle_to_die);
-	//	ft_printf("cycle: %d\n", arn->nb_cycle);
+//		ft_printf("%d %d %d\n", arn->nb_cycle, proc, next_cycle_to_die);
 		run_processes(arn);
-		print_test(*arn);
+//		print_test(*arn);
 		if (dump == arn->nb_cycle)
 			return (dump_mem(*arn));
-		
 		arn->nb_cycle++;
 	}
+	ft_printf("cyclees = %d\n", arn->nb_cycle);
 	find_winner(arn);
 }

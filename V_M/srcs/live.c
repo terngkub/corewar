@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 22:27:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/15 20:20:20 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/19 19:13:49 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		live(t_arena *arn, t_process *process)
 	t_player	*player;
 
 	number = hex_to_dec(&arn->mem[process->pc + 1], 4);
-	number = -number;
+//	number = -number;
 	process->alive = 1;
 	process->pc += 5;
 	if (!(player = find_player(arn, number)))

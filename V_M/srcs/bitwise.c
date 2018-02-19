@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/18 21:59:40 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/18 22:14:59 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/19 18:23:20 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	bitwise(t_arena *arn, t_process *process, char op)
 	if (param[1] >= 1 && param[1] <= REG_NUMBER)
 	{
 		set_registry(process->regs[param[2] - 1], value);
-		print_registry(process->regs);
+//		print_registry(process->regs);
 	}
 	process->pc = (process->pc + position) % MEM_SIZE;
 }

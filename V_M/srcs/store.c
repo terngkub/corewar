@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 15:55:23 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/18 21:50:04 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/19 18:05:02 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,20 @@ void	st(t_arena *arn, t_process *process)
 		return ;
 	}
 	position = 2;
-	param[0] = get_registry(arn, process, position);
+	if ((param[0] = get_registry(arn, process, position)) == -1)
+	{
+		process->pc = (process->pc + 1) % MEM_SIZE;
+		return ;
+	}
 	position += 1;
 	if (type[1] == T_REG)
 	{
 		param[1] = read_mem(arn, (process->pc + position) % MEM_SIZE, 1); 
+		if (param[1] - 1 < 0 || param[1] - 1 >= REG_NUMBER)
+		{
+			process->pc = (process->pc + 1) % MEM_SIZE;
+			return ;
+		}
 		set_registry(process->regs[param[1] - 1], param[0]);
 		position += 1;
 	}
@@ -81,8 +90,12 @@ void	sti(t_arena *arn, t_process *process)
 		param[2] = get_registry(arn, process, position);
 		position += 1;
 	}
+	if (param[0] == -1 || param[1] == -1 || param[2] == -1)
+	{
+		process->pc = (process->pc + 1) % MEM_SIZE;
+		return ;
+	}
 	index = (param[1] + param[2]) % 65536;
-	ft_printf("%d %d %d %d %d\n", param[0], param[1], param[2], index, (process->pc + index) % MEM_SIZE);
 	set_mem(arn, (process->pc + index) % MEM_SIZE, param[0]);
 	process->pc = (process->pc + position) % MEM_SIZE;
 }

@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 16:57:49 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/18 20:57:21 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/19 18:26:27 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	read_mem(t_arena *arn, int index, int len)
 	i = 0;
 	while (i < len)
 	{
-		str[i] = arn->mem[(index + i) % MEM_SIZE];
+		str[i] = arn->mem[((unsigned int)index + i) % MEM_SIZE];
 		i++;
 	}
 	value = hex_to_dec(str, len);
@@ -38,6 +38,8 @@ int	get_registry(t_arena *arn, t_process *process, int pos)
 
 	value_index = (process->pc + pos) % MEM_SIZE;
 	reg_nb = read_mem(arn, value_index, 1);
+	if (reg_nb < 1 || reg_nb > REG_NUMBER)
+		return (-1);
 	value = hex_to_dec(process->regs[reg_nb - 1], REG_SIZE);
 	return (value);
 }
@@ -93,6 +95,5 @@ int	get_indirect(t_arena *arn, t_process *process, int pos, int l)
 		value_index = handle_idx(value_index);
 	value_index = (process->pc + value_index) % MEM_SIZE;
 	value = read_mem(arn, value_index, DIR_SIZE);
-	ft_printf("%d %d\n", link_index, value_index);
 	return (value);
 }

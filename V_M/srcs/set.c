@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 22:10:54 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/18 22:14:56 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/19 18:05:04 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	set_mem(t_arena *arn, int index, int value)
 	i = DIR_SIZE - 1;
 	while (i >= 0)
 	{
-		arn->mem[(index + i) % MEM_SIZE] = u_value % 256;
+		arn->mem[((unsigned int)index + i) % MEM_SIZE] = u_value % 256;
 		u_value /= 256;
 		i--;
 	}
