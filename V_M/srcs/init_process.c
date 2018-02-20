@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:43:46 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/17 16:58:11 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/20 14:44:16 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_process	*lst_new_process(int opc, int cycle, int pc)
 	{
 		if (!(lst->regs[i] = (char*)malloc(sizeof(char) * REG_SIZE)))
 			exit(0);
+		ft_bzero(lst->regs[i], REG_SIZE);
 		i++;
 	}
 	lst->next = NULL;

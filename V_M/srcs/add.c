@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 20:32:58 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/20 11:28:09 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/20 14:32:14 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ int		check_add_param(t_arena *arn, t_process *process)
 {
 	if (check_ocp_add(arn->mem[process->pc]) == 0)
 		return (0);
-	if (arn->mem[(process->pc + 1) % MEM_SIZE] >= REG_NUMBER)
+	if (arn->mem[(process->pc + 1) % MEM_SIZE] > REG_NUMBER || arn->mem[(process->pc + 1) % MEM_SIZE] < 1)
 		return (0);
-	if (arn->mem[(process->pc + 2) % MEM_SIZE] >= REG_NUMBER)
+	if (arn->mem[(process->pc + 2) % MEM_SIZE] > REG_NUMBER || arn->mem[(process->pc + 2) % MEM_SIZE] < 1)
 		return (0);
-	if (arn->mem[(process->pc + 3) % MEM_SIZE] >= REG_NUMBER)
+	if (arn->mem[(process->pc + 3) % MEM_SIZE] > REG_NUMBER || arn->mem[(process->pc + 3) % MEM_SIZE] < 1)
 		return (0);
 	return (1);
 }

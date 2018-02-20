@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 21:23:14 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/19 17:08:57 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/20 14:29:01 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ int		check_sub_param(t_arena *arn, t_process *process)
 {
 	if (check_ocp_sub(arn->mem[process->pc]) == 0)
 		return (0);
-	if (arn->mem[(process->pc + 1) % MEM_SIZE] >= REG_NUMBER)
+	if (arn->mem[(process->pc + 1) % MEM_SIZE] > REG_NUMBER || arn->mem[(process->pc + 1) % MEM_SIZE] < 1)
 		return (0);
-	if (arn->mem[(process->pc + 2) % MEM_SIZE] >= REG_NUMBER)
+	if (arn->mem[(process->pc + 2) % MEM_SIZE] > REG_NUMBER || arn->mem[(process->pc + 2) % MEM_SIZE] < 1)
 		return (0);
-	if (arn->mem[(process->pc + 3) % MEM_SIZE] >= REG_NUMBER)
+	if (arn->mem[(process->pc + 3) % MEM_SIZE] > REG_NUMBER || arn->mem[(process->pc + 3) % MEM_SIZE] < 1)
 		return (0);
 	return (1);
 }
@@ -58,8 +58,7 @@ void	sub(t_arena *arn, t_process *process)
 			% MEM_SIZE] - 1], REG_SIZE);
 	res -= x_char_to_int(process->regs[arn->mem[(process->pc + 2)\
 			% MEM_SIZE] - 1], REG_SIZE);
-	int_to_x_char(process->regs[arn->mem[(process->pc + 3)\
-			% MEM_SIZE] - 1], REG_SIZE, res);
+	int_to_x_char(process->regs[arn->mem[(process->pc + 3) % MEM_SIZE] - 1], REG_SIZE, res);
 	process->pc = (process->pc + 4) % MEM_SIZE;
 	if (res == 0)
 		process->carry = 1;
