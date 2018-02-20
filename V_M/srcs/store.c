@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 15:55:23 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/19 18:05:02 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/20 19:32:12 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	sti(t_arena *arn, t_process *process)
 	int		position;
 	int		param[3];
 	int		index;
+	int		i;
 
 	if (!check_param_type(arn, process, type))
 	{
@@ -63,39 +64,30 @@ void	sti(t_arena *arn, t_process *process)
 		return ;
 	}
 	position = 2;
-	param[0] = get_registry(arn, process, position);
-	position += 1;
-	if (type[1] == T_REG)
+	i = 0;
+	while (i < 3)
 	{
-		param[1] = get_registry(arn, process, position);
-		position += 1;
+		if (type[i] == T_REG)
+		{
+			param[i] = read_mem(arn, (process->pc + position) % MEM_SIZE, 1);
+			position += 1;
+		}
+		else if (type[i] == T_DIR)
+		{
+			param[i] = get_direct_2(arn, process, position, 0);
+			position += 2;
+		}
+		else if (type[i] == T_IND)
+		{
+			param[i] = get_indirect(arn, process, position, 0);
+			position += 2;
+		}
+		i++;
 	}
-	else if (type[1] == T_DIR)
+	if (check_get_registry(process, type, param, 0))
 	{
-		param[1] = get_direct_2(arn, process, position, 0);
-		position += 2;
+		index = (param[1] + param[2]) % 65536;
+		set_mem(arn, (process->pc + index) % MEM_SIZE, param[0]);
 	}
-	else if (type[1] == T_IND)
-	{
-		param[1] = get_indirect(arn, process, position, 0);
-		position += 2;
-	}
-	if (type[2] == T_DIR)
-	{
-		param[2] = get_direct_2(arn, process, position, 0);
-		position += 2;
-	}
-	else if (type[2] == T_REG)
-	{
-		param[2] = get_registry(arn, process, position);
-		position += 1;
-	}
-	if (param[0] == -1 || param[1] == -1 || param[2] == -1)
-	{
-		process->pc = (process->pc + 1) % MEM_SIZE;
-		return ;
-	}
-	index = (param[1] + param[2]) % 65536;
-	set_mem(arn, (process->pc + index) % MEM_SIZE, param[0]);
 	process->pc = (process->pc + position) % MEM_SIZE;
 }

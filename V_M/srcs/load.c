@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:57:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/20 17:48:14 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/20 19:26:51 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,32 +38,12 @@ void	ld(t_arena *arn, t_process *process, int l)
 	if (param[1] == 0)
 		process->carry = 1;
 	position += 1;
-	if (param[1] >= 1 && param[1] <= REG_NUMBER)
-	{
+	if (check_get_registry(process, type, param, 2))
 		set_registry(process->regs[param[1] - 1], param[0]);
-		//print_registry(process->regs);
-	}
 	process->pc = (process->pc + position) % MEM_SIZE;
+	//print_registry(process->regs);
 }
 
-int		check_set_registry(t_process *process, char type[3], int param[3], int len)
-{
-	int		i;
-
-	i = 0;
-	while (i < 3)
-	{
-		if (param[i] && type[i] == T_REG)
-		{
-			if (param[i] < 0 || param[i] > REG_NUMBER)
-				return (0);
-			if (len--)
-				param[i] = hex_to_dec(process->regs[param[i] - 1], REG_SIZE);
-		}
-		i++;
-	}
-	return (1);
-}
 
 void	ldi(t_arena *arn, t_process *process, int l)
 {
@@ -106,13 +86,12 @@ void	ldi(t_arena *arn, t_process *process, int l)
 	}
 	param[2] = read_mem(arn, (process->pc + position) % MEM_SIZE, 1);
 	position += 1;
-	if (check_set_registry(process, type, param, 2))
+	if (check_get_registry(process, type, param, 1))
 	{
 		index = (param[0] + param[1]) % 65536;
 		value = read_mem(arn, (process->pc + index) % MEM_SIZE, DIR_SIZE);
 		set_registry(process->regs[param[2] - 1], value);
 	}
 	process->pc = (process->pc + position) % MEM_SIZE;
-	//ft_printf("\nldi\n\n");
 	//print_registry(process->regs);
 }

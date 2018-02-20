@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/19 21:25:15 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/20 18:56:38 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int						init_arena(t_arena *arn, int nb_players, char **argv, int i, int argc);
 int						init_players(t_player *players, int nb_players, char **argv, int i);
 void					init_process(t_arena arn, t_process **begin_list);
 
-void					run_cycle(t_arena *arn, int dump);
+void					run_cycle(t_arena *arn, int dump, int display);
 
 void					print_registry(char **regs);
 void					print_mem(char *mem, int size);
@@ -100,6 +100,7 @@ int						check_param_type(t_arena *arn, t_process *process,
 int						handle_idx(int value);
 
 int						read_mem(t_arena *arn, int index, int len);
+int						check_get_registry(t_process *process, char type[3], int *param, int len);
 int						get_registry(t_arena *arn, t_process *process, int pos);
 int						get_direct_2(t_arena *arn, t_process *process, int pos, int l);
 int						get_direct_4(t_arena *arn, t_process *process, int pos);
@@ -120,5 +121,7 @@ void					zjmp(t_arena *arn, t_process *process);
 void					ft_fork(t_arena *arn, t_process *process, int l);
 void					long_fork(t_arena *arn, t_process *process);
 void					aff(t_arena *arn, t_process *process);
+
+void					st2(t_arena *arn, t_process *process);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 16:57:49 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/20 17:29:39 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/20 19:27:36 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,40 @@ int	handle_idx(int value)
 		cut_point *= 256;
 	u_value = (unsigned int)value;
 	u_value = u_value % cut_point;
-	ft_printf("%d %d\n", u_value, cut_point);
 	if (u_value < cut_point / 2)
 		u_value = u_value % IDX_MOD;
 	else
 		u_value = MEM_SIZE - ((cut_point - u_value) % IDX_MOD);
 	return (u_value);
+}
+
+int		check_get_registry(t_process *process, char type[3], int *param, int dest)
+{
+	int		reg;
+	int		i;
+
+	reg = 0;
+	i = 0;
+	while (i < process->op->param_num)
+	{
+		if (type[i++] == T_REG)
+			reg++;
+	}
+	if (dest)
+		reg--;
+	i = 0;
+	while (i < process->op->param_num)
+	{
+		if (type[i] == T_REG)
+		{
+			if (param[i] < 1 || param[i] > REG_NUMBER)
+				return (0);
+			if (reg-- > 0)
+				param[i] = hex_to_dec(process->regs[param[i] - 1], REG_SIZE);
+		}
+		i++;
+	}
+	return (1);
 }
 
 int	get_registry(t_arena *arn, t_process *process, int pos)
@@ -95,11 +123,7 @@ int	get_indirect(t_arena *arn, t_process *process, int pos, int l)
 	link_index = (process->pc + pos) % MEM_SIZE;
 	value_index = read_mem(arn, link_index, IND_SIZE);
 	if (l == 0)
-	{
-		ft_printf("short\n");
 		value_index = handle_idx(value_index);
-	}
-	ft_printf("\nvalue_index %d\n\n", value_index);
 	value_index = (process->pc + value_index) % MEM_SIZE;
 	value = read_mem(arn, value_index, DIR_SIZE);
 	return (value);
