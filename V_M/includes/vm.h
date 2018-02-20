@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/19 21:25:15 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/20 11:57:22 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,7 @@ void					zjmp(t_arena *arn, t_process *process);
 void					ft_fork(t_arena *arn, t_process *process, int l);
 void					long_fork(t_arena *arn, t_process *process);
 void					aff(t_arena *arn, t_process *process);
+
+void					st2(t_arena *arn, t_process *process);
 
 #endif

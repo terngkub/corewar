@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/19 21:32:34 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/20 12:00:54 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	do_instruction(t_arena *arn, t_process *process)
 	else if (process->opc == 2)
 		ld(arn, process, 0);
 	else if (process->opc == 3)
-		st(arn, process);
+		st2(arn, process);
 	else if (process->opc == 4)
 		add(arn, process);
 	else if (process->opc == 5)
@@ -205,7 +205,7 @@ void		run_cycle(t_arena *arn, int dump)
 		if (arn->nb_cycle == next_cycle_to_die)
 			kill_and_refresh_processes(arn, &(arn->process),\
 					&next_cycle_to_die, &cycle_to_die);
-		ft_printf("cycle = %d nb proc = %d next to die = %d cycle to die = %d nb live done %d\n", arn->nb_cycle, proc, next_cycle_to_die, cycle_to_die, arn->lives);
+//		ft_printf("cycle = %d nb proc = %d next to die = %d cycle to die = %d nb live done %d\n", arn->nb_cycle, proc, next_cycle_to_die, cycle_to_die, arn->lives);
 		run_processes(arn);
 		//print_test(*arn);
 		if (dump == arn->nb_cycle)
