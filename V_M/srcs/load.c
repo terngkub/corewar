@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:57:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/19 18:12:57 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/20 17:48:14 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ld(t_arena *arn, t_process *process, int l)
 	if (!check_param_type(arn, process, type))
 	{
 		process->pc = (process->pc + 1) % MEM_SIZE;
-		return;
+		return ;
 	}
 	position = 2;
 	if (type[0] == T_DIR)
@@ -46,6 +46,25 @@ void	ld(t_arena *arn, t_process *process, int l)
 	process->pc = (process->pc + position) % MEM_SIZE;
 }
 
+int		check_set_registry(t_process *process, char type[3], int param[3], int len)
+{
+	int		i;
+
+	i = 0;
+	while (i < 3)
+	{
+		if (param[i] && type[i] == T_REG)
+		{
+			if (param[i] < 0 || param[i] > REG_NUMBER)
+				return (0);
+			if (len--)
+				param[i] = hex_to_dec(process->regs[param[i] - 1], REG_SIZE);
+		}
+		i++;
+	}
+	return (1);
+}
+
 void	ldi(t_arena *arn, t_process *process, int l)
 {
 	char	type[3];
@@ -62,7 +81,7 @@ void	ldi(t_arena *arn, t_process *process, int l)
 	position = 2;
 	if (type[0] == T_REG)
 	{
-		param[0] = get_registry(arn, process, position);
+		param[0] = read_mem(arn, (process->pc + position) % MEM_SIZE, 1);
 		position += 1;
 	}
 	else if (type[0] == T_DIR)
@@ -82,14 +101,18 @@ void	ldi(t_arena *arn, t_process *process, int l)
 	}
 	else if (type[1] == T_REG)
 	{
-		param[1] = get_registry(arn, process, position);
+		param[1] = read_mem(arn, (process->pc + position) % MEM_SIZE, 1);
 		position += 1;
 	}
 	param[2] = read_mem(arn, (process->pc + position) % MEM_SIZE, 1);
 	position += 1;
-	index = (param[0] + param[1]) % 65536;
-	value = read_mem(arn, (process->pc + index) % MEM_SIZE, DIR_SIZE);
-	set_registry(process->regs[param[2] - 1], value);
+	if (check_set_registry(process, type, param, 2))
+	{
+		index = (param[0] + param[1]) % 65536;
+		value = read_mem(arn, (process->pc + index) % MEM_SIZE, DIR_SIZE);
+		set_registry(process->regs[param[2] - 1], value);
+	}
 	process->pc = (process->pc + position) % MEM_SIZE;
+	//ft_printf("\nldi\n\n");
 	//print_registry(process->regs);
 }
