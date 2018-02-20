@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/20 14:40:17 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/20 17:22:41 by pnardozi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,12 +192,13 @@ void		print_test(t_arena arn)
 	}
 }
 
-void		run_cycle(t_arena *arn, int dump)
+void		run_cycle(t_arena *arn, int dump, int display)
 {
 	int		next_cycle_to_die;
 	int		cycle_to_die;
 	int		proc;
 
+	(void)display;
 	cycle_to_die = CYCLE_TO_DIE;
 	next_cycle_to_die = CYCLE_TO_DIE;
 	while ((proc = nb_of_process(&(arn->process))))

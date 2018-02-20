@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/20 11:57:22 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/20 17:22:56 by pnardozi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int						init_arena(t_arena *arn, int nb_players, char **argv, int i, int argc);
 int						init_players(t_player *players, int nb_players, char **argv, int i);
 void					init_process(t_arena arn, t_process **begin_list);
 
-void					run_cycle(t_arena *arn, int dump);
+void					run_cycle(t_arena *arn, int dump, int display);
 
 void					print_registry(char **regs);
 void					print_mem(char *mem, int size);
