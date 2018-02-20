@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 11:11:47 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/20 12:17:03 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/20 14:22:50 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void		load_in_mem_id(t_arena *arn, t_process *process, int rg, int id)
 		arn->mem[(id + i) % MEM_SIZE] = process->regs[rg - 1][i];
 		i++;
 	}
-	process->pc = (process->pc + 2 + T_DIR) % MEM_SIZE;
+	process->pc = (process->pc + 2 + IND_SIZE) % MEM_SIZE;
 }
 
 void		st2(t_arena *arn, t_process *process)
@@ -84,7 +84,7 @@ void		st2(t_arena *arn, t_process *process)
 	}
 	else
 	{
-		id = (process->pc - 1 + get_direct_2(arn, process, 2, 1)) % MEM_SIZE;
+		id = (process->pc - 1 + get_direct_2(arn, process, 2, 0)) % MEM_SIZE;
 		load_in_mem_id(arn, process, rg, id);
 	}
 
