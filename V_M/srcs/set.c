@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 22:10:54 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/20 19:01:19 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/21 16:00:38 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	set_mem(t_arena *arn, int index, int value)
 	int				i;
 
 	index = handle_idx(index);
+	ft_printf("after %d\n", index);
 	u_value = (unsigned int)value;
 	i = DIR_SIZE - 1;
 	while (i >= 0)

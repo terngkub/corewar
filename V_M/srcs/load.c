@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:57:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/20 19:26:51 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/21 15:45:25 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	ldi(t_arena *arn, t_process *process, int l)
 	if (check_get_registry(process, type, param, 1))
 	{
 		index = (param[0] + param[1]) % 65536;
+		ft_printf("%d\n", index);
 		value = read_mem(arn, (process->pc + index) % MEM_SIZE, DIR_SIZE);
 		set_registry(process->regs[param[2] - 1], value);
 	}

@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 16:57:49 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/20 19:27:36 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/21 16:01:39 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,11 @@ int	get_direct_2(t_arena *arn, t_process *process, int pos, int l)
 
 	value_index = (process->pc + pos) % MEM_SIZE;
 	value = read_mem(arn, value_index, IND_SIZE);
+	l = 0;
+	/*
 	if (l == 0)
 		value = handle_idx(value);
+		*/
 	return (value);
 }
 
