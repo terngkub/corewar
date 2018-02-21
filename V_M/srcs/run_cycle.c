@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/21 14:05:19 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/21 20:19:57 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	do_instruction(t_arena *arn, t_process *process)
 	else if (process->opc == 12)
 		ft_fork(arn, process, 0);
 	else if (process->opc == 13)
-		ld(arn, process, 1);
+		lld(arn, process);
 	else if (process->opc == 14)
 		ldi(arn, process, 1);
 	else if (process->opc == 15)
