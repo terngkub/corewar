@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 11:11:47 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/21 18:50:37 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/21 22:04:12 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void		st2(t_arena *arn, t_process *process)
 	rg = arn->mem[(process->pc + 1) % MEM_SIZE];
 	if (i == 0)
 	{
-		id = arn->mem[(process->pc + 1) % MEM_SIZE];
+		id = arn->mem[(process->pc + 2) % MEM_SIZE];
 		load_in_mem_rg(process, rg, id);
 	}
 	else
