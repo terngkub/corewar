@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 13:56:48 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/21 14:05:01 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/21 17:28:41 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ void	print_players(t_player *players, t_arena arn)
 	while (i < arn.nb_players)
 	{
 		ft_printf("player number %d\n", players[i].number);
-		ft_printf("name player %d = %s\ncomment player %d = %s\nnb_live player %d = %d\nlast_live player %d = %d\n\n", i + 1, players[i].name\
-				, i + 1, players[i].comment, i + 1, players[i].nb_live, i + 1\
+		ft_printf("name player %d = %s\nnb_live player %d = %d\nlast_live player %d = %d\n\n", i + 1, players[i].name\
+				, i + 1, i + 1, players[i].nb_live, i + 1\
 				, players[i].last_live);
 		i++;
 	}

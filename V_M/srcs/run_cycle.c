@@ -6,11 +6,20 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/21 14:05:19 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/21 19:10:13 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+void		print_test(t_arena arn)
+{
+	if (arn.nb_cycle == 1000)
+	{
+		ft_printf("\n\n YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYy\n");
+		print_arena(arn);
+	}
+}
 
 void	do_instruction(t_arena *arn, t_process *process)
 {
@@ -183,14 +192,7 @@ void	find_winner(t_arena *arn)
 			arn->players[winner - 1].number, arn->players[winner - 1].name);
 }
 
-void		print_test(t_arena arn)
-{
-	if (arn.nb_cycle == 1640)
-	{
-		ft_printf("\n\n YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYy\n");
-		print_arena(arn);
-	}
-}
+
 
 void		run_cycle(t_arena *arn, int dump, int display)
 {
@@ -208,7 +210,7 @@ void		run_cycle(t_arena *arn, int dump, int display)
 					&next_cycle_to_die, &cycle_to_die);
 		//ft_printf("cycle = %d nb proc = %d next to die = %d cycle to die = %d nb live done %d\n", arn->nb_cycle, proc, next_cycle_to_die, cycle_to_die, arn->lives);
 		run_processes(arn);
-		//print_test(*arn);
+		print_test(*arn);
 		if (dump == arn->nb_cycle)
 			return (dump_mem(*arn));
 		arn->nb_cycle++;
