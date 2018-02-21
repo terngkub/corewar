@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 15:55:23 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/21 16:04:11 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/21 16:33:02 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,21 @@ void	st(t_arena *arn, t_process *process)
 	process->pc = (process->pc + position) % MEM_SIZE;
 }
 
+void	set_in_mem(t_arena *arn, int index, int value)
+{
+	unsigned int	u_value;
+	int				i;
+
+	u_value = (unsigned int)value;
+	i = DIR_SIZE - 1;
+	while (i >= 0)
+	{
+		arn->mem[((unsigned int)index + i) % MEM_SIZE] = u_value % 256;
+		u_value /= 256;
+		i--;
+	}
+}
+
 void	sti(t_arena *arn, t_process *process)
 {
 	char	type[3];
@@ -87,7 +102,7 @@ void	sti(t_arena *arn, t_process *process)
 	if (check_get_registry(process, type, param, 0))
 	{
 		index = (param[1] + param[2]) % 65536;
-		set_mem(arn, process->pc + index, param[0]);
+		set_in_mem(arn, (process->pc + index) % MEM_SIZE, param[0]);
 	}
 	process->pc = (process->pc + position) % MEM_SIZE;
 }
