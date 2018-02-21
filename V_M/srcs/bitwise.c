@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/18 21:59:40 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/20 19:34:11 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/21 18:59:42 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,10 @@ void	bitwise(t_arena *arn, t_process *process, char op)
 			value = param[0] | param[1];
 		else if (op == '^')
 			value = param[0] ^ param[1];
+		if (value == 0)
+			process->carry = 1;
+		else
+			process->carry = 0;
 		set_registry(process->regs[param[2] - 1], value);
 		//print_registry(process->regs);
 	}

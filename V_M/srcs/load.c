@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:57:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/21 20:30:13 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/21 20:33:36 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,16 @@ void	ld(t_arena *arn, t_process *process, int l)
 		position += 2;
 	}
 	param[1] = read_mem(arn, (process->pc + position) % MEM_SIZE, 1);
-	if (param[1] == 0)
-		process->carry = 1;
 	position += 1;
 	if (check_get_registry(process, type, param, 2))
+	{
 		set_registry(process->regs[param[1] - 1], param[0]);
-	process->pc = (process->pc + position) % MEM_SIZE;
-	//print_registry(process->regs);
+		if (param[0] == 0)
+			process->carry = 1;
+		else
+			process->carry = 0;
+		process->pc = (process->pc + position) % MEM_SIZE;
+	}
 }
 
 void	lld(t_arena *arn, t_process *process)
@@ -86,6 +89,16 @@ void	lld(t_arena *arn, t_process *process)
 	//print_registry(process->regs);
 }
 
+void	modif_carry(t_process *process, char type[3], int value)
+{
+	if (type[0] != T_REG || type[1] != T_REG)
+		if (value == 0)
+		{
+			process->carry = 1;
+			return ;
+		}
+	process->carry = 0;
+}
 
 void	ldi(t_arena *arn, t_process *process, int l)
 {
@@ -132,6 +145,7 @@ void	ldi(t_arena *arn, t_process *process, int l)
 	{
 		index = (param[0] + param[1]) % 65536;
 		value = read_mem(arn, (process->pc + index) % MEM_SIZE, DIR_SIZE);
+		modif_carry(process, type, value);
 		set_registry(process->regs[param[2] - 1], value);
 	}
 	process->pc = (process->pc + position) % MEM_SIZE;
