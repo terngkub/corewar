@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:57:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/21 20:33:36 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/22 14:48:08 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ld(t_arena *arn, t_process *process, int l)
 
 	if (!check_param_type(arn, process, type))
 	{
-		process->pc = (process->pc + 1) % MEM_SIZE;
+		process->pc = (process->pc + get_fail_pos(process, type)) % MEM_SIZE;
 		return ;
 	}
 	position = 2;
@@ -55,7 +55,7 @@ void	lld(t_arena *arn, t_process *process)
 
 	if (!check_param_type(arn, process, type))
 	{
-		process->pc = (process->pc + 1) % MEM_SIZE;
+		process->pc = (process->pc + get_fail_pos(process, type)) % MEM_SIZE;
 		return ;
 	}
 	position = 2;
@@ -110,7 +110,7 @@ void	ldi(t_arena *arn, t_process *process, int l)
 
 	if (!check_param_type(arn, process, type))
 	{
-		process->pc = (process->pc + 1) % MEM_SIZE;
+		process->pc = (process->pc + get_fail_pos(process, type)) % MEM_SIZE;
 		return;
 	}
 	position = 2;

@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/21 20:33:56 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/22 14:46:30 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ t_op					*get_op(int opc);
 
 int						check_param_type(t_arena *arn, t_process *process,
 							char type[3]);
+int						get_fail_pos(t_process *process, char type[3]);
 int						handle_idx(int value);
 
 int						read_mem(t_arena *arn, int index, int len);

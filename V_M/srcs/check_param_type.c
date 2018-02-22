@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 22:39:50 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/19 18:04:14 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/22 14:59:08 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,33 @@ int	check_param_type(t_arena *arn, t_process *process, char type[3])
 	type[2] = (byte_code / 4) % 4;
 	i = -1;
 	while (++i < 3)
-	{
 		if (type[i] == 3)
 			type[i] = 4;
+	i = -1;
+	while (++i < 3)
 		if (rule[i] != 0 && !(type[i] & rule[i]))
 			return (0);
-	}
 	return (1);
+}
+
+int	get_fail_pos(t_process *process, char type[3])
+{
+	int		ret;
+	int		i;
+
+	ret = 2;
+	i = 0;
+	while (i < process->op->param_num)
+	{
+		ft_printf("%d %d\n", i, type[i]);
+		if (type[i] == 1)
+			ret += 1;
+		else if (type[i] == 2)
+			ret += process->op->direct_len;
+		else if (type[i] == 4)
+			ret += 2;
+		i++;
+	}
+	ft_printf("jump %d\n", ret);
+	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/21 20:33:48 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/22 14:55:00 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		print_test(t_arena arn)
 {
-	if (arn.nb_cycle == 1000)
+	if (arn.nb_cycle == 5 || arn.nb_cycle == 10 || arn.nb_cycle == 35)
 	{
 		ft_printf("\n\n YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYy\n");
 		print_arena(arn);
