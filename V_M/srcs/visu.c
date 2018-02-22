@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:30:35 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/22 15:20:15 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/22 19:48:53 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,25 +96,34 @@ void	init_visu(t_visu *v)
 	initscr();
 	noecho();
 	WINDOW		*tmp;
+	WINDOW		*ttmp;
 	v->cycle_to_die = CYCLE_TO_DIE;
 	v->next_cycle_to_die = CYCLE_TO_DIE;
 	v->arena = subwin(stdscr, 66, 260, 1, 5);    
 	v->info = subwin(stdscr, 66, 90, 1, COLS - 95); 
 	v->background = subwin(stdscr, LINES, COLS, 0, 0);
-	tmp = subwin(stdscr, 20, 90, 30, 150);
+	tmp = subwin(stdscr, 50, 90, 30, 150);
+	ttmp = subwin(stdscr, 40, 60, 40, 157);
 	box(v->background, ACS_VLINE, ACS_HLINE);
+	start_color();
+	init_color(COLOR_RED, 1000, 300, 140);
+	init_pair(1, COLOR_RED, COLOR_BLACK);
+	attron(COLOR_PAIR(1));
+	
 	//box(tmp, ACS_VLINE, ACS_HLINE);
 	mvwprintw(tmp, 0, 0, " _____ ___________ _____ _    _  ___  ______             ___  _____\n/  __ \\  _  | ___ \\  ___| |  | |/ _ \\ | ___ \\           /   |/ __  \\\n| /  \\/ | | | |_/ / |__ | |  | / /_\\ \\| |_/ /          / /| |`' / /'\n| |   | | | |    /|  __|| |/\\| |  _  ||    /          / /_| |  / /\n| \\__/\\ \\_/ / |\\ \\| |___\\  /\\  / | | || |\\ \\          \\___  |./ /___\n\\____/\\___/\\_| \\_\\____/ \\/  \\/\\_| |_/\\_| \\_|             |_/\\_____/\n");
 	//mvwprintw(tmp, 0, 0, "/  __ \\  _  | ___ \\  ___| |  | |/ _ \\ | ___ \\   /   |/ __  \\\n| /  \\/ | | | |_/ / |__ | |  | / /_\\ \\| |_/ /  / /| |`' / /'\n| |   | | | |    /|  __|| |/\\| |  _  ||    /  / /_| |  / /\n| \\__/\\ \\_/ / |\\ \\| |___\\  /\\  / | | || |\\ \\  \\___  |./ /___\n\\____/\\___/\\_| \\_\\____/ \\/  \\/\\_| |_/\\_| \\_|     |_/\\_____/\n");
 	//mvwprintw(tmp, 0, 0, "/  __ \\  _  | ___ \\  ___| |  | |/ _ \\ | ___ \\   /   |/ __  \\\n| /  \\/ | | | |_/ / |__ | |  | / /_\\ \\| |_/ /  / /| |`' / /'\n| |   | | | |    /|  __|| |/\\| |  _  ||    /  / /_| |  / /\n| \\__/\\ \\_/ / |\\ \\| |___\\  /\\  / | | || |\\ \\  \\___  |./ /___\n\\____/\\___/\\_| \\_\\____/ \\/  \\/\\_| |_/\\_| \\_|     |_/\\_____/\n");
-			
+	
+	mvwprintw(ttmp, 0, 0," ___ ___ ___ ___ ___        ___ _  _ _____ ___ ___ \n| _ | _ | __/ __/ __|      | __| \\| |_   _| __| _ \\\n|  _|   | _|\\__ \\__ \\      | _|| .` | | | | _||   /\n|_| |_|_|___|___|___/      |___|_|\\_| |_| |___|_|_\\\n");
+	//mvwprintw(tmp, 7, 0," ___ ___ ___ ___ ___              ___ _  _ _____ ___ ___ \n| _ | _ | __/ __/ __|            | __| \\| |_   _| __| _ \\\n|  _|   | _|\\__ \\__ \\            | _|| .` | | | | _||   /\\\n|_| |_|_|___|___|___/            |___|_|\\_| |_| |___|_|_\\\n");
 
+	//mvwprintw(v->background, 30, 100, "PRESS ENTER");
 
-
-
-	mvwprintw(v->background, 30, 100, "PRESS ENTER"); 
-	getch();
+	while (getch() != 10)
+		;
 	clear();
+	box(v->background, ACS_VLINE, ACS_HLINE);
 	//v->background = subwin(stdscr, LINES, COLS, 0, 0);
 	wrefresh(v->background);
 }
@@ -161,8 +170,15 @@ void	game(t_visu *v, t_arena *arn)
 	init_pair(2, COLOR_WHITE, COLOR_BLACK);
 	curs_set(FALSE);
 	//
+	//nodelay(stdscr,1);
+	v->proc = 0;
+	put_info(*v, arn);
+	put_arena(*v, (const char*)arn->mem, (const char*)&color);
+	getch();	
 	while ((v->proc = nb_of_process(&(arn->process))))
 	{
+		//if (getch() != 32)
+		//	nodelay(v->arena, 1);
 		if (arn->nb_cycle == v->next_cycle_to_die)
 			kill_and_refresh_processes(arn, &(arn->process),\
 					&v->next_cycle_to_die, &v->cycle_to_die);
