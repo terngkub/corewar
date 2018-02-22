@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 20:32:58 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/22 16:40:07 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/22 20:29:56 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,20 @@ int		check_add_param(t_arena *arn, t_process *process, int *move_pc)
 		return (0);
 	}
 	if (arn->mem[(process->pc + 1) % MEM_SIZE] > REG_NUMBER || arn->mem[(process->pc + 1) % MEM_SIZE] < 1)
+	{
+		*move_pc = modif_pc(arn->mem[process->pc]);
 		return (0);
+	}
 	if (arn->mem[(process->pc + 2) % MEM_SIZE] > REG_NUMBER || arn->mem[(process->pc + 2) % MEM_SIZE] < 1)
+	{
+		*move_pc = modif_pc(arn->mem[process->pc]);
 		return (0);
+	}
 	if (arn->mem[(process->pc + 3) % MEM_SIZE] > REG_NUMBER || arn->mem[(process->pc + 3) % MEM_SIZE] < 1)
+	{
+		*move_pc = modif_pc(arn->mem[process->pc]);
 		return (0);
+	}
 	return (1);
 }
 
