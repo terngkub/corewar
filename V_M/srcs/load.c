@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:57:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/22 14:48:08 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/22 18:32:12 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	ld(t_arena *arn, t_process *process, int l)
 			process->carry = 1;
 		else
 			process->carry = 0;
-		process->pc = (process->pc + position) % MEM_SIZE;
 	}
+	process->pc = (process->pc + position) % MEM_SIZE;
 }
 
 void	lld(t_arena *arn, t_process *process)
@@ -82,7 +82,12 @@ void	lld(t_arena *arn, t_process *process)
 				param[0] = param[0] & 0x0000ffff;
 			else
 				param[0] = param[0] | 0xffff0000;
+			process->carry = 0;
 		}
+		if (param[0] == 0)
+			process->carry = 1;
+		else
+			process->carry = 0;
 		set_registry(process->regs[param[1] - 1], param[0]);
 	}
 	process->pc = (process->pc + position) % MEM_SIZE;

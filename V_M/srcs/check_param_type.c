@@ -1,12 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
+/* ************************************************************************** */ /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   check_param_type.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 22:39:50 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/22 14:59:08 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/22 18:05:18 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +42,6 @@ int	get_fail_pos(t_process *process, char type[3])
 	i = 0;
 	while (i < process->op->param_num)
 	{
-		ft_printf("%d %d\n", i, type[i]);
 		if (type[i] == 1)
 			ret += 1;
 		else if (type[i] == 2)
@@ -52,6 +50,6 @@ int	get_fail_pos(t_process *process, char type[3])
 			ret += 2;
 		i++;
 	}
-	ft_printf("jump %d\n", ret);
+	//ft_printf("ret %d\n", ret);
 	return (ret);
 }
