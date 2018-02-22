@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 15:55:23 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/21 18:50:23 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/22 16:59:15 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	sti(t_arena *arn, t_process *process)
 
 	if (!check_param_type(arn, process, type))
 	{
-		process->pc = (process->pc + 1) % MEM_SIZE;
+		process->pc = (process->pc + get_fail_pos(process, type)) % MEM_SIZE;
 		return ;
 	}
 	position = 2;
