@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/22 14:46:30 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/22 15:43:32 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "libft.h"	
 # include "../../libft/includes/get_next_line.h"
 # include "ft_printf.h"
+# include <ncurses.h>
 
 # define INT_MAX 2147483648
 
@@ -66,6 +67,15 @@ typedef struct			s_op
 	char				direct_len;
 }						t_op;
 
+typedef struct			s_visu
+{
+	WINDOW				*arena;
+	WINDOW				*info;
+	WINDOW				*background;
+	int					next_cycle_to_die;
+	int					cycle_to_die;
+	int					proc;
+}						t_visu;
 
 int						check_number(int argc, char **argv, int *j);
 int						parse_champs(int argc, char **argv, int *i, unsigned int *dump, int *display);
@@ -125,5 +135,9 @@ void					long_fork(t_arena *arn, t_process *process);
 void					aff(t_arena *arn, t_process *process);
 
 void					st2(t_arena *arn, t_process *process);
-
+int						ft_visu(t_arena *arn);
+int						nb_of_process(t_process **begin_list);
+void					run_processes(t_arena *arn);
+void					kill_and_refresh_processes(t_arena *arn, t_process **begin_list,
+		                                                        int *next, int *die);
 #endif

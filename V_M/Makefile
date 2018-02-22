@@ -6,7 +6,7 @@
 #    By: pnardozi <pnardozi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/19 14:34:26 by pnardozi          #+#    #+#              #
-#    Updated: 2018/02/20 18:50:53 by nkamolba         ###   ########.fr        #
+#    Updated: 2018/02/22 15:44:58 by fbabin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ COREWAR_OBJ_PATH = ./obj/
 
 COREWAR_SRCS_NAME = main.c \
 					op.c \
+					visu.c \
 					displays.c \
 					parse_champs.c \
 					load_champs.c \
@@ -72,7 +73,7 @@ $(LIB_NAME):
 	make -C $(LIB_PATH)
 
 $(COREWAR): $(COREWAR_OBJ)
-	$(CC) $(CFLAGS) -o $(COREWAR) $(COREWAR_OBJ) $(LIB)
+	$(CC) $(CFLAGS) -o $(COREWAR) $(COREWAR_OBJ) $(LIB) -L. -lncurses
 	@echo "$(GREEN)COREWAR READY$(END)"
 
 $(COREWAR_OBJ_PATH)%.o: $(COREWAR_SRCS_PATH)%.c

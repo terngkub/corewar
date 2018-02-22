@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/22 14:55:00 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/22 15:44:11 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ void	kill_and_refresh_processes(t_arena *arn, t_process **begin_list,\
 		int *next, int *die)
 {
 	change_cycle_to_die(arn, next, die);
-//	ft_printf("arn ->cycle = %d die = %d\n", arn->nb_cycle, *die);
+	//	ft_printf("arn ->cycle = %d die = %d\n", arn->nb_cycle, *die);
 	kill_dead_processes(begin_list);
 	refresh_processes(begin_list, arn);
 }
@@ -203,17 +203,20 @@ void		run_cycle(t_arena *arn, int dump, int display)
 	(void)display;
 	cycle_to_die = CYCLE_TO_DIE;
 	next_cycle_to_die = CYCLE_TO_DIE;
-	while ((proc = nb_of_process(&(arn->process))))
-	{
-		if (arn->nb_cycle == next_cycle_to_die)
-			kill_and_refresh_processes(arn, &(arn->process),\
-					&next_cycle_to_die, &cycle_to_die);
-		//ft_printf("cycle = %d nb proc = %d next to die = %d cycle to die = %d nb live done %d\n", arn->nb_cycle, proc, next_cycle_to_die, cycle_to_die, arn->lives);
-		run_processes(arn);
-		print_test(*arn);
-		if (dump == arn->nb_cycle)
-			return (dump_mem(*arn));
-		arn->nb_cycle++;
-	}
+	if (display)
+		ft_visu(arn);
+	else
+		while ((proc = nb_of_process(&(arn->process))))
+		{
+			if (arn->nb_cycle == next_cycle_to_die)
+				kill_and_refresh_processes(arn, &(arn->process),\
+						&next_cycle_to_die, &cycle_to_die);
+			//ft_printf("cycle = %d nb proc = %d next to die = %d cycle to die = %d nb live done %d\n", arn->nb_cycle, proc, next_cycle_to_die, cycle_to_die, arn->lives);
+			run_processes(arn);
+			print_test(*arn);
+			if (dump == arn->nb_cycle)
+				return (dump_mem(*arn));
+			arn->nb_cycle++;
+		}
 	find_winner(arn);
 }
