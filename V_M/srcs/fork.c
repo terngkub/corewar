@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 16:22:31 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/21 11:50:03 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/23 14:48:00 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void		ft_fork_front(t_process **begin_list, t_process *curr,\
 {
 	t_process	*lst;
 
+	/*
 	if (*begin_list)
 	{
 		lst = cpy_process(curr, arn, new_pc);
@@ -70,6 +71,11 @@ void		ft_fork_front(t_process **begin_list, t_process *curr,\
 	}
 	else
 		exit(0);
+	*/
+	lst = *begin_list;
+	while (lst->next)
+		lst = lst->next;
+	lst->next = cpy_process(curr, arn, new_pc);
 }
 
 void		ft_fork(t_arena *arn, t_process *process, int l)
