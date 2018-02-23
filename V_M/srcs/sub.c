@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 21:23:14 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/22 20:31:46 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/23 11:18:43 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	sub(t_arena *arn, t_process *process)
 	process->pc = (process->pc + 1) % MEM_SIZE;
 	if (!(check_sub_param(arn, process, &move_pc)))
 	{
-		process->pc = (process->pc + 1) % MEM_SIZE;
+		process->pc = (process->pc + 1 + move_pc) % MEM_SIZE;
 		return ;
 	}
 	res = x_char_to_int(process->regs[arn->mem[(process->pc + 1)\

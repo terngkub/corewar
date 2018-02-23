@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 11:11:47 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/22 15:16:31 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/23 12:01:38 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ int			check_ocp_st(unsigned char ocp, int *j)
 		return (-1);
 	}
 	else
+	{
+		*j = modif_pc(ocp);
 		return (i);
+	}
 }
 
 int			check_rg(int value)
@@ -87,6 +90,7 @@ void		load_in_mem_rg(t_process *process, int rg1, int rg2)
 		i++;
 	}
 	process->pc = (process->pc + 3) % MEM_SIZE;
+
 }
 
 void		load_in_mem_id(t_arena *arn, t_process *process, int rg, int id)
@@ -117,10 +121,16 @@ void		st2(t_arena *arn, t_process *process)
 		return ;
 	}
 	if (!(check_rg(arn->mem[(process->pc + 1) % MEM_SIZE])))
+	{
+		process->pc = (process->pc + 1 + move_pc) % MEM_SIZE;
 		return ;
+	}
 	if (i == 0)
 		if (!(check_rg(arn->mem[(process->pc + 2) % MEM_SIZE])))
+		{
+			process->pc = (process->pc + 1 + move_pc) % MEM_SIZE;
 			return ;
+		}
 	rg = arn->mem[(process->pc + 1) % MEM_SIZE];
 	if (i == 0)
 	{
