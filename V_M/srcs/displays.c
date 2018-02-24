@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 13:56:48 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/21 17:28:41 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/24 14:14:54 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	print_registry(char **regs)
 	i = 0;
 	while (i < 16)
 	{
-		ft_printf("Registry %d: %.2hhx %.2hhx %.2hhx %2.hhx\n", i,\
+		ft_printf("Registry %d: %.2hhx %.2hhx %.2hhx %2.hhx\n", i + 1,\
 				regs[i][0], regs[i][1], regs[i][2], regs[i][3]);
 		i++;
 	}
@@ -72,7 +72,7 @@ void	print_process(t_process **begin_list)
 	while (lst)
 	{
 		ft_printf("process number %d : \n", i++);
-		ft_printf("playernumber = %d\n", x_char_to_int(lst->regs[0], REG_SIZE));
+		print_registry(lst->regs);
 		ft_printf("opc = %.2x\ncycle_to_wait = %d\npc = %d\ncarry = %d\n\n",\
 				lst->opc, lst->cycle_to_wait, lst->pc, lst->carry);
 		lst = lst->next;
