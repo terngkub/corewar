@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/23 22:17:31 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/24 14:12:11 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,27 @@ void	do_instruction(t_arena *arn, t_process *process)
 	   */
 }
 
+void	print_proc_test(t_process *process, int i, t_arena *arn)
+{
+	int			j;
+
+	if (i == 6 /*&& process->opc != 0*/)
+	{
+		ft_printf("cycle %4d\tcarry %d\t pc %d\t%d\t", arn->nb_cycle, process->carry, process->pc, process->opc);
+		j = 0;
+		while (j < 10)
+		{
+			ft_printf(" %02hhx", arn->mem[(process->pc + j) % MEM_SIZE]);
+			j++;
+		}
+		ft_printf("\n");
+	}
+}
+
 void	run_processes(t_arena *arn)
 {
 	t_process	*process;
 	int			i;
-	int			j;
 	int			inst_cycle;
 
 	process = arn->process;
@@ -81,27 +97,9 @@ void	run_processes(t_arena *arn)
 
 	while (process)
 	{
-		/*
-		   if (arn->nb_cycle == 6334)
-		   {
-		   print_registry(process->regs);
-		   ft_printf("\n");
-		   }
-		   */
 		if (process->cycle_to_wait == arn->nb_cycle)
 		{
-			//if (i == 6 && process->opc >= 2 && process->opc <= 14 && process->opc != 9 && process->opc != 11)
-			if (i == 6 /*&& process->opc != 0*/)
-			{
-				ft_printf("cycle %4d\tcarry %d\t pc %d\t%d\t", arn->nb_cycle, process->carry, process->pc, process->opc);
-				j = 0;
-				while (j < 10)
-				{
-					ft_printf(" %02hhx", arn->mem[(process->pc + j) % MEM_SIZE]);
-					j++;
-				}
-				ft_printf("\n");
-			}
+//			print_proc_test(process, i, arn);
 			do_instruction(arn, process);
 		}
 		process = process->next;
@@ -255,7 +253,7 @@ void		run_cycle(t_arena *arn, int dump, int display)
 						&next_cycle_to_die, &cycle_to_die);
 			run_processes(arn);
 			//	ft_printf("cycle = %d nb proc = %d next to die = %d cycle to die = %d nb live done %d\n", arn->nb_cycle, proc, next_cycle_to_die, cycle_to_die, arn->lives);
-			print_test(*arn);
+			//			print_test(*arn);
 			if (dump == arn->nb_cycle)
 				return (dump_mem(*arn));
 			arn->nb_cycle++;
