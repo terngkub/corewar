@@ -1,29 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_player.c                                      :+:      :+:    :+:   */
+/*   check_get_registry.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/15 14:28:32 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/19 21:10:04 by arobion          ###   ########.fr       */
+/*   Created: 2018/02/25 15:45:53 by nkamolba          #+#    #+#             */
+/*   Updated: 2018/02/25 15:48:57 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-t_player	*find_player(t_arena *arn, int number)
+int		check_get_registry(t_process *process, char type[3], int *param,
+		int dest)
 {
-	int		player_no;
+	int		reg;
 	int		i;
 
+	reg = 0;
 	i = 0;
-	while (i < arn->nb_players)
+	while (i < process->op->param_num)
 	{
-		player_no = arn->players[i].number;
-		if (player_no == number)
-			return (&arn->players[i]);
+		if (type[i++] == T_REG)
+			reg++;
+	}
+	if (dest)
+		reg--;
+	i = 0;
+	while (i < process->op->param_num)
+	{
+		if (type[i] == T_REG)
+		{
+			if (param[i] < 1 || param[i] > REG_NUMBER)
+				return (0);
+			if (reg-- > 0)
+				param[i] = hex_to_dec(process->regs[param[i] - 1], REG_SIZE);
+		}
 		i++;
 	}
-	return (NULL);
+	return (1);
 }

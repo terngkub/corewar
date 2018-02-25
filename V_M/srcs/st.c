@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 11:11:47 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/23 12:01:38 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/25 15:40:58 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void		load_in_mem_id(t_arena *arn, t_process *process, int rg, int id)
 	process->pc = (process->pc + 2 + IND_SIZE) % MEM_SIZE;
 }
 
-void		st2(t_arena *arn, t_process *process)
+void		st(t_arena *arn, t_process *process)
 {
 	int		i;
 	int		rg;

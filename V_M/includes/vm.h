@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/22 15:43:32 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/25 15:42:13 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int						write_usage(void);
 int						hex_to_dec(char *str, int len);
 int						x_char_to_int(char *str, int len);
 void					int_to_x_char(char *str, int len, int value);
-t_player				*find_player(t_arena *arn, int number);
+//t_player				*find_player(t_arena *arn, int number);
 
 t_op					*get_op(int opc);
 
@@ -134,7 +134,6 @@ void					ft_fork(t_arena *arn, t_process *process, int l);
 void					long_fork(t_arena *arn, t_process *process);
 void					aff(t_arena *arn, t_process *process);
 
-void					st2(t_arena *arn, t_process *process);
 int						ft_visu(t_arena *arn);
 int						nb_of_process(t_process **begin_list);
 void					run_processes(t_arena *arn);
