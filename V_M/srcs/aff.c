@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 19:57:25 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/24 14:12:36 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/25 11:41:46 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,11 @@ void	aff(t_arena *arn, t_process *process)
 	{
 		to_aff = x_char_to_int(process->regs[pos], REG_SIZE);
 		to_aff %= 256;
+		/*
 		write(1, "Aff: ", 5);
 		write(1, &to_aff, 1);
 		write(1, "\n", 1);
+		*/
 		process->pc = (process->pc + 3) % MEM_SIZE;
 		if (to_aff == 0)
 			process->carry = 1;

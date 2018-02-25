@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/24 17:33:34 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/25 13:31:39 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		print_test(t_arena arn)
 {
-	if (arn.nb_cycle == 6003)
+	if (arn.nb_cycle == 8010)
 	{
 		ft_printf("\n\n YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYy\n");
 
@@ -73,7 +73,10 @@ void	print_proc_test(t_process *process, int i, t_arena *arn)
 {
 	int			j;
 
-	if (i == 6 /*&& process->opc != 0*/)
+	i += 0;
+	j = 0;
+	(void)arn;
+	if (process->opc != 0 && process->op)
 	{
 		ft_printf("cycle %4d\tcarry %d\t pc %d\t%d\t", arn->nb_cycle, process->carry, process->pc, process->opc);
 		j = 0;
@@ -83,6 +86,7 @@ void	print_proc_test(t_process *process, int i, t_arena *arn)
 			j++;
 		}
 		ft_printf("\n");
+		//ft_printf("P %s\n", process->op->instruction);
 	}
 }
 
@@ -97,14 +101,23 @@ void	run_processes(t_arena *arn)
 
 	while (process)
 	{
+		if (!process->op)
+		{
+			process->opc = arn->mem[process->pc];
+			process->op = get_op(process->opc);
+			inst_cycle = process->op ? process->op->cycle : 1;
+			process->cycle_to_wait = arn->nb_cycle + inst_cycle - 1;
+		}
 		if (process->cycle_to_wait == arn->nb_cycle)
 		{
-//			print_proc_test(process, i, arn);
+			//print_proc_test(process, i, arn);
 			do_instruction(arn, process);
+			process->op = NULL;
 		}
 		process = process->next;
 		i++;
 	}
+	/*
 	process = arn->process;
 	while (process)
 	{
@@ -117,6 +130,7 @@ void	run_processes(t_arena *arn)
 		}
 		process = process->next;
 	}
+	*/
 }
 
 int		nb_of_process(t_process **begin_list)
@@ -253,7 +267,7 @@ void		run_cycle(t_arena *arn, int dump, int display)
 						&next_cycle_to_die, &cycle_to_die);
 			run_processes(arn);
 //			ft_printf("cycle = %d nb proc = %d next to die = %d cycle to die = %d nb live done %d\n", arn->nb_cycle, proc, next_cycle_to_die, cycle_to_die, arn->lives);
-		//	print_test(*arn);
+			//print_test(*arn);
 			if (dump == arn->nb_cycle)
 				return (dump_mem(*arn));
 			arn->nb_cycle++;

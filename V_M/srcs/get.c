@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 16:57:49 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/21 14:50:49 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/25 13:30:24 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,13 @@ int	handle_idx(int value)
 	else
 		u_value = MEM_SIZE - ((cut_point - u_value) % IDX_MOD);
 	return (u_value);
+	/*
+	if (value > 0)
+		value = value % IDX_MOD;
+	else
+		value = MEM_SIZE - ((value * -1) % IDX_MOD);
+	return (value);
+	*/
 }
 
 int		check_get_registry(t_process *process, char type[3], int *param, int dest)

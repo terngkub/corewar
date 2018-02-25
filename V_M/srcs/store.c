@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 15:55:23 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/24 17:34:27 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/25 13:31:52 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,20 +89,20 @@ void	sti(t_arena *arn, t_process *process)
 		}
 		else if (type[i] == T_DIR)
 		{
-			param[i] = get_direct_2(arn, process, position, 0);
+			param[i] = get_direct_2(arn, process, position, 1);
 			position += 2;
 		}
 		else if (type[i] == T_IND)
 		{
-			param[i] = get_indirect(arn, process, position, 0);
+			param[i] = get_indirect(arn, process, position, 1);
 			position += 2;
 		}
 		i++;
 	}
 	if (check_get_registry(process, type, param, 0))
 	{
-		//index = (param[1] + param[2]) % 65536;
-		index = handle_idx(param[1] + param[2]);
+		index = (param[1] + param[2]) % 512;
+		//index = handle_idx(param[1] + param[2]);
 		set_in_mem(arn, (process->pc + index) % MEM_SIZE, param[0]);
 	}
 	process->pc = (process->pc + position) % MEM_SIZE;

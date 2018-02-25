@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:57:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/22 18:32:12 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/25 13:30:00 by nkamolba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,17 +126,17 @@ void	ldi(t_arena *arn, t_process *process, int l)
 	}
 	else if (type[0] == T_DIR)
 	{
-		param[0] = get_direct_2(arn, process, position, l);
+		param[0] = get_direct_2(arn, process, position, 1);
 		position += 2;
 	}
 	else if (type[0] == T_IND)
 	{
-		param[0] = get_indirect(arn, process, position, l);
+		param[0] = get_indirect(arn, process, position, 1);
 		position += 2;
 	}
 	if (type[1] == T_DIR)
 	{
-		param[1] = get_direct_2(arn, process, position, l);
+		param[1] = get_direct_2(arn, process, position, 1);
 		position += 2;
 	}
 	else if (type[1] == T_REG)
@@ -148,7 +148,9 @@ void	ldi(t_arena *arn, t_process *process, int l)
 	position += 1;
 	if (check_get_registry(process, type, param, 1))
 	{
-		index = (param[0] + param[1]) % 65536;
+		index = param[0] + param[1];
+		if (l == 0)
+			index %= IDX_MOD;
 		value = read_mem(arn, (process->pc + index) % MEM_SIZE, DIR_SIZE);
 		modif_carry(process, type, value);
 		set_registry(process->regs[param[2] - 1], value);
