@@ -6,7 +6,7 @@
 #    By: pnardozi <pnardozi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/19 14:34:26 by pnardozi          #+#    #+#              #
-#    Updated: 2018/02/25 15:46:49 by nkamolba         ###   ########.fr        #
+#    Updated: 2018/02/26 12:23:38 by arobion          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,8 +42,8 @@ COREWAR_SRCS_NAME = main.c \
 					ld.c \
 					lld.c \
 					ldi.c \
-					store.c \
 					st.c \
+					sti.c \
 					add.c \
 					sub.c \
 					bitwise.c \
