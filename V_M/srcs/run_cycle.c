@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/25 15:32:29 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/26 16:01:58 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		print_test(t_arena arn)
 {
-	if (arn.nb_cycle == 8010)
+	if (arn.nb_cycle == 8000)
 	{
 		ft_printf("\n\n YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYy\n");
 
@@ -267,7 +267,7 @@ void		run_cycle(t_arena *arn, int dump, int display)
 						&next_cycle_to_die, &cycle_to_die);
 			run_processes(arn);
 //			ft_printf("cycle = %d nb proc = %d next to die = %d cycle to die = %d nb live done %d\n", arn->nb_cycle, proc, next_cycle_to_die, cycle_to_die, arn->lives);
-			//print_test(*arn);
+			print_test(*arn);
 			if (dump == arn->nb_cycle)
 				return (dump_mem(*arn));
 			arn->nb_cycle++;

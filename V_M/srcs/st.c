@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 11:11:47 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/25 15:40:58 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/26 16:03:06 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void		load_in_mem_id(t_arena *arn, t_process *process, int rg, int id)
 	while (i < REG_SIZE)
 	{
 		arn->mem[(id + i) % MEM_SIZE] = process->regs[rg - 1][i];
+		arn->color[(id + i) % MEM_SIZE] = process->color;
 		i++;
 	}
 	process->pc = (process->pc + 2 + IND_SIZE) % MEM_SIZE;

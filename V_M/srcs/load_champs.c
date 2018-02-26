@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:35:23 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/19 17:00:04 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/26 15:51:14 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		print_error_max_size(int p, int save, char *champ)
 	return (0);
 }
 
-int		load_one_champ(t_arena arn, char *champ, int p, int fd)
+int		load_one_champ(t_arena arn, char *champ, int p, int fd, int j)
 {
 	char	*l;
 	int		i;
@@ -35,6 +35,7 @@ int		load_one_champ(t_arena arn, char *champ, int p, int fd)
 		if (i > PROG_NAME_LENGTH + COMMENT_LENGTH + 16)
 		{
 			arn.mem[p] = l[0];
+			arn.color[p] = j + 1;
 			p++;
 		}
 	}
@@ -66,8 +67,7 @@ int		load_champs(t_arena arn, char **argv, int nb_players, int i, int argc)
 	{
 		check_number(argc, argv, &index);
 		fd = open(argv[index], O_RDONLY);
-		if (!(load_one_champ(arn, argv[index], start_of_input\
-						(j, nb_players), fd)))
+		if (!(load_one_champ(arn, argv[index], start_of_input(j, nb_players), fd, j)))
 			return (0);
 		close(fd);
 		j++;

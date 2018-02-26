@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 13:56:48 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/24 14:14:54 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/26 16:02:21 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	print_process(t_process **begin_list)
 	while (lst)
 	{
 		ft_printf("process number %d : \n", i++);
+		ft_printf("color = %d\n", lst->color);
 		print_registry(lst->regs);
 		ft_printf("opc = %.2x\ncycle_to_wait = %d\npc = %d\ncarry = %d\n\n",\
 				lst->opc, lst->cycle_to_wait, lst->pc, lst->carry);
@@ -98,6 +99,7 @@ void	print_arena(t_arena arn)
 {
 	ft_printf("nb_cycle = %d\nnb_checks = %d\nnb_players = %d\n\n",\
 			arn.nb_cycle, arn.nb_checks, arn.nb_players);
+	print_mem(arn.color, MEM_SIZE);
 	print_players(arn.players, arn);
 	print_process(&(arn.process));
 }

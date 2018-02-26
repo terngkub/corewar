@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:18:27 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/21 14:05:25 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/26 15:35:58 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,15 @@ int		opc_nb_cycle(int opc)
 	return (opc_nb_cycle2(opc));
 }
 
+void	ft_init_color(char *str, int size)
+{
+	int		i;
+
+	i = 0;
+	while (i < size)
+		str[i++] = 1;
+}
+
 int		main(int argc, char **argv)
 {
 	t_arena			arn;
@@ -69,6 +78,9 @@ int		main(int argc, char **argv)
 		return (0);
 	if (!(arn.mem = (char*)malloc(sizeof(char) * MEM_SIZE)))
 		exit(0);
+	if (!(arn.color = (char*)malloc(sizeof(char) * MEM_SIZE)))
+		exit(0);
+	ft_init_color(arn.color, MEM_SIZE);
 	ft_bzero(arn.mem, MEM_SIZE);
 	if (!(load_champs(arn, argv, nb_players, i, argc)))
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 16:22:31 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/24 17:33:02 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/26 15:37:33 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_process	*cpy_process(t_process *curr, t_arena *arn, int new_pc)
 	lst->cycle_to_wait = arn->nb_cycle + opc_nb_cycle(lst->opc);
 	lst->pc = new_pc;
 	lst->carry = curr->carry;
+	lst->color = curr->color;
 	if (!(lst->regs = (char**)malloc(sizeof(char*) * (REG_NUMBER))))
 		exit(0);
 	while (i < REG_NUMBER)

@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/25 15:42:13 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/02/26 16:00:50 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct			s_process
 	int					cycle_to_wait;
 	int					pc;
 	int					carry;
+	int					color;
 	struct s_op			*op;
 	struct s_process	*next;
 }						t_process;
@@ -45,6 +46,7 @@ typedef struct			s_player
 typedef struct			s_arena
 {
 	char				*mem;
+	char				*color;
 	int					lives;
 	int					winner;
 	int					nb_cycle;
@@ -118,7 +120,7 @@ int						get_direct_4(t_arena *arn, t_process *process, int pos);
 int						get_indirect(t_arena *arn, t_process *process, int pos, int l);
 
 void					set_registry(char *registry, int value);
-void					set_mem(t_arena *arn, int index, int value);
+void					set_mem(t_arena *arn, int index, int value, int color);
 
 void					live(t_arena *arena, t_process *process);
 void					ld(t_arena *arn, t_process *process, int l);

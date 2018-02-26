@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:30:35 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/23 11:50:32 by pnardozi         ###   ########.fr       */
+/*   Updated: 2018/02/26 16:23:56 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,31 @@ void	put_info(t_visu v, t_arena *arn)
 	wrefresh(v.info);
 }
 
+void	set_color_process(char *color, t_process *begin_list)
+{
+	t_process	*lst;
+
+	lst = begin_list;
+	while (lst)
+	{
+		color[lst->pc] *= -1;
+		lst = lst->next;
+	}
+}
+
+void	refresh_color_process(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		if (str[i] < 0)
+			str[i] *= -1;
+		i++;
+	}
+}
+
 void	game(t_visu *v, t_arena *arn)
 {
 	//	a sup
@@ -167,6 +192,7 @@ void	game(t_visu *v, t_arena *arn)
 	nodelay(stdscr, 1);
 	while ((v->proc = nb_of_process(&(arn->process))))
 	{
+		set_color_process(arn->color, arn->process);
 		//pause
 		if (getch() == 32)
 			while (getch() != 32);
@@ -177,6 +203,7 @@ void	game(t_visu *v, t_arena *arn)
 		arn->nb_cycle++;
 		put_arena(*v, (const char*)arn->mem, (const char*)&color);
 		put_info(*v, arn);
+		refresh_color_process(arn->color);
 	}
 }
 
