@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:32:42 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/27 18:38:43 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/27 19:20:21 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,26 @@ void	check_dump2(char **argv, char **flag, int *i, int nb, unsigned int *dump, s
 		free(*flag);
 }
 
+void	check_dump3(char **argv, char **flag, int *i, int nb, unsigned int *dump, int argc)
+{
+	*flag = ft_strdup(argv[*i]);
+	if (ft_strcmp(*flag, "-dump") == 0)
+	{
+		if (argc >= 3)
+		{
+			free(*flag);
+			*i += 1;
+			*flag = ft_strdup(argv[*i]);
+			nb = ft_long_atoi(*flag);
+			*dump = nb % 4294967296;
+			*i += 1;
+			free(*flag);
+		}
+	}
+	else
+		free(*flag);
+}
+
 int		check_dump(char **argv, int argc, unsigned int *dump, int *i)
 {
 	size_t		len;
@@ -81,24 +101,26 @@ int		check_dump(char **argv, int argc, unsigned int *dump, int *i)
 	if (len > 5)
 		check_dump2(argv, &flag, i, nb, dump, len);
 	else if (len == 5)
+		check_dump3(argv, &flag, i, nb, dump, argc);
+	return (1);
+}
+
+int		check_number2(char **argv, char **flag, int *j, long long nb, size_t len)
+{
+	*flag = ft_strndup(argv[*j], 0, 2);
+	if (ft_strcmp(*flag, "-n ") == 0)
 	{
-		flag = ft_strdup(argv[*i]);
-		if (ft_strcmp(flag, "-dump") == 0)
-		{
-			if (argc >= 3)
-			{
-				free(flag);
-				*i += 1;
-				flag = ft_strdup(argv[*i]);
-				nb = ft_long_atoi(flag);
-				*dump = nb % 4294967296;
-				*i += 1;
-				free(flag);
-			}
-		}
-		else
-			free(flag);
+		free(*flag);
+		*flag = ft_strndup(argv[*j], 3, len);
+		ft_printf("%s\n", *flag);
+		nb = ft_long_atoi(*flag);
+		*j += 1;
+		free(*flag);
+		if (nb <= 0 || nb > INT_MAX)
+			return (0);
 	}
+	else
+		free(*flag);
 	return (1);
 }
 
@@ -108,23 +130,12 @@ int		check_number(int argc, char **argv, int *j)
 	char		*flag;
 	long long	nb;
 
+	nb = 0;
 	len = ft_strlen(argv[*j]);
 	if (len > 2)
 	{
-		flag = ft_strndup(argv[*j], 0, 2);
-		if (ft_strcmp(flag, "-n ") == 0)
-		{
-			free(flag);
-			flag = ft_strndup(argv[*j], 3, len);
-			ft_printf("%s\n", flag);
-			nb = ft_long_atoi(flag);
-			*j += 1;
-			free(flag);
-			if (nb <= 0 || nb > INT_MAX)
-				return (0);
-		}
-		else
-			free(flag);
+		if (!(check_number2(argv, &flag, j, nb, len)))
+			return (0);
 	}
 	else if (len == 2)
 	{
