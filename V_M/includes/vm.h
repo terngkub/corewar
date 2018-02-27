@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/27 17:43:15 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/02/27 18:04:25 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,13 @@ typedef struct			s_norme
 {
 	int				i;
 	int				j;
+	int				fd;
 	int				argc;
 	int				start;
 	unsigned int	dump;
 	int				display;
+	size_t			len;
+	long long		nb;
 }						t_norme;
 
 typedef struct			s_process
@@ -91,7 +94,7 @@ typedef struct			s_visu
 
 int						check_number(int argc, char **argv, int *j);
 int						parse_champs(int argc, char **argv, t_norme *opt);
-int						load_champs(t_arena arn, char **argv, int nb_players, int i, int argc);
+int						load_champs(t_arena arn, char **argv, int nb_players, t_norme opt);
 int						start_of_input(int i, int nb_players);
 int						opc_nb_cycle(int opc);
 void					ft_fork_front(t_process **begin_list, t_process *curr, t_arena *arn, int new_pc);
@@ -100,7 +103,7 @@ void					cpy_regs(t_process *curr, t_process *lst);
 int						modif_pc(unsigned char ocp);
 int						valid_ocp(unsigned char ocp);
 
-int						init_arena(t_arena *arn, int nb_players, char **argv, int i, int argc);
+int						init_arena(t_arena *arn, int nb_players, char **argv, t_norme opt);
 int						init_players(t_player *players, int nb_players, char **argv, int i);
 void					init_process(t_arena arn, t_process **begin_list);
 
