@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/27 16:28:37 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/27 17:43:15 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define VM_H
 
 # include "../../includes/op.h"
-# include "libft.h"	
+# include "../../libft/includes/libft.h"	
 # include "../../libft/includes/get_next_line.h"
-# include "ft_printf.h"
+# include "../../libft/includes/ft_printf.h"
 # include <ncurses.h>
 
 # define INT_MAX 2147483648

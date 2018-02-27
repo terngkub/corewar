@@ -3,99 +3,64 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pnardozi <pnardozi@student.42.fr>          +#+  +:+       +#+         #
+#    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/12/19 14:34:26 by pnardozi          #+#    #+#              #
-#    Updated: 2018/02/27 16:19:49 by arobion          ###   ########.fr        #
+#    Created: 2018/02/27 17:05:52 by fbabin            #+#    #+#              #
+#    Updated: 2018/02/27 17:44:21 by fbabin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc -fsanitize=address
+COREWAR			= corewar
 
-CFLAGS = -Wall -Werror -Wextra -g3
+CC				= gcc
+CFLAGS			= -Wall -Werror -Wextra
 
-COREWAR = corewar
+_SRCS			=	main.c op.c visu.c displays.c parse_champs.c load_champs.c \
+					init_arena.c init_players.c init_process.c run_cycle.c \
+					freeall.c hex_to_dec.c modif_pc.c check_param_type.c \
+					check_get_registry.c get.c set.c live.c ld.c lld.c \
+					ldi.c st.c sti.c add.c sub.c bitwise.c zjmp.c fork.c \
+					long_fork.c aff.c \
 
-LIBFT_INCLUDES_PATH = ../libft/includes/
-PRINTF_INCLUDES_PATH = ./libft/includes/
+_LIBFT			=	libft.a
+HEADER_DIR		=	includes
+HEADER			=	$(HEADER_DIR)/vm.h
 
-COREWAR_SRCS_PATH = ./srcs/
-COREWAR_INCLUDES_PATH = ./includes/
-COREWAR_OBJ_PATH = ./obj/
+SRCS_DIR		=	srcs
+LIB_DIR			=	../libft
+SRCS			=	$(addprefix $(SRCS_DIR)/, $(_SRCS))
+LIBFT			=	$(addprefix $(LIB_DIR)/, $(_LIBFT))
+OBJS			=	$(SRCS:.c=.o)
 
-COREWAR_SRCS_NAME = main.c \
-					op.c \
-					visu.c \
-					displays.c \
-					parse_champs.c \
-					load_champs.c \
-					init_arena.c \
-					init_players.c \
-					init_process.c \
-					run_cycle.c \
-					freeall.c \
-					hex_to_dec.c \
-					modif_pc.c \
-					check_param_type.c \
-					check_get_registry.c \
-					get.c \
-					set.c \
-					live.c \
-					ld.c \
-					lld.c \
-					ldi.c \
-					st.c \
-					sti.c \
-					add.c \
-					sub.c \
-					bitwise.c \
-					zjmp.c \
-					fork.c \
-					long_fork.c \
-					aff.c \
+#COLORS
+_CYAN=\x1b[36m
+_GREEN=\x1b[32m
+_YELLOW=\x1b[33m
+_END=\x1b[0m
 
-COREWAR_OBJ_NAME =$(COREWAR_SRCS_NAME:.c=.o)
+all: $(COREWAR)
 
-LIBFT_INC = $(addprefix -I,$(LIBFT_INCLUDES_PATH))
-PRINTF_INC = $(addprefix -I,$(PRINTF_INCLUDES_PATH))
+$(COREWAR): $(HEADER) $(LIBFT) $(OBJS)
+		@$(CC) $(CFLAGS) -o $(COREWAR) $(OBJS) -L$(LIB_DIR) -lft -lncurses -I $(HEADER_DIR) -I ../includes
+		@echo "$(COREWAR) : $(_GREEN)Done$(_END)"
 
-COREWAR_SRCS = $(addprefix $(COREWAR_SRCS_PATH),$(COREWAR_SRCS_NAME))
-COREWAR_OBJ = $(addprefix $(COREWAR_OBJ_PATH),$(COREWAR_OBJ_NAME))
-COREWAR_INC = $(addprefix -I,$(COREWAR_INCLUDES_PATH))
+$(LIBFT):
+		@make -C $(LIB_DIR)
 
-LIB_PATH = ../libft/
-LIB_NAME = libft.a
-LIB = $(addprefix $(LIB_PATH),$(LIB_NAME))
-
-RED = \033[31m
-GREEN = \033[32m
-END = \033[0m
-
-all: $(LIB_NAME) $(COREWAR)
-
-$(LIB_NAME):
-	make -C $(LIB_PATH)
-
-$(COREWAR): $(COREWAR_OBJ)
-	$(CC) $(CFLAGS) -o $(COREWAR) $(COREWAR_OBJ) $(LIB) -L. -lncurses
-	@echo "$(GREEN)COREWAR READY$(END)"
-
-$(COREWAR_OBJ_PATH)%.o: $(COREWAR_SRCS_PATH)%.c
-	@mkdir -p $(COREWAR_OBJ_PATH)
-	$(CC) -c $(CFLAGS) $(COREWAR_INC) $(LIBFT_INC) $(PRINTF_INC) -o $@ -c $<
+%.o : %.c
+		@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER_DIR)
 
 clean:
-	make clean -C $(LIB_PATH)
-	/bin/rm -rf $(COREWAR_OBJ_PATH)
-	@echo "$(RED)COREWAR OBJECTS REMOVE$(END)"
+		@make fclean -C $(LIB_DIR)
+		@/bin/rm -f $(OBJS)
+		@echo "$(COREWAR) clean : $(_GREEN)Done$(_END)"
 
 fclean: clean
-	make fclean -C $(LIB_PATH)
-	/bin/rm -rf $(COREWAR)
-	@echo "$(RED)COREWAR REMOVE$(END)"
+		@/bin/rm -f $(COREWAR)
+		@echo "$(COREWAR) fclean : $(_GREEN)Done$(_END)"
 
-re: 
-	make fclean
-	make
+re:
+		@make fclean
+		@make
 
 .PHONY: all clean fclean re
