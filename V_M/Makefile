@@ -6,11 +6,11 @@
 #    By: pnardozi <pnardozi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/19 14:34:26 by pnardozi          #+#    #+#              #
-#    Updated: 2018/02/26 12:23:38 by arobion          ###   ########.fr        #
+#    Updated: 2018/02/27 15:05:34 by arobion          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc -fsanitize=address
+CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra -g3
 
@@ -33,6 +33,7 @@ COREWAR_SRCS_NAME = main.c \
 					init_players.c \
 					init_process.c \
 					run_cycle.c \
+					freeall.c \
 					hex_to_dec.c \
 					check_param_type.c \
 					check_get_registry.c \

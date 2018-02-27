@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 15:55:23 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/26 16:00:35 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/27 14:46:29 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void		sti(t_arena *arn, t_process *process)
 		if (check_get_registry(process, type, param, 0))
 		{
 			index = (param[1] + param[2]) % IDX_MOD;
-			set_mem(arn, (process->pc + index) % MEM_SIZE, param[0], process->color);
+			set_mem(arn, (process->pc + index) % MEM_SIZE, param[0],\
+					process->color);
 		}
 	}
 	process->pc = (process->pc + get_fail_pos(process, type)) % MEM_SIZE;

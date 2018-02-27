@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/26 16:00:50 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/27 15:11:52 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int						init_players(t_player *players, int nb_players, char **argv, int i);
 void					init_process(t_arena arn, t_process **begin_list);
 
 void					run_cycle(t_arena *arn, int dump, int display);
+void					freeall(t_arena *arn);
+void					free_one_process(t_process **process);
 
 void					print_registry(char **regs);
 void					print_mem(char *mem, int size);
@@ -103,7 +105,6 @@ int						write_usage(void);
 int						hex_to_dec(char *str, int len);
 int						x_char_to_int(char *str, int len);
 void					int_to_x_char(char *str, int len, int value);
-//t_player				*find_player(t_arena *arn, int number);
 
 t_op					*get_op(int opc);
 

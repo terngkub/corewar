@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/26 16:01:58 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/27 15:19:05 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ void	kill_dead_processes(t_process **begin_list)
 	{
 		tmp = *begin_list;
 		*begin_list = (*begin_list)->next;
+		free_one_process(&tmp);
 		free(tmp);
 	}
 	lst = *begin_list;
@@ -194,6 +195,7 @@ void	kill_dead_processes(t_process **begin_list)
 		{
 			tmp = lst->next;
 			lst->next = tmp->next;
+			free_one_process(&tmp);
 			free(tmp);
 		}
 		else if (lst->next)
@@ -267,10 +269,11 @@ void		run_cycle(t_arena *arn, int dump, int display)
 						&next_cycle_to_die, &cycle_to_die);
 			run_processes(arn);
 //			ft_printf("cycle = %d nb proc = %d next to die = %d cycle to die = %d nb live done %d\n", arn->nb_cycle, proc, next_cycle_to_die, cycle_to_die, arn->lives);
-			print_test(*arn);
+			//print_test(*arn);
 			if (dump == arn->nb_cycle)
 				return (dump_mem(*arn));
 			arn->nb_cycle++;
 		}
 	find_winner(arn);
+	freeall(arn);
 }
