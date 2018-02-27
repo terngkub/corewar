@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:32:42 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/27 17:50:13 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/27 18:38:43 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,17 @@ int		print_no_file(char *str)
 void	check_dump2(char **argv, char **flag, int *i, int nb, unsigned int *dump, size_t len)
 {
 	*flag = ft_strndup(argv[*i], 0, 4);
-		if (ft_strcmp(*flag, "-dump") == 0)
-		{
-			free(*flag);
-			*flag = ft_strndup(argv[*i], 5, len);
-			nb = ft_long_atoi(*flag);
-			*dump = nb % 4294967296;
-			*i += 1;
-			free(*flag);
-		}
-		else
-			free(*flag);
+	if (ft_strcmp(*flag, "-dump") == 0)
+	{
+		free(*flag);
+		*flag = ft_strndup(argv[*i], 5, len);
+		nb = ft_long_atoi(*flag);
+		*dump = nb % 4294967296;
+		*i += 1;
+		free(*flag);
+	}
+	else
+		free(*flag);
 }
 
 int		check_dump(char **argv, int argc, unsigned int *dump, int *i)
@@ -108,7 +108,7 @@ int		check_number(int argc, char **argv, int *j)
 	char		*flag;
 	long long	nb;
 
-	len	= ft_strlen(argv[*j]);
+	len = ft_strlen(argv[*j]);
 	if (len > 2)
 	{
 		flag = ft_strndup(argv[*j], 0, 2);
@@ -171,24 +171,8 @@ int		check_display(char **argv, int argc, int *display, int *i)
 	return (1);
 }
 
-int		parse_champs(int argc, char **argv, t_norme *opt)
+int		parse_champs2(char **argv, int argc, int j, int *nb_player)
 {
-	int		j;
-	int		nb_player;
-
-	nb_player = 0;
-	if (argc <= 1)
-		return (write_usage());
-	if (!(check_dump(argv, argc, &(opt->dump), &(opt->i))) || opt->i >= argc)
-		return (write_usage());
-	if (!(check_display(argv, argc, &(opt->display), &(opt->i)) || opt->i >= argc))
-		return (write_usage());
-	if (opt->display == 1)
-		if (!(check_dump(argv, argc, &(opt->dump), &(opt->i))) || opt->i >= argc)
-			return (write_usage());
-	if (opt->display == 1 && (int)(opt->dump) != -1)
-		return (write_usage());
-	j = opt->i;
 	while (j < argc)
 	{
 		if (!(check_number(argc, argv, &j)) || j >= argc)
@@ -202,13 +186,38 @@ int		parse_champs(int argc, char **argv, t_norme *opt)
 			return (0);
 		}
 		else
-			nb_player++;
-		if (nb_player > MAX_PLAYERS)
+			(*nb_player)++;
+		if (*nb_player > MAX_PLAYERS)
 		{
 			ft_printf("Too many champions\n");
 			return (0);
 		}
 		j++;
 	}
+	return (1);
+}
+
+int		parse_champs(int argc, char **argv, t_norme *opt)
+{
+	int		j;
+	int		nb_player;
+
+	nb_player = 0;
+	if (argc <= 1)
+		return (write_usage());
+	if (!(check_dump(argv, argc, &(opt->dump), &(opt->i))) || opt->i >= argc)
+		return (write_usage());
+	if (!(check_display(argv, argc, &(opt->display), &(opt->i))\
+				|| opt->i >= argc))
+		return (write_usage());
+	if (opt->display == 1)
+		if (!(check_dump(argv, argc, &(opt->dump), &(opt->i)))\
+				|| opt->i >= argc)
+			return (write_usage());
+	if (opt->display == 1 && (int)(opt->dump) != -1)
+		return (write_usage());
+	j = opt->i;
+	if (!(parse_champs2(argv, argc, j, &nb_player)))
+		return (0);
 	return (nb_player);
 }
