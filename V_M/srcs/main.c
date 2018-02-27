@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:18:27 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/26 15:35:58 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/27 16:28:47 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,13 @@ void	ft_init_color(char *str, int size)
 int		main(int argc, char **argv)
 {
 	t_arena			arn;
+	t_norme			opt;
 	int				nb_players;
-	int				i;
-	unsigned int	dump;
-	int				display;
 
-	i = 1;
-	dump = -1;
-	display = 0;
-	if (!(nb_players = parse_champs(argc, argv, &i, &dump, &display)))
+	opt.i = 1;
+	opt.dump = -1;
+	opt.display = 0;
+	if (!(nb_players = parse_champs(argc, argv, &opt)))
 		return (0);
 	if (!(arn.mem = (char*)malloc(sizeof(char) * MEM_SIZE)))
 		exit(0);
@@ -82,13 +80,10 @@ int		main(int argc, char **argv)
 		exit(0);
 	ft_init_color(arn.color, MEM_SIZE);
 	ft_bzero(arn.mem, MEM_SIZE);
-	if (!(load_champs(arn, argv, nb_players, i, argc)))
+	if (!(load_champs(arn, argv, nb_players, opt.i, argc)))
 		return (0);
-	if (!(init_arena(&arn, nb_players, argv, i, argc)))
+	if (!(init_arena(&arn, nb_players, argv, opt.i, argc)))
 		return (write_usage());
-//	print_arena(arn);
-	run_cycle(&arn, dump, display);
-//	print_arena(arn);
-//	print_mem(arn.mem, MEM_SIZE);
+	run_cycle(&arn, opt.dump, opt.display);
 	return (0);
 }

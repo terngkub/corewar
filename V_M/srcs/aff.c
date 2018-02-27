@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 19:57:25 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/26 12:26:16 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/27 16:04:13 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	aff(t_arena *arn, t_process *process)
 
 	move_pc = 0;
 	pos = arn->mem[(process->pc + 2) % MEM_SIZE] - 1;
-	if (verif_ocpar_aff(process, arn, &move_pc) == 1 && (pos < REG_NUMBER && pos >= 0))
+	if (verif_ocpar_aff(process, arn, &move_pc) == 1 &&\
+			(pos < REG_NUMBER && pos >= 0))
 	{
 		to_aff = x_char_to_int(process->regs[pos], REG_SIZE);
 		to_aff %= 256;

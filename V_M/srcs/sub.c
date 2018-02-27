@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 21:23:14 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/27 14:45:36 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/27 16:35:28 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int		change_move_pc(int val)
 	return (0);
 }
 
-static int		modif_pc(unsigned char ocp)
+static int		modif_pc_sub(unsigned char ocp)
 {
 	int				ret;
 	unsigned char	comp;
@@ -68,25 +68,25 @@ int				check_sub_param(t_arena *arn, t_process *process, int *move_pc)
 {
 	if (check_ocp_sub(arn->mem[process->pc]) == 0)
 	{
-		*move_pc = modif_pc(arn->mem[process->pc]);
+		*move_pc = modif_pc_sub(arn->mem[process->pc]);
 		return (0);
 	}
 	if (arn->mem[(process->pc + 1) % MEM_SIZE] > REG_NUMBER ||\
 			arn->mem[(process->pc + 1) % MEM_SIZE] < 1)
 	{
-		*move_pc = modif_pc(arn->mem[process->pc]);
+		*move_pc = modif_pc_sub(arn->mem[process->pc]);
 		return (0);
 	}
 	if (arn->mem[(process->pc + 2) % MEM_SIZE] > REG_NUMBER ||\
 			arn->mem[(process->pc + 2) % MEM_SIZE] < 1)
 	{
-		*move_pc = modif_pc(arn->mem[process->pc]);
+		*move_pc = modif_pc_sub(arn->mem[process->pc]);
 		return (0);
 	}
 	if (arn->mem[(process->pc + 3) % MEM_SIZE] > REG_NUMBER ||\
 			arn->mem[(process->pc + 3) % MEM_SIZE] < 1)
 	{
-		*move_pc = modif_pc(arn->mem[process->pc]);
+		*move_pc = modif_pc_sub(arn->mem[process->pc]);
 		return (0);
 	}
 	return (1);

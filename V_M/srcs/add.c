@@ -6,13 +6,13 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 20:32:58 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/22 20:29:56 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/27 16:34:17 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-int		check_ocp_add(unsigned char ocp)
+int				check_ocp_add(unsigned char ocp)
 {
 	int				i;
 	unsigned char	test;
@@ -47,7 +47,7 @@ static int		change_move_pc(int val)
 	return (0);
 }
 
-static int		modif_pc(unsigned char ocp)
+static int		modif_pc_add(unsigned char ocp)
 {
 	int				ret;
 	unsigned char	comp;
@@ -64,32 +64,35 @@ static int		modif_pc(unsigned char ocp)
 	return (ret);
 }
 
-int		check_add_param(t_arena *arn, t_process *process, int *move_pc)
+int				check_add_param(t_arena *arn, t_process *process, int *move_pc)
 {
 	if (check_ocp_add(arn->mem[process->pc]) == 0)
 	{
-		*move_pc = modif_pc(arn->mem[process->pc]);
+		*move_pc = modif_pc_add(arn->mem[process->pc]);
 		return (0);
 	}
-	if (arn->mem[(process->pc + 1) % MEM_SIZE] > REG_NUMBER || arn->mem[(process->pc + 1) % MEM_SIZE] < 1)
+	if (arn->mem[(process->pc + 1) % MEM_SIZE] > REG_NUMBER ||\
+			arn->mem[(process->pc + 1) % MEM_SIZE] < 1)
 	{
-		*move_pc = modif_pc(arn->mem[process->pc]);
+		*move_pc = modif_pc_add(arn->mem[process->pc]);
 		return (0);
 	}
-	if (arn->mem[(process->pc + 2) % MEM_SIZE] > REG_NUMBER || arn->mem[(process->pc + 2) % MEM_SIZE] < 1)
+	if (arn->mem[(process->pc + 2) % MEM_SIZE] > REG_NUMBER ||\
+			arn->mem[(process->pc + 2) % MEM_SIZE] < 1)
 	{
-		*move_pc = modif_pc(arn->mem[process->pc]);
+		*move_pc = modif_pc_add(arn->mem[process->pc]);
 		return (0);
 	}
-	if (arn->mem[(process->pc + 3) % MEM_SIZE] > REG_NUMBER || arn->mem[(process->pc + 3) % MEM_SIZE] < 1)
+	if (arn->mem[(process->pc + 3) % MEM_SIZE] > REG_NUMBER ||\
+			arn->mem[(process->pc + 3) % MEM_SIZE] < 1)
 	{
-		*move_pc = modif_pc(arn->mem[process->pc]);
+		*move_pc = modif_pc_add(arn->mem[process->pc]);
 		return (0);
 	}
 	return (1);
 }
 
-void	add(t_arena *arn, t_process *process)
+void			add(t_arena *arn, t_process *process)
 {
 	int		res;
 	int		move_pc;

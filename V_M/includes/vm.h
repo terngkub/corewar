@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/27 15:11:52 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/27 16:28:37 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@
 # include <ncurses.h>
 
 # define INT_MAX 2147483648
+
+typedef struct			s_norme
+{
+	int				i;
+	int				j;
+	int				argc;
+	int				start;
+	unsigned int	dump;
+	int				display;
+}						t_norme;
 
 typedef struct			s_process
 {
@@ -80,13 +90,15 @@ typedef struct			s_visu
 }						t_visu;
 
 int						check_number(int argc, char **argv, int *j);
-int						parse_champs(int argc, char **argv, int *i, unsigned int *dump, int *display);
+int						parse_champs(int argc, char **argv, t_norme *opt);
 int						load_champs(t_arena arn, char **argv, int nb_players, int i, int argc);
 int						start_of_input(int i, int nb_players);
 int						opc_nb_cycle(int opc);
 void					ft_fork_front(t_process **begin_list, t_process *curr, t_arena *arn, int new_pc);
 t_process				*cpy_process(t_process *curr, t_arena *arn, int new_pc);
 void					cpy_regs(t_process *curr, t_process *lst);
+int						modif_pc(unsigned char ocp);
+int						valid_ocp(unsigned char ocp);
 
 int						init_arena(t_arena *arn, int nb_players, char **argv, int i, int argc);
 int						init_players(t_player *players, int nb_players, char **argv, int i);
@@ -127,7 +139,7 @@ void					live(t_arena *arena, t_process *process);
 void					ld(t_arena *arn, t_process *process, int l);
 void					ldi(t_arena *arn, t_process *process, int l);
 void					lld(t_arena *arn, t_process *process);
-void					st(t_arena *arn, t_process *process);
+int						st(t_arena *arn, t_process *process);
 void					sti(t_arena *arn, t_process *process);
 void					add(t_arena *arn, t_process *process);
 void					sub(t_arena *arn, t_process *process);

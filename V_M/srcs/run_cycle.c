@@ -6,27 +6,34 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/27 15:19:05 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/27 16:10:22 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void		print_test(t_arena arn)
+void	do_instruction2(t_arena *arn, t_process *process)
 {
-	if (arn.nb_cycle == 8000)
-	{
-		ft_printf("\n\n YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYy\n");
-
-		print_arena(arn);
-	}
+	if (process->opc == 10)
+		ldi(arn, process, 0);
+	else if (process->opc == 11)
+		sti(arn, process);
+	else if (process->opc == 12)
+		ft_fork(arn, process, 0);
+	else if (process->opc == 13)
+		lld(arn, process);
+	else if (process->opc == 14)
+		ldi(arn, process, 1);
+	else if (process->opc == 15)
+		ft_fork(arn, process, 1);
+	else if (process->opc == 16)
+		aff(arn, process);
+	else
+		process->pc = (process->pc + 1) % MEM_SIZE;
 }
 
 void	do_instruction(t_arena *arn, t_process *process)
 {
-	//	int		inst_cycle;
-
-	//ft_printf("pc %d %d %d\n", process->pc, arn->nb_cycle, process->opc);
 	if (process->opc == 1)
 		live(arn, process);
 	else if (process->opc == 2)
@@ -45,49 +52,8 @@ void	do_instruction(t_arena *arn, t_process *process)
 		bitwise(arn, process, '^');
 	else if (process->opc == 9)
 		zjmp(arn, process);
-	else if (process->opc == 10)
-		ldi(arn, process, 0);
-	else if (process->opc == 11)
-		sti(arn, process);
-	else if (process->opc == 12)
-		ft_fork(arn, process, 0);
-	else if (process->opc == 13)
-		lld(arn, process);
-	else if (process->opc == 14)
-		ldi(arn, process, 1);
-	else if (process->opc == 15)
-		ft_fork(arn, process, 1);
-	else if (process->opc == 16)
-		aff(arn, process);
 	else
-		process->pc = (process->pc + 1) % MEM_SIZE;
-	/*
-	   process->opc = arn->mem[process->pc];
-	   process->op = get_op(process->opc);
-	   inst_cycle = process->op ? process->op->cycle : 1;
-	   process->cycle_to_wait = arn->nb_cycle + inst_cycle;
-	   */
-}
-
-void	print_proc_test(t_process *process, int i, t_arena *arn)
-{
-	int			j;
-
-	i += 0;
-	j = 0;
-	(void)arn;
-	if (process->opc != 0 && process->op)
-	{
-		ft_printf("cycle %4d\tcarry %d\t pc %d\t%d\t", arn->nb_cycle, process->carry, process->pc, process->opc);
-		j = 0;
-		while (j < 10)
-		{
-			ft_printf(" %02hhx", arn->mem[(process->pc + j) % MEM_SIZE]);
-			j++;
-		}
-		ft_printf("\n");
-		//ft_printf("P %s\n", process->op->instruction);
-	}
+		do_instruction2(arn, process);
 }
 
 void	run_processes(t_arena *arn)
@@ -98,7 +64,6 @@ void	run_processes(t_arena *arn)
 
 	process = arn->process;
 	i = 1;
-
 	while (process)
 	{
 		if (!process->op)
@@ -110,27 +75,12 @@ void	run_processes(t_arena *arn)
 		}
 		if (process->cycle_to_wait == arn->nb_cycle)
 		{
-			//print_proc_test(process, i, arn);
 			do_instruction(arn, process);
 			process->op = NULL;
 		}
 		process = process->next;
 		i++;
 	}
-	/*
-	process = arn->process;
-	while (process)
-	{
-		if (process->cycle_to_wait == arn->nb_cycle)
-		{
-			process->opc = arn->mem[process->pc];
-			process->op = get_op(process->opc);
-			inst_cycle = process->op ? process->op->cycle : 1;
-			process->cycle_to_wait = arn->nb_cycle + inst_cycle;
-		}
-		process = process->next;
-	}
-	*/
 }
 
 int		nb_of_process(t_process **begin_list)
@@ -173,7 +123,6 @@ void	change_cycle_to_die(t_arena *arn, int *next, int *die)
 	}
 	*next += *die;
 	arn->lives = 0;
-	//ft_printf("next = %d die = %d\n", *next, *die);
 }
 
 void	kill_dead_processes(t_process **begin_list)
@@ -226,7 +175,6 @@ void	kill_and_refresh_processes(t_arena *arn, t_process **begin_list,\
 		int *next, int *die)
 {
 	change_cycle_to_die(arn, next, die);
-	//	ft_printf("arn ->cycle = %d die = %d\n", arn->nb_cycle, *die);
 	kill_dead_processes(begin_list);
 	refresh_processes(begin_list, arn);
 }
@@ -248,9 +196,7 @@ void	find_winner(t_arena *arn)
 			arn->players[winner - 1].number, arn->players[winner - 1].name);
 }
 
-
-
-void		run_cycle(t_arena *arn, int dump, int display)
+void	run_cycle(t_arena *arn, int dump, int display)
 {
 	int		next_cycle_to_die;
 	int		cycle_to_die;
@@ -268,8 +214,6 @@ void		run_cycle(t_arena *arn, int dump, int display)
 				kill_and_refresh_processes(arn, &(arn->process),\
 						&next_cycle_to_die, &cycle_to_die);
 			run_processes(arn);
-//			ft_printf("cycle = %d nb proc = %d next to die = %d cycle to die = %d nb live done %d\n", arn->nb_cycle, proc, next_cycle_to_die, cycle_to_die, arn->lives);
-			//print_test(*arn);
 			if (dump == arn->nb_cycle)
 				return (dump_mem(*arn));
 			arn->nb_cycle++;

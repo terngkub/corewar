@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:32:42 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/27 14:47:22 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/27 16:33:24 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ int		check_display(char **argv, int argc, int *display, int *i)
 	return (1);
 }
 
-int		parse_champs(int argc, char **argv, int *i, unsigned int *dump, int *display)
+int		parse_champs(int argc, char **argv, t_norme *opt)
 {
 	int		j;
 	int		nb_player;
@@ -175,16 +175,16 @@ int		parse_champs(int argc, char **argv, int *i, unsigned int *dump, int *displa
 	nb_player = 0;
 	if (argc <= 1)
 		return (write_usage());
-	if (!(check_dump(argv, argc, dump, i)) || *i >= argc)
+	if (!(check_dump(argv, argc, &(opt->dump), &(opt->i))) || opt->i >= argc)
 		return (write_usage());
-	if (!(check_display(argv, argc, display, i) || *i >= argc))
+	if (!(check_display(argv, argc, &(opt->display), &(opt->i)) || opt->i >= argc))
 		return (write_usage());
-	if (*display == 1)
-		if (!(check_dump(argv, argc, dump, i)) || *i >= argc)
+	if (opt->display == 1)
+		if (!(check_dump(argv, argc, &(opt->dump), &(opt->i))) || opt->i >= argc)
 			return (write_usage());
-	if (*display == 1 && (int)*dump != -1)
+	if (opt->display == 1 && (int)(opt->dump) != -1)
 		return (write_usage());
-	j = *i;
+	j = opt->i;
 	while (j < argc)
 	{
 		if (!(check_number(argc, argv, &j)) || j >= argc)
