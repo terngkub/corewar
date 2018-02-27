@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/27 16:10:22 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/27 16:44:42 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,6 @@ void	run_cycle(t_arena *arn, int dump, int display)
 	int		cycle_to_die;
 	int		proc;
 
-	(void)display;
 	cycle_to_die = CYCLE_TO_DIE;
 	next_cycle_to_die = CYCLE_TO_DIE;
 	if (display)

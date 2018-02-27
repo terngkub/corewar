@@ -6,36 +6,38 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:40:33 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/20 14:43:24 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/27 17:08:28 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-int		get_number(char **argv, int *j)
+void		get_number2(char **argv, char **flag, int *j, t_norme opt)
 {
-	size_t		len;
-	char		*flag;
-	long long	nb;
-
-	nb = 0;
-	len = ft_strlen(argv[*j]);
-	if (len > 2)
+	*flag = ft_strndup(argv[*j], 0, 2);
+	if (ft_strcmp(*flag, "-n ") == 0)
 	{
-		flag = ft_strndup(argv[*j], 0, 2);
-		if (ft_strcmp(flag, "-n ") == 0)
-		{
-			free(flag);
-			flag = ft_strndup(argv[*j], 3, len);
-			ft_printf("%s\n", flag);
-			nb = ft_long_atoi(flag);
-			*j += 1;
-			free(flag);
-		}
-		else
-			free(flag);
+		free(*flag);
+		*flag = ft_strndup(argv[*j], 3, opt.len);
+		ft_printf("%s\n", *flag);
+		opt.nb = ft_long_atoi(*flag);
+		*j += 1;
+		free(*flag);
 	}
-	else if (len == 2)
+	else
+		free(*flag);
+}
+
+int			get_number(char **argv, int *j)
+{
+	char		*flag;
+	t_norme		opt;
+
+	opt.nb = 0;
+	opt.len = ft_strlen(argv[*j]);
+	if (opt.len > 2)
+		get_number2(argv, &flag, j, opt);
+	else if (opt.len == 2)
 	{
 		flag = ft_strdup(argv[*j]);
 		if (ft_strcmp(flag, "-n") == 0)
@@ -43,14 +45,14 @@ int		get_number(char **argv, int *j)
 			free(flag);
 			*j += 1;
 			flag = ft_strdup(argv[*j]);
-			nb = ft_long_atoi(flag);
+			opt.nb = ft_long_atoi(flag);
 			*j += 1;
 			free(flag);
 		}
 		else
 			free(flag);
 	}
-	return (nb);
+	return (opt.nb);
 }
 
 void		create_name(int fd, char *name, char *l)

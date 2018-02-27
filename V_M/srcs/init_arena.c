@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:38:23 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/27 16:24:56 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/27 16:48:07 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	introduce_players(t_arena arn, char **argv, int start, int argc)
 	}
 }
 
-int		init_arena(t_arena *arn, int nb_players, char **argv, int i, int argc)
+int		init_arena(t_arena *arn, int nb_players, char **argv, t_norme opt)
 {
 	(*arn).nb_cycle = 0;
 	(*arn).nb_players = nb_players;
@@ -56,10 +56,10 @@ int		init_arena(t_arena *arn, int nb_players, char **argv, int i, int argc)
 	arn->lives = 0;
 	if (!((*arn).players = (t_player*)malloc(sizeof(t_player) * nb_players)))
 		exit(0);
-	if (!(init_players((*arn).players, nb_players, argv, i)))
+	if (!(init_players((*arn).players, nb_players, argv, opt.i)))
 		return (0);
 	(*arn).process = NULL;
 	init_process(*arn, &(arn->process));
-	introduce_players(*arn, argv, i, argc);
+	introduce_players(*arn, argv, opt.i, opt.argc);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:35:23 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/26 15:51:14 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/27 16:58:54 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		print_error_max_size(int p, int save, char *champ)
 	return (0);
 }
 
-int		load_one_champ(t_arena arn, char *champ, int p, int fd, int j)
+int		load_one_champ(t_arena arn, char *champ, int p, t_norme opt)
 {
 	char	*l;
 	int		i;
@@ -29,13 +29,13 @@ int		load_one_champ(t_arena arn, char *champ, int p, int fd, int j)
 	save = p;
 	if (!(l = ft_strnew(1)))
 		exit(0);
-	while (read(fd, l, 1))
+	while (read(opt.fd, l, 1))
 	{
 		i++;
 		if (i > PROG_NAME_LENGTH + COMMENT_LENGTH + 16)
 		{
 			arn.mem[p] = l[0];
-			arn.color[p] = j + 1;
+			arn.color[p] = opt.j + 1;
 			p++;
 		}
 	}
@@ -55,22 +55,21 @@ int		start_of_input(int i, int nb_players)
 	return (ret);
 }
 
-int		load_champs(t_arena arn, char **argv, int nb_players, int i, int argc)
+int		load_champs(t_arena arn, char **argv, int nb_players, t_norme opt)
 {
-	int		fd;
-	int		j;
 	int		index;
 
-	index = i;
-	j = 1;
-	while (j <= nb_players)
+	index = opt.i;
+	opt.j = 1;
+	while (opt.j <= nb_players)
 	{
-		check_number(argc, argv, &index);
-		fd = open(argv[index], O_RDONLY);
-		if (!(load_one_champ(arn, argv[index], start_of_input(j, nb_players), fd, j)))
+		check_number(opt.argc, argv, &index);
+		opt.fd = open(argv[index], O_RDONLY);
+		if (!(load_one_champ(arn, argv[index],\
+						start_of_input(opt.j, nb_players), opt)))
 			return (0);
-		close(fd);
-		j++;
+		close(opt.fd);
+		(opt.j)++;
 		index++;
 	}
 	return (1);

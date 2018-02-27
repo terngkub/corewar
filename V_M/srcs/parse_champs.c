@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:32:42 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/27 16:33:24 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/27 17:50:13 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,28 +54,32 @@ int		print_no_file(char *str)
 	return (0);
 }
 
+void	check_dump2(char **argv, char **flag, int *i, int nb, unsigned int *dump, size_t len)
+{
+	*flag = ft_strndup(argv[*i], 0, 4);
+		if (ft_strcmp(*flag, "-dump") == 0)
+		{
+			free(*flag);
+			*flag = ft_strndup(argv[*i], 5, len);
+			nb = ft_long_atoi(*flag);
+			*dump = nb % 4294967296;
+			*i += 1;
+			free(*flag);
+		}
+		else
+			free(*flag);
+}
+
 int		check_dump(char **argv, int argc, unsigned int *dump, int *i)
 {
 	size_t		len;
 	char		*flag;
 	long long	nb;
 
+	nb = 0;
 	len = ft_strlen(argv[*i]);
 	if (len > 5)
-	{
-		flag = ft_strndup(argv[*i], 0, 4);
-		if (ft_strcmp(flag, "-dump") == 0)
-		{
-			free(flag);
-			flag = ft_strndup(argv[*i], 5, len);
-			nb = ft_long_atoi(flag);
-			*dump = nb % 4294967296;
-			*i += 1;
-			free(flag);
-		}
-		else
-			free(flag);
-	}
+		check_dump2(argv, &flag, i, nb, dump, len);
 	else if (len == 5)
 	{
 		flag = ft_strdup(argv[*i]);
@@ -104,7 +108,7 @@ int		check_number(int argc, char **argv, int *j)
 	char		*flag;
 	long long	nb;
 
-	len	 = ft_strlen(argv[*j]);
+	len	= ft_strlen(argv[*j]);
 	if (len > 2)
 	{
 		flag = ft_strndup(argv[*j], 0, 2);
@@ -188,7 +192,7 @@ int		parse_champs(int argc, char **argv, t_norme *opt)
 	while (j < argc)
 	{
 		if (!(check_number(argc, argv, &j)) || j >= argc)
-			return(write_usage());
+			return (write_usage());
 		if (ft_checkfile(argv[j]) == 0)
 			return (print_no_file(argv[j]));
 		if (ft_checkname(argv[j]) == 0)
