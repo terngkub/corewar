@@ -6,12 +6,23 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 13:56:48 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/27 16:45:09 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/28 12:19:36 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-#include <stdio.h>
+
+int		print_no_file(char *str)
+{
+	ft_printf("Can't read source file %s\n", str);
+	return (0);
+}
+
+int		write_usage(void)
+{
+	ft_printf("Usage: ./corewar [-dump N] [-n N] <champion1.cor> <...>\n");
+	return (0);
+}
 
 void	dump_mem(t_arena arn)
 {
@@ -27,7 +38,7 @@ void	dump_mem(t_arena arn)
 		{
 			ft_printf("\n");
 			if (i + 1 < MEM_SIZE)
-				dprintf(1, "%#.4x : ", i + 1);
+				ft_printf("%#.4x : ", i + 1);
 		}
 		i++;
 	}

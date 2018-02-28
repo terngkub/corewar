@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/27 18:10:48 by arobion          ###   ########.fr       */
+/*   Updated: 2018/02/28 12:22:28 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,16 +102,23 @@ t_process				*cpy_process(t_process *curr, t_arena *arn, int new_pc);
 void					cpy_regs(t_process *curr, t_process *lst);
 int						modif_pc(unsigned char ocp);
 int						valid_ocp(unsigned char ocp);
+int						check_dump(char **argv, int argc, unsigned int *dump, int *i);
+int						check_number(int argc, char **argv, int *j);
 
 int						init_arena(t_arena *arn, int nb_players, char **argv, t_norme opt);
 int						init_players(t_player *players, int nb_players, char **argv, int i);
+int						get_number(char **argv, int *j);
+t_player				create_one_player(char *champ, int number);
 void					init_process(t_arena arn, t_process **begin_list);
 
 void					run_cycle(t_arena *arn, int dump, int display);
+void					kill_and_refresh_processes(t_arena *arn, t_process **begin_list, int *next, int *die);
+int						nb_of_process(t_process **begin_list);
 void					freeall(t_arena *arn);
 void					free_one_process(t_process **process);
 
 void					print_registry(char **regs);
+int						print_no_file(char *str);
 void					print_mem(char *mem, int size);
 void					dump_mem(t_arena arn);
 void					print_arena(t_arena arn);

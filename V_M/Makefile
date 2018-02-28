@@ -6,7 +6,7 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/27 17:05:52 by fbabin            #+#    #+#              #
-#    Updated: 2018/02/27 17:54:39 by arobion          ###   ########.fr        #
+#    Updated: 2018/02/28 12:22:57 by arobion          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,9 @@ CC				= gcc
 CFLAGS			= -Wall -Werror -Wextra
 
 _SRCS			=	main.c op.c visu.c displays.c parse_champs.c load_champs.c \
-					init_arena.c init_players.c init_process.c run_cycle.c \
+					init_arena.c init_players.c init_player2.c check_number.c \
+					check_dump.c \
+					init_process.c run_cycle.c handle_process.c \
 					freeall.c hex_to_dec.c modif_pc.c check_param_type.c \
 					check_get_registry.c get.c set.c live.c ld.c lld.c \
 					ldi.c st.c sti.c add.c sub.c bitwise.c zjmp.c fork.c \
