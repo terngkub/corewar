@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:30:35 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/27 18:52:21 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/01 15:45:47 by pnardozi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,45 +16,14 @@
 void	f_p(char *byte, char mem)
 {
 	unsigned char	tmp;
-	char			infoe[17];
+	char			base[17];
 
-	ft_memcpy((char*)infoe, "0123456789abcdef\0", 17);
+	ft_memcpy((char*)base, "0123456789abcdef\0", 17);
 	tmp = (unsigned char) mem;
-	byte[0] = infoe[tmp / 16];
-	byte[1] = infoe[tmp % 16];
+	byte[0] = base[tmp / 16];
+	byte[1] = base[tmp % 16];
 }
 
-/*void	mem_to_string(const char *mem, char *str)
-  {
-  int		i;
-  int		pos;
-  char	byte[3];
-
-  i = -1;
-  pos = 0;
-  ft_bzero(&byte, 3);
-  (void)mem;
-  while (++i < 4096)
-  {
-  f_p((char*)byte, mem[i]);
-  if (((i % 64) == 0) && i != 0)
-  {
-  if (i != 0)
-  {
-  ft_memcpy(str + pos++, "\n", 1);
-  ft_memcpy(str + pos, (char*)byte, 3);
-  pos += 3;
-  continue ;
-  }
-  }
-  else
-  {
-  byte[2] = ' ';
-  ft_memcpy(str + pos, (char*)byte, 3);
-  }
-  pos += 3;
-  }
-  }*/
 void    set_color(t_visu v, char c)
 {
 	if (c == 1)
@@ -70,6 +39,7 @@ void    set_color(t_visu v, char c)
 	if (c == -3)
 		wattron(v.arena, COLOR_PAIR(ft_abs(c) + 3));
 }
+
 void    put_arena(t_visu v, const char *mem, const char *color)
 {
 	int             i;
@@ -81,7 +51,6 @@ void    put_arena(t_visu v, const char *mem, const char *color)
 	y = 0;
 	i = -1;
 
-	(void)color;
 	ft_bzero(&byte, 5);
 	while (++i < 4096)
 	{
@@ -107,49 +76,14 @@ void    put_arena(t_visu v, const char *mem, const char *color)
 		}
 		else
 			mvwprintw(v.arena, y + 1, x + 3, (char*)&byte);
-		//refresh();
 		x += 4;
 	}
-	//refresh();
 	wrefresh(v.arena);
 }
-
-/*void	put_arena(t_visu v, const char *mem, const char *color)
-  {
-  int		i;
-  int		x;
-  int		y;
-  char	byte[5];
-
-  x = 0;
-  y = 0;
-  i = -1;
-
-  (void)color;
-  ft_bzero(&byte, 5);
-  while (++i < 4096)
-  {
-  f_p((char*)byte, mem[i]);
-  if (((i % 64) == 0) && i != 0)
-  {
-  y += 1;
-  x = 0;
-  }
-  else
-  {
-  byte[2] = ' ';
-  byte[3] = ' ';
-  }
-  mvwprintw(v.arena, y + 1, x + 3, (char*)&byte);
-  x += 4;
-  }
-  wrefresh(v.arena);
-  }*/
 
 void	init_visu(t_visu *v)
 {
 	WINDOW		*tmp;
-	WINDOW		*ttmp;
 
 	initscr();
 	noecho();
@@ -164,50 +98,72 @@ void	init_visu(t_visu *v)
 	init_pair(2, COLOR_NRED, 0);
 	init_pair(3, COLOR_LBLUE, 0);
 	init_pair(14, COLOR_WHITE, 0);
-
 	v->cycle_to_die = CYCLE_TO_DIE;
 	v->next_cycle_to_die = CYCLE_TO_DIE;
 	v->arena = subwin(stdscr, 66, 260, 1, 5);
 	v->info = subwin(stdscr, 66, 90, 1, COLS - 95);
 	v->background = subwin(stdscr, LINES, COLS, 0, 0);
 	tmp = subwin(stdscr, 50, 90, 30, 150);
-	ttmp = subwin(stdscr, 40, 60, 40, 157);
+	wattron(v->background, COLOR_PAIR(1));
 	box(v->background, ACS_VLINE, ACS_HLINE);
-	//box(tmp, ACS_VLINE, ACS_HLINE);
 	wattron(tmp, COLOR_PAIR(2));
-	wattron(ttmp, COLOR_PAIR(2));
 	wattron(v->arena, COLOR_PAIR(1));
-	wattron(v->info, COLOR_PAIR(14));
-	//box(tmp, ACS_VLINE, ACS_HLINE);
-	mvwprintw(tmp, 0, 0, " _____ ___________ _____ _    _  ___  ______             ___  _____\n/  __ \\  _  | ___ \\  ___| |  | |/ _ \\ | ___ \\           /   |/ __  \\\n| /  \\/ | | | |_/ / |__ | |  | / /_\\ \\| |_/ /          / /| |`' / /'\n| |   | | | |    /|  __|| |/\\| |  _  ||    /          / /_| |  / /\n| \\__/\\ \\_/ / |\\ \\| |___\\  /\\  / | | || |\\ \\          \\___  |./ /___\n\\____/\\___/\\_| \\_\\____/ \\/  \\/\\_| |_/\\_| \\_|             |_/\\_____/\n");
-	//mvwprintw(tmp, 0, 0, "/  __ \\  _  | ___ \\  ___| |  | |/ _ \\ | ___ \\   /   |/ __  \\\n| /  \\/ | | | |_/ / |__ | |  | / /_\\ \\| |_/ /  / /| |`' / /'\n| |   | | | |    /|  __|| |/\\| |  _  ||    /  / /_| |  / /\n| \\__/\\ \\_/ / |\\ \\| |___\\  /\\  / | | || |\\ \\  \\___  |./ /___\n\\____/\\___/\\_| \\_\\____/ \\/  \\/\\_| |_/\\_| \\_|     |_/\\_____/\n");
-	//mvwprintw(tmp, 0, 0, "/  __ \\  _  | ___ \\  ___| |  | |/ _ \\ | ___ \\   /   |/ __  \\\n| /  \\/ | | | |_/ / |__ | |  | / /_\\ \\| |_/ /  / /| |`' / /'\n| |   | | | |    /|  __|| |/\\| |  _  ||    /  / /_| |  / /\n| \\__/\\ \\_/ / |\\ \\| |___\\  /\\  / | | || |\\ \\  \\___  |./ /___\n\\____/\\___/\\_| \\_\\____/ \\/  \\/\\_| |_/\\_| \\_|     |_/\\_____/\n");
-
-	mvwprintw(ttmp, 0, 0," ___ ___ ___ ___ ___        ___ _  _ _____ ___ ___ \n| _ | _ | __/ __/ __|      | __| \\| |_   _| __| _ \\\n|  _|   | _|\\__ \\__ \\      | _|| .` | | | | _||   /\n|_| |_|_|___|___|___/      |___|_|\\_| |_| |___|_|_\\\n");
-	//mvwprintw(tmp, 7, 0," ___ ___ ___ ___ ___              ___ _  _ _____ ___ ___ \n| _ | _ | __/ __/ __|            | __| \\| |_   _| __| _ \\\n|  _|   | _|\\__ \\__ \\            | _|| .` | | | | _||   /\\\n|_| |_|_|___|___|___/            |___|_|\\_| |_| |___|_|_\\\n");
-	//mvwprintw(v->background, 30, 100, "PRESS ENTER");
-	attroff(COLOR_PAIR(1));
+	wattron(v->info, COLOR_PAIR(1));
+	mvwprintw(tmp, 0, 0, " _____ ___________ _____ _    _  ___  ______             ___  _____\n");
+	mvwprintw(tmp, 1, 0, "/  __ \\  _  | ___ \\  ___| |  | |/ _ \\ | ___ \\           /   |/ __  \\\n");
+	mvwprintw(tmp, 2, 0, "| /  \\/ | | | |_/ / |__ | |  | / /_\\ \\| |_/ /          / /| |`' / /'\n");
+	mvwprintw(tmp, 3, 0, "| |   | | | |    /|  __|| |/\\| |  _  ||    /          / /_| |  / /\n");
+	mvwprintw(tmp, 4, 0, "| \\__/\\ \\_/ / |\\ \\| |___\\  /\\  / | | || |\\ \\          \\___  |./ /___\n");
+	mvwprintw(tmp, 5, 0, " \\____/\\___/\\_| \\_\\____/ \\/  \\/\\_| |_/\\_| \\_|             |_/\\_____/\n");
+	mvwprintw(tmp, 10, 7," ___ ___ ___ ___ ___        ___ _  _ _____ ___ ___ \n");
+	mvwprintw(tmp, 11, 7, "| _ | _ | __/ __/ __|      | __| \\| |_   _| __| _ \\\n");
+	mvwprintw(tmp, 12, 7, "|  _|   | _|\\__ \\__ \\      | _|| .` | | | | _||   /\n");
+	mvwprintw(tmp, 13, 7, "|_| |_|_|___|___|___/      |___|_|\\_| |_| |___|_|_\\\n");
 	while (getch() != 10);
 	clear();
 	box(v->background, ACS_VLINE, ACS_HLINE);
-	//v->background = subwin(stdscr, LINES, COLS, 0, 0);
 	wrefresh(v->background);
 }
 
-void	put_info(t_visu v, t_arena *arn)
+void	put_info(t_visu v, t_arena *arn, int win, int run)
 {
 	int		i;
 	int		u;
 
 	u = 16;
 	i = -1;
-	mvwprintw(v.info, 2, 2, "Cycles : %5d", arn->nb_cycle);
-	mvwprintw(v.info, 4, 2, "Processes : %5d", v.proc);
-	mvwprintw(v.info, 6, 2, "CYCLE TO DIE : %5d", v.cycle_to_die);
-	mvwprintw(v.info, 8, 2, "CYCLE_DELTA : %5d", CYCLE_DELTA);
-	mvwprintw(v.info, 10, 2, "NBR_LIVE : %5d", NBR_LIVE);
-	mvwprintw(v.info, 12, 2, "MAX_CHECKS : %5d", MAX_CHECKS);
-	mvwprintw(v.info, 14, 2, "Cycles / sec : ");
+	if (win)
+	{
+		wattron(v.info, A_UNDERLINE | COLOR_PAIR(3));
+		mvwprintw(v.info, 2, 2, "The winner is %s !", arn->players[win - 1].name);
+		wattroff(v.info, A_UNDERLINE);
+		wattron(v.info, COLOR_PAIR(1));
+	}
+	if (run == 1)
+	{
+		wattron(v.info, COLOR_PAIR(3));
+		mvwprintw(v.info, 4, 2, "%7s", "PAUSE");
+		wattron(v.info, COLOR_PAIR(1));
+	}
+	else if (run == 2)
+	{
+		wattron(v.info, COLOR_PAIR(3) | A_BOLD);
+		mvwprintw(v.info, 4, 2, "%7s", "DONE");
+		wattron(v.info, COLOR_PAIR(1));
+	}
+	else
+	{
+		wattron(v.info, COLOR_PAIR(6));
+		mvwprintw(v.info, 4, 2, "RUNNING");
+		wattron(v.info, COLOR_PAIR(1));
+	}
+	mvwprintw(v.info, 6, 2, "Cycles : %5d", arn->nb_cycle);
+	mvwprintw(v.info, 8, 2, "Processes : %5d", v.proc);
+	mvwprintw(v.info, 10, 2, "CYCLE TO DIE : %5d", v.cycle_to_die);
+	mvwprintw(v.info, 12, 2, "CYCLE_DELTA : %5d", CYCLE_DELTA);
+	mvwprintw(v.info, 14, 2, "NBR_LIVE : %5d", NBR_LIVE);
+	mvwprintw(v.info, 16, 2, "MAX_CHECKS : %5d", MAX_CHECKS);
+	mvwprintw(v.info, 18, 2, "Cycles / sec : ");
 	while(++i < arn->nb_players)
 	{
 		mvwprintw(v.info, u, 2, "Player %3d : %3s", arn->players[i].number, arn->players[i].name);
@@ -243,36 +199,51 @@ void	refresh_color_process(char *str)
 	}
 }
 
+void	put_winner(t_arena *arn, t_visu *v)
+{
+	int		i;
+	int		winner;
+
+	i = arn->nb_players - 1;
+	winner = i + 1;
+	while (i >= 0)
+	{
+		if (arn->players[i].number == arn->winner)
+			winner = i + 1;
+		i--;
+	}
+	put_info(*v, arn, winner, 2);
+
+}
+
 void	game(t_visu *v, t_arena *arn)
 {
-	//	a sup
-	//char		color[4096];
 	int			i;
 
 	i = -1;
-	//while (++i < 4096)
-	//	color[i] = 1;
 	curs_set(FALSE);
 	v->proc = 0;
-	put_info(*v, arn);
+	put_info(*v, arn, 0, 1);
 	put_arena(*v, (const char*)arn->mem, (const char*)arn->color);
 	while (getch() != 32);
 	nodelay(stdscr, 1);
 	while ((v->proc = nb_of_process(&(arn->process))))
 	{
 		set_color_process(arn->color, arn->process);
-		//pause
 		if (getch() == 32)
-			while (getch() != 32);
+			while (getch() != 32)
+				put_info(*v, arn, 0, 1);
 		if (arn->nb_cycle == v->next_cycle_to_die)
 			kill_and_refresh_processes(arn, &(arn->process),\
 					&v->next_cycle_to_die, &v->cycle_to_die);
 		run_processes(arn);
 		arn->nb_cycle++;
 		put_arena(*v, (const char*)arn->mem, (const char*)arn->color);
-		put_info(*v, arn);
+		put_info(*v, arn, 0, 0);
 		refresh_color_process(arn->color);
 	}
+	put_winner(arn, v);
+	while(getch() != 10);
 }
 
 int		ft_visu(t_arena *arn)

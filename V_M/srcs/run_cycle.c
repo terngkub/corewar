@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/28 12:12:35 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/01 15:45:49 by pnardozi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void	run_cycle(t_arena *arn, int dump, int display)
 	if (display)
 		ft_visu(arn);
 	else
+	{
 		while ((proc = nb_of_process(&(arn->process))))
 		{
 			if (arn->nb_cycle == next_cycle_to_die)
@@ -121,6 +122,7 @@ void	run_cycle(t_arena *arn, int dump, int display)
 				return (dump_mem(*arn));
 			arn->nb_cycle++;
 		}
-	find_winner(arn);
+		find_winner(arn);
+	}
 	freeall(arn);
 }
