@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/01 11:57:47 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/01 16:55:47 by pnardozi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef struct			s_visu
 	WINDOW				*arena;
 	WINDOW				*info;
 	WINDOW				*background;
+	WINDOW				*man;
 	int					next_cycle_to_die;
 	int					cycle_to_die;
 	int					proc;
