@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/28 12:22:28 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/01 11:57:47 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@
 # include <ncurses.h>
 
 # define INT_MAX 2147483648
+# define COLOR_LGREY    10
+# define COLOR_LGREEN   11
+# define COLOR_LBLUE    12
+# define COLOR_NRED             13
+# define COLOR_NGREEN             14
 
 typedef struct			s_norme
 {
