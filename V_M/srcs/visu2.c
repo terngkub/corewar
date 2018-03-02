@@ -6,7 +6,7 @@
 /*   By: pnardozi <pnardozi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 12:07:18 by pnardozi          #+#    #+#             */
-/*   Updated: 2018/03/02 14:04:51 by pnardozi         ###   ########.fr       */
+/*   Updated: 2018/03/02 16:13:33 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,26 @@ int		free_visu(t_visu *v)
 void    set_color(t_visu v, char c)
 {
 	if (c == 1)
-		wattron(v.arena, COLOR_PAIR(c));
+		wattron(v.arena, COLOR_PAIR(1));
 	if (c == 2)
-		wattron(v.arena, COLOR_PAIR(c));
+		wattron(v.arena, COLOR_PAIR(3));
 	if (c == 3)
-		wattron(v.arena, COLOR_PAIR(c));
+		wattron(v.arena, COLOR_PAIR(4));
+	if (c == 4)
+		wattron(v.arena, COLOR_PAIR(5));
+	if (c == 5)
+		wattron(v.arena, COLOR_PAIR(6));
 	if (c == -1)
-		wattron(v.arena, COLOR_PAIR(ft_abs(c) + 3));
+		wattron(v.arena, COLOR_PAIR(10));
 	if (c == -2)
-		wattron(v.arena, COLOR_PAIR(ft_abs(c) + 3));
+		wattron(v.arena, COLOR_PAIR(11));
 	if (c == -3)
-		wattron(v.arena, COLOR_PAIR(ft_abs(c) + 3));
+		wattron(v.arena, COLOR_PAIR(12));
+	if (c == -4)
+		wattron(v.arena, COLOR_PAIR(13));
+	if (c == -5)
+		wattron(v.arena, COLOR_PAIR(14));
+
 }
 
 void	put_winner(t_arena *arn, t_visu *v)

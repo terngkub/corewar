@@ -6,7 +6,7 @@
 /*   By: pnardozi <pnardozi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 12:08:48 by pnardozi          #+#    #+#             */
-/*   Updated: 2018/03/02 12:10:45 by pnardozi         ###   ########.fr       */
+/*   Updated: 2018/03/02 16:16:27 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void    put_arena(t_visu v, const char *mem, const char *color)
 		{
 			byte[2] = '\0';
 			mvwprintw(v.arena, y + 1, x + 3, (char*)&byte);
-			wattron(v.arena, COLOR_PAIR(14));
+			wattron(v.arena, COLOR_PAIR(1));
 			mvwprintw(v.arena, y + 1, x + 5, "  ");
 		}
 		else

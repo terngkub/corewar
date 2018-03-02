@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/02 13:11:58 by pnardozi         ###   ########.fr       */
+/*   Updated: 2018/03/02 16:04:08 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,22 @@
 # include <ncurses.h>
 
 # define INT_MAX 2147483648
-# define COLOR_LGREY    10
-# define COLOR_LGREEN   11
-# define COLOR_LBLUE    12
-# define COLOR_NRED             13
-# define COLOR_NGREEN             14
+
+# define COLOR_LGREY		10
+# define COLOR_NRED			11
+# define COLOR_TRED			12
+# define COLOR_LBLUE		13
+# define COLOR_LGREEN		14
+# define COLOR_WGREEN		15
+# define COLOR_LYELLOW		16
+
+
+typedef struct			s_color
+{
+	int					red;
+	int					blue;
+	int					green;
+}						t_color;
 
 typedef struct			s_norme
 {
@@ -180,6 +191,6 @@ void				    set_color(t_visu v, char c);
 void					put_winner(t_arena *arn, t_visu *v);
 void					put_info(t_visu v, t_arena *arn, int win, int run);
 void					put_title(t_visu *v);
-void					color(void);
+void					set_colorx(void);
 
 #endif

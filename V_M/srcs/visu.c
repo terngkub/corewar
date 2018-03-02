@@ -6,7 +6,7 @@
 /*   By: pnardozi <pnardozi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 13:43:32 by pnardozi          #+#    #+#             */
-/*   Updated: 2018/03/02 14:55:37 by pnardozi         ###   ########.fr       */
+/*   Updated: 2018/03/02 16:30:22 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,44 +21,48 @@ void	put_info(t_visu v, t_arena *arn, int win, int run)
 	i = -1;
 	if (win)
 	{
-		wattron(v.info, A_UNDERLINE | COLOR_PAIR(3));
+		wattron(v.info, A_UNDERLINE | COLOR_PAIR(7));
 		mvwprintw(v.info, 2, 2, "The winner is %s !", arn->players[win - 1].name);
 		wattroff(v.info, A_UNDERLINE);
 		wattron(v.info, COLOR_PAIR(1));
 	}
 	if (run == 1)
 	{
-		wattron(v.info, COLOR_PAIR(6));
+		wattron(v.info, COLOR_PAIR(14));
 		mvwprintw(v.info, 4, 2, "%7s", "1 BY 1");
 		wattron(v.info, COLOR_PAIR(1));
 	}
 	else if (run == 2)
 	{
-		wattron(v.info, COLOR_PAIR(3));
+		wattron(v.info, COLOR_PAIR(14));
 		mvwprintw(v.info, 4, 2, "%7s", "PAUSE");
 		wattron(v.info, COLOR_PAIR(1));
 	}
 	else if (run == 3)
 	{
-		wattron(v.info, COLOR_PAIR(3));
+		wattron(v.info, COLOR_PAIR(14));
 		mvwprintw(v.info, 4, 2, "%7s", "DONE");
 		wattron(v.info, COLOR_PAIR(1));
 	}
 	else
 	{
-		wattron(v.info, COLOR_PAIR(6));
+		wattron(v.info, COLOR_PAIR(14));
 		mvwprintw(v.info, 4, 2, "RUNNING");
 		wattron(v.info, COLOR_PAIR(1));
 	}
 	mvwprintw(v.info, 6, 2, "Cycles : %5d", arn->nb_cycle);
 	mvwprintw(v.info, 8, 2, "Processes : %5d", v.proc);
+	if (run == 3)
+		v.cycle_to_die = 0;
 	mvwprintw(v.info, 10, 2, "CYCLE TO DIE : %5d", v.cycle_to_die);
 	mvwprintw(v.info, 12, 2, "CYCLE_DELTA : %5d", CYCLE_DELTA);
 	mvwprintw(v.info, 14, 2, "NBR_LIVE : %5d", NBR_LIVE);
 	mvwprintw(v.info, 16, 2, "MAX_CHECKS : %5d", MAX_CHECKS);
 	while(++i < arn->nb_players)
 	{
+		wattron(v.info, COLOR_PAIR(arn->players[i].number + 2));
 		mvwprintw(v.info, u, 2, "Player %3d : %3s", arn->players[i].number, arn->players[i].name);
+		wattron(v.info, COLOR_PAIR(1));
 		mvwprintw(v.info, u + 1, 3, "Last live : %5d", arn->players[i].last_live);
 		mvwprintw(v.info, u + 2, 3, "Lives in current period : %5d", arn->players[i].nb_live);
 		u += 5;
@@ -131,7 +135,7 @@ int		init_visu(t_visu *v)
 	int			c;
 
 	c = 0;
-	color();
+	set_colorx();
 	v->cycle_to_die = CYCLE_TO_DIE;
 	v->next_cycle_to_die = CYCLE_TO_DIE;
 	v->arena = subwin(stdscr, 66, 260, 1, 5);
@@ -157,7 +161,7 @@ int		init_visu(t_visu *v)
 int		ft_visu(t_arena *arn)
 {
 	t_visu		v;
-	
+
 	initscr();
 	noecho();
 	start_color();
