@@ -6,7 +6,7 @@
 /*   By: pnardozi <pnardozi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 12:07:18 by pnardozi          #+#    #+#             */
-/*   Updated: 2018/03/02 13:44:52 by pnardozi         ###   ########.fr       */
+/*   Updated: 2018/03/02 14:04:51 by pnardozi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	put_man(t_visu *v)
 int		free_visu(t_visu *v)
 {
 	clear();
-	free(v->arena);
-	free(v->info);
-	free(v->background);
-	free(v->man);
+	delwin(v->arena);
+	delwin(v->info);
+	delwin(v->background);
+	delwin(v->man);
 	endwin();
 	return (0);
 }

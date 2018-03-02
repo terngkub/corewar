@@ -6,14 +6,14 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/27 17:05:52 by fbabin            #+#    #+#              #
-#    Updated: 2018/03/02 13:12:38 by pnardozi         ###   ########.fr        #
+#    Updated: 2018/03/02 13:56:35 by pnardozi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 COREWAR			= corewar
 
 CC				= gcc
-CFLAGS			= -Wall -Werror -Wextra
+CFLAGS			= -Wall -Werror -Wextra -g3
 
 _SRCS			=	main.c op.c visu.c displays.c parse_champs.c load_champs.c \
 					init_arena.c init_players.c init_player2.c check_number.c \
