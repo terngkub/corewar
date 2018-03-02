@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 22:27:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/25 14:28:02 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/03/02 15:14:47 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,20 @@ static int		get_player_number(t_arena *arn, t_process *process)
 	return (number);
 }
 
+int				ft_matchnumber(t_arena *arn, int number)
+{
+	int		i;
+
+	i = 0;
+	while (i < arn->nb_players)
+	{
+		if (arn->players[i].number == number)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void			live(t_arena *arn, t_process *process)
 {
 	int			number;
@@ -53,7 +67,8 @@ void			live(t_arena *arn, t_process *process)
 	process->alive = 1;
 	process->pc = (process->pc + 5) % MEM_SIZE;
 	arn->lives += 1;
-	arn->winner = number;
+	if (ft_matchnumber(arn, number) == 1)
+		arn->winner = number;
 	if (!(player = find_player(arn, number)))
 		return ;
 	player->nb_live++;
