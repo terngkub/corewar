@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/01 16:55:47 by pnardozi         ###   ########.fr       */
+/*   Updated: 2018/03/02 13:11:58 by pnardozi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,4 +170,16 @@ int						nb_of_process(t_process **begin_list);
 void					run_processes(t_arena *arn);
 void					kill_and_refresh_processes(t_arena *arn, t_process **begin_list,
 		                                                        int *next, int *die);
+void					set_color_process(char *color, t_process *begin_list);
+void					refresh_color_process(char *str);
+void				    put_arena(t_visu v, const char *mem, const char *color);
+void					f_p(char *byte, char mem);
+void					put_man(t_visu *v);
+int						free_visu(t_visu *v);
+void				    set_color(t_visu v, char c);
+void					put_winner(t_arena *arn, t_visu *v);
+void					put_info(t_visu v, t_arena *arn, int win, int run);
+void					put_title(t_visu *v);
+void					color(void);
+
 #endif
