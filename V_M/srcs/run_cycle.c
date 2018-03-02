@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 14:31:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/03/02 13:41:39 by pnardozi         ###   ########.fr       */
+/*   Updated: 2018/03/02 16:40:08 by pnardozi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	run_cycle(t_arena *arn, int dump, int display)
 	next_cycle_to_die = CYCLE_TO_DIE;
 	if (display)
 		ft_visu(arn);
-	else	
+	else
 		while ((proc = nb_of_process(&(arn->process))))
 		{
 			if (arn->nb_cycle == next_cycle_to_die)

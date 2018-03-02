@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/02 16:04:08 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/02 18:12:58 by pnardozi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,6 @@
 # define COLOR_LGREEN		14
 # define COLOR_WGREEN		15
 # define COLOR_LYELLOW		16
-
-
-typedef struct			s_color
-{
-	int					red;
-	int					blue;
-	int					green;
-}						t_color;
 
 typedef struct			s_norme
 {
@@ -182,6 +174,7 @@ void					run_processes(t_arena *arn);
 void					kill_and_refresh_processes(t_arena *arn, t_process **begin_list,
 		                                                        int *next, int *die);
 void					set_color_process(char *color, t_process *begin_list);
+void					game(t_visu *v, t_arena *arn);
 void					refresh_color_process(char *str);
 void				    put_arena(t_visu v, const char *mem, const char *color);
 void					f_p(char *byte, char mem);
@@ -192,5 +185,9 @@ void					put_winner(t_arena *arn, t_visu *v);
 void					put_info(t_visu v, t_arena *arn, int win, int run);
 void					put_title(t_visu *v);
 void					set_colorx(void);
+void					put_win(t_visu v, t_arena *arn, int win);
+void					put_onebyone(t_visu v);
+void					put_pause(t_visu v);
+void					put_running(t_visu v);
 
 #endif

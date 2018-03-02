@@ -6,7 +6,7 @@
 /*   By: pnardozi <pnardozi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 12:07:18 by pnardozi          #+#    #+#             */
-/*   Updated: 2018/03/02 16:13:33 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/02 17:03:04 by pnardozi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	f_p(char *byte, char mem)
 	char			base[17];
 
 	ft_memcpy((char*)base, "0123456789abcdef\0", 17);
-	tmp = (unsigned char) mem;
+	tmp = (unsigned char)mem;
 	byte[0] = base[tmp / 16];
 	byte[1] = base[tmp % 16];
 }
@@ -42,7 +42,7 @@ int		free_visu(t_visu *v)
 	return (0);
 }
 
-void    set_color(t_visu v, char c)
+void	set_color(t_visu v, char c)
 {
 	if (c == 1)
 		wattron(v.arena, COLOR_PAIR(1));
@@ -64,7 +64,6 @@ void    set_color(t_visu v, char c)
 		wattron(v.arena, COLOR_PAIR(13));
 	if (c == -5)
 		wattron(v.arena, COLOR_PAIR(14));
-
 }
 
 void	put_winner(t_arena *arn, t_visu *v)
@@ -81,5 +80,4 @@ void	put_winner(t_arena *arn, t_visu *v)
 		i--;
 	}
 	put_info(*v, arn, winner, 3);
-
 }

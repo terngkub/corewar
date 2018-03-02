@@ -6,13 +6,13 @@
 /*   By: pnardozi <pnardozi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 12:08:48 by pnardozi          #+#    #+#             */
-/*   Updated: 2018/03/02 16:16:27 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/02 16:57:29 by pnardozi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	set_color_process(char *color, t_process *begin_list)
+void			set_color_process(char *color, t_process *begin_list)
 {
 	t_process	*lst;
 
@@ -24,7 +24,7 @@ void	set_color_process(char *color, t_process *begin_list)
 	}
 }
 
-void	refresh_color_process(char *str)
+void			refresh_color_process(char *str)
 {
 	int		i;
 
@@ -37,32 +37,35 @@ void	refresh_color_process(char *str)
 	}
 }
 
-void    put_arena(t_visu v, const char *mem, const char *color)
+static void		put_arena2(int *i, int *x, int *y, char *byte)
 {
-	int             i;
-	int             x;
-	int             y;
-	char			byte[5];
+	if (((*i % 64) == 0) && *i != 0)
+	{
+		*y += 1;
+		*x = 0;
+	}
+	else
+	{
+		byte[2] = ' ';
+		byte[3] = ' ';
+	}
+}
+
+void			put_arena(t_visu v, const char *mem, const char *color)
+{
+	int		i;
+	int		x;
+	int		y;
+	char	byte[5];
 
 	x = 0;
 	y = 0;
 	i = -1;
-
 	ft_bzero(&byte, 5);
 	while (++i < 4096)
 	{
-
 		f_p((char*)byte, mem[i]);
-		if (((i % 64) == 0) && i != 0)
-		{
-			y += 1;
-			x = 0;
-		}
-		else
-		{
-			byte[2] = ' ';
-			byte[3] = ' ';
-		}
+		put_arena2(&i, &x, &y, byte);
 		set_color(v, color[i]);
 		if (color[i] < 0)
 		{
@@ -75,5 +78,4 @@ void    put_arena(t_visu v, const char *mem, const char *color)
 			mvwprintw(v.arena, y + 1, x + 3, (char*)&byte);
 		x += 4;
 	}
-	wrefresh(v.arena);
 }

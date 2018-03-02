@@ -6,7 +6,7 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/27 17:05:52 by fbabin            #+#    #+#              #
-#    Updated: 2018/03/02 13:56:35 by pnardozi         ###   ########.fr        #
+#    Updated: 2018/03/02 18:12:43 by pnardozi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ _SRCS			=	main.c op.c visu.c displays.c parse_champs.c load_champs.c \
 					freeall.c hex_to_dec.c modif_pc.c check_param_type.c \
 					check_get_registry.c get.c set.c live.c ld.c lld.c \
 					ldi.c st.c sti.c add.c sub.c bitwise.c zjmp.c fork.c \
-					long_fork.c aff.c visu2.c visu3.c visu4.c\
+					long_fork.c aff.c visu2.c visu3.c visu4.c put_mode.c \
+					visu_game.c
 
 _LIBFT			=	libft.a
 HEADER_DIR		=	includes
