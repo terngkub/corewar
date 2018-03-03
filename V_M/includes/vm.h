@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/03 15:03:08 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/03 16:35:58 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define VM_H
 
 # include "../../includes/op.h"
-# include "../../libft/includes/libft.h"	
+# include "../../libft/includes/libft.h"
 # include "../../libft/includes/get_next_line.h"
 # include "../../libft/includes/ft_printf.h"
 # include <ncurses.h>
@@ -104,25 +104,31 @@ typedef struct			s_visu
 
 int						check_number(int argc, char **argv, int *j);
 int						parse_champs(int argc, char **argv, t_norme *opt);
-int						load_champs(t_arena arn, char **argv, int nb_players, t_norme opt);
+int						load_champs(t_arena arn, char **argv,\
+		int nb_players, t_norme opt);
 int						start_of_input(int i, int nb_players);
 int						opc_nb_cycle(int opc);
-void					ft_fork_front(t_process **begin_list, t_process *curr, t_arena *arn, int new_pc);
+void					ft_fork_front(t_process **begin_list,\
+		t_process *curr, t_arena *arn, int new_pc);
 t_process				*cpy_process(t_process *curr, t_arena *arn, int new_pc);
 void					cpy_regs(t_process *curr, t_process *lst);
 int						modif_pc(unsigned char ocp);
 int						valid_ocp(unsigned char ocp);
-int						check_dump(char **argv, int argc, unsigned int *dump, int *i);
+int						check_dump(char **argv, int argc,\
+		unsigned int *dump, int *i);
 int						check_number(int argc, char **argv, int *j);
 
-int						init_arena(t_arena *arn, int nb_players, char **argv, t_norme opt);
-int						init_players(t_player *players, int nb_players, char **argv, int i);
+int						init_arena(t_arena *arn, int nb_players,\
+		char **argv, t_norme opt);
+int						init_players(t_player *players, int nb_players,\
+		char **argv, int i);
 int						get_number(char **argv, int *j);
 t_player				create_one_player(char *champ, int number);
 void					init_process(t_arena arn, t_process **begin_list);
 
 void					run_cycle(t_arena *arn, int dump, int display);
-void					kill_and_refresh_processes(t_arena *arn, t_process **begin_list, int *next, int *die);
+void					kill_and_refresh_processes(t_arena *arn, t_process\
+		**begin_list, int *next, int *die);
 int						nb_of_process(t_process **begin_list);
 void					freeall(t_arena *arn);
 void					free_one_process(t_process **process);
@@ -141,16 +147,19 @@ void					int_to_x_char(char *str, int len, int value);
 t_op					*get_op(int opc);
 
 int						check_param_type(t_arena *arn, t_process *process,
-							char type[3]);
+		char type[3]);
 int						get_fail_pos(t_process *process, char type[3]);
 int						handle_idx(int value);
 
 int						read_mem(t_arena *arn, int index, int len);
-int						check_get_registry(t_process *process, char type[3], int *param, int len);
+int						check_get_registry(t_process *process, char\
+		type[3], int *param, int len);
 int						get_registry(t_arena *arn, t_process *process, int pos);
-int						get_direct_2(t_arena *arn, t_process *process, int pos, int l);
+int						get_direct_2(t_arena *arn, t_process *process,\
+		int pos, int l);
 int						get_direct_4(t_arena *arn, t_process *process, int pos);
-int						get_indirect(t_arena *arn, t_process *process, int pos, int l);
+int						get_indirect(t_arena *arn, t_process *process,\
+		int pos, int l);
 
 void					set_registry(char *registry, int value);
 void					set_mem(t_arena *arn, int index, int value, int color);
@@ -172,16 +181,16 @@ void					aff(t_arena *arn, t_process *process);
 int						ft_visu(t_arena *arn);
 int						nb_of_process(t_process **begin_list);
 void					run_processes(t_arena *arn);
-void					kill_and_refresh_processes(t_arena *arn, t_process **begin_list,
-		                                                        int *next, int *die);
+void					kill_and_refresh_processes(t_arena *arn,\
+		t_process **begin_list, int *next, int *die);
 void					set_color_process(char *color, t_process *begin_list);
 void					game(t_visu *v, t_arena *arn);
 void					refresh_color_process(char *str);
-void				    put_arena(t_visu v, const char *mem, const char *color);
+void					put_arena(t_visu v, const char *mem, const char *color);
 void					f_p(char *byte, char mem);
 void					put_man(t_visu *v);
 int						free_visu(t_visu *v);
-void				    set_color(t_visu v, char c);
+void					set_color(t_visu v, char c);
 void					put_winner(t_arena *arn, t_visu *v);
 void					put_info(t_visu v, t_arena *arn, int win, int run);
 void					put_title(t_visu *v);
