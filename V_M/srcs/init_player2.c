@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 12:07:55 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/28 12:11:09 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/03 16:20:26 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void		get_number2(char **argv, char **flag, int *j, t_norme opt)
 	{
 		free(*flag);
 		*flag = ft_strndup(argv[*j], 3, opt.len);
-		ft_printf("%s\n", *flag);
 		opt.nb = ft_long_atoi(*flag);
 		*j += 1;
 		free(*flag);

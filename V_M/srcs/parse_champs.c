@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:32:42 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/28 12:22:00 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/03 16:16:18 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		parse_champs2(char **argv, int argc, int j, int *nb_player)
 			return (print_no_file(argv[j]));
 		if (ft_checkname(argv[j]) == 0)
 		{
-			ft_printf("Error: File %s is too small to be a champion\n"\
+			ft_dprintf(2, "Error: File %s is too small to be a champion\n"\
 					, argv[j]);
 			return (0);
 		}
@@ -82,7 +82,7 @@ int		parse_champs2(char **argv, int argc, int j, int *nb_player)
 			(*nb_player)++;
 		if (*nb_player > MAX_PLAYERS)
 		{
-			ft_printf("Too many champions\n");
+			ft_dprintf(2, "Too many champions\n");
 			return (0);
 		}
 		j++;

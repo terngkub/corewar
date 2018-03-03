@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:35:23 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/03 15:45:32 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/03 16:13:02 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		print_error_max_size(int p, int save, char *champ)
 {
-	ft_printf("Error: File %s has too large a code (%d bytes > %d bytes)\n"\
+	ft_dprintf(2, "Error: File %s has too large a code (%d bytes > %d bytes)\n"\
 			, champ, p - save, CHAMP_MAX_SIZE);
 	return (0);
 }

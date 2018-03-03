@@ -6,23 +6,11 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/15 19:57:25 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/03 15:11:28 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/03 16:23:27 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
-void	ft_print_reg(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (i < 4)
-	{
-		ft_printf("%d\n", str[i]);
-		i++;
-	}
-}
 
 int		change_move_pc(int val)
 {
