@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 13:56:48 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/03 16:16:53 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/03 16:31:55 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int		print_no_file(char *str)
 
 int		write_usage(void)
 {
-	ft_dprintf(2, "Usage: ./corewar [-dump N || -v] [-n N] <champion1.cor> <...>\n");
+	ft_dprintf(2, \
+			"Usage: ./corewar [-dump N || -v] [-n N] <champion1.cor> <...>\n");
 	return (0);
 }
 

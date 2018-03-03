@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:18:27 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/27 16:49:41 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/03 16:13:19 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,23 @@ void	ft_init_color(char *str, int size)
 		str[i++] = 1;
 }
 
+int		check_define(void)
+{
+	if (MEM_SIZE < 0 || MEM_SIZE > INT_MAX || IND_SIZE < 0 || REG_SIZE < 0)
+		return (0);
+	if (REG_CODE < 0 || DIR_CODE < 0 || IND_CODE < 0 || MEM_SIZE < 0)
+		return (0);
+	if (MAX_ARGS_NUMBER < 0 || MAX_PLAYERS < 0 || REG_NUMBER < 16)
+		return (0);
+	if (CYCLE_TO_DIE < 0 || CYCLE_DELTA < 0 || NBR_LIVE < 0)
+		return (0);
+	if (MAX_CHECKS < 0 || T_REG < 0 || T_DIR < 0 || T_IND < 0 || T_LAB < 0)
+		return (0);
+	if (PROG_NAME_LENGTH < 0 || COMMENT_LENGTH < 0)
+		return (0);
+	return (1);
+}
+
 int		main(int argc, char **argv)
 {
 	t_arena			arn;
@@ -73,6 +90,8 @@ int		main(int argc, char **argv)
 	opt.dump = -1;
 	opt.display = 0;
 	opt.argc = argc;
+	if (!(check_define()))
+		return (write(2, "Error in define\n", 16));
 	if (!(nb_players = parse_champs(argc, argv, &opt)))
 		return (0);
 	if (!(arn.mem = (char*)malloc(sizeof(char) * MEM_SIZE)))

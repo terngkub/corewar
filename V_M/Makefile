@@ -6,13 +6,13 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/27 17:05:52 by fbabin            #+#    #+#              #
-#    Updated: 2018/03/03 15:51:03 by arobion          ###   ########.fr        #
+#    Updated: 2018/03/03 16:25:55 by arobion          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 COREWAR			= corewar
 
-CC				= gcc -fsanitize=address
+CC				= gcc
 CFLAGS			= -Wall -Werror -Wextra -g3
 
 _SRCS			=	main.c op.c visu.c displays.c parse_champs.c load_champs.c \
