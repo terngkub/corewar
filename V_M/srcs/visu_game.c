@@ -6,7 +6,7 @@
 /*   By: pnardozi <pnardozi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 18:06:28 by pnardozi          #+#    #+#             */
-/*   Updated: 2018/03/02 18:34:48 by pnardozi         ###   ########.fr       */
+/*   Updated: 2018/03/03 15:41:38 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,17 @@ static void		game3(t_arena *arn, t_visu *v, int *i, char *c)
 	wrefresh(v->arena);
 }
 
-static int		game2(char c, t_visu *v, t_arena *arn)
+static int		game2(char *c, t_visu *v, t_arena *arn)
 {
 	while (1)
 	{
-		c = getch();
+		*c = getch();
 		put_info(*v, arn, 0, 2);
-		if (c == 32)
+		if (*c == 32)
 			return (1);
-		if (c == 100)
+		if (*c == 100)
 			return (1);
-		if (c == 27)
+		if (*c == 27)
 			return (0);
 	}
 	return (0);
@@ -83,7 +83,7 @@ void			game(t_visu *v, t_arena *arn)
 				return ;
 		c = getch();
 		if (c == 32)
-			if (!(game2(c, v, arn)))
+			if (!(game2(&c, v, arn)))
 				return ;
 		game4(arn, v, key);
 	}
