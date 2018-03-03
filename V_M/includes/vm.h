@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/02 18:12:58 by pnardozi         ###   ########.fr       */
+/*   Updated: 2018/03/03 15:03:08 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct			s_arena
 	int					winner;
 	int					nb_cycle;
 	int					nb_players;
+	int					displays;
 	t_player			*players;
 	int					nb_checks;
 	t_process			*process;
