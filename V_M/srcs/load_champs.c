@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:35:23 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/27 16:58:54 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/03 15:18:43 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ int		load_one_champ(t_arena arn, char *champ, int p, t_norme opt)
 		i++;
 		if (i > PROG_NAME_LENGTH + COMMENT_LENGTH + 16)
 		{
-			arn.mem[p] = l[0];
-			arn.color[p] = opt.j + 1;
+			ft_printf("%d \n", p);
+			arn.mem[p % MEM_SIZE] = l[0];
+			arn.color[p % MEM_SIZE] = opt.j + 1;
 			p++;
 		}
 	}
