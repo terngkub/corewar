@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 17:20:30 by fbabin            #+#    #+#             */
-/*   Updated: 2018/02/16 19:02:13 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/07 20:54:36 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,45 +15,50 @@
 void		ft_exit_error_line(t_file *f, t_champ *champ,
 				char *message, int ret)
 {
-	ft_putendl_fd(f->line, 2);
-	ft_dprintf(2, "%+kerror%k: line %k%d%k : %s\n",
-		LRED, EOC, LGREEN, f->line_nb, RESET, message);
+	ft_dprintf(2, "%+kerror%k: %+kline %k%d%k : %s\n",
+		LRED, RESET, EOC, LGREEN, f->line_nb, RESET, message);
 	free(f->line);
 	free_return(f, champ, 0);
 	exit(ret);
 }
 
-void		multiple_lines_handler_name(char *line, t_champ *champ, t_file *f)
+void		multiple_lines_handler_name(char **line, t_champ *champ, t_file *f)
 {
+	char	*tmp;
 	int		ret;
 
 	ret = 1;
-	while (ret > 0 && !ft_charinset(':', line) &&
-		!line[ft_strchrindex(line, '"')])
+	tmp = *line;
+	while (ret > 0 && !ft_charinset(':', tmp) &&
+		!tmp[ft_strchrindex(tmp, '"')])
 	{
-		ft_strcat(champ->name, line);
-		free(f->line);
+		ft_strcat(champ->name, tmp);
+		ft_strdel(&f->line);
 		ret = sget_next_line(f->fd_read, &f->line);
 		f->line_nb++;
-		line = f->line;
+		tmp = f->line;
 	}
+	*line = tmp;
 }
 
-void		multiple_lines_handler_comment(char *line, t_champ *champ,
+void		multiple_lines_handler_comment(char **line, t_champ *champ,
 				t_file *f)
 {
+	char	*tmp;
 	int		ret;
 
 	ret = 1;
-	while (ret > 0 && !ft_charinset(':', line) &&
-		!line[ft_strchrindex(line, '"')])
+	tmp = *line;
+	while (ret > 0 && !ft_charinset(':', tmp) &&
+		!tmp[ft_strchrindex(tmp, '"')])
 	{
-		ft_strcat(champ->comment, line);
-		free(f->line);
+		ft_strcat(champ->comment, tmp);
+		ft_strdel(&f->line);
 		ret = sget_next_line(f->fd_read, &f->line);
 		f->line_nb++;
-		line = f->line;
+		tmp = f->line;
 	}
+	*line = tmp;
 }
 
 void		check_name(t_champ *champ, t_file *f, t_check *check)
@@ -71,10 +76,10 @@ void		check_name(t_champ *champ, t_file *f, t_check *check)
 		ft_exit_error_line(f, champ,
 			"could not find starting '\"' at the beginning of the name", 0);
 	line += n_start + 1;
-	multiple_lines_handler_name(line, champ, f);
+	multiple_lines_handler_name(&line, champ, f);
 	n_len = ft_strchrindex(line, '"');
-	if (!line[n_len] || line[n_len + 1 +
-		ft_strspn(line + n_len + 1, " ")] != '\0')
+	if (!line[n_len] ||
+		line[n_len + 1 + ft_strspn(line + n_len + 1, " ")] != '\0')
 	{
 		ft_exit_error_line(f, champ,
 			"could not find ending '\"' at the end of the name", 0);
@@ -100,10 +105,9 @@ void		check_comment(t_champ *champ, t_file *f, t_check *check)
 		ft_exit_error_line(f, champ,
 			"could not find starting '\"' at the beginning of the comment", 0);
 	line += n_start + 1;
-	multiple_lines_handler_comment(line, champ, f);
+	multiple_lines_handler_comment(&line, champ, f);
 	n_len = ft_strchrindex(line, '"');
-	if (!line[n_len] ||
-			line[n_len + 1 +
+	if (!line[n_len] || line[n_len + 1 +
 			ft_strspn(line + n_len + 1, " ")] != '\0')
 		ft_exit_error_line(f, champ,
 					"could not find ending '\"' at the end of the comment", 0);
