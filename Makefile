@@ -6,14 +6,14 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/16 21:15:36 by fbabin            #+#    #+#              #
-#    Updated: 2018/03/07 19:03:10 by fbabin           ###   ########.fr        #
+#    Updated: 2018/03/07 21:49:32 by fbabin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ASM				= asm
 
 CC				= gcc -g3
-CFLAGS			= -Wall -Werror -Wextra -fsanitize=address
+CFLAGS			= -Wall -Werror -Wextra
 
 _ASM_SRCS		=	asm.c op.c init.c\
 					check_name_comments.c \
