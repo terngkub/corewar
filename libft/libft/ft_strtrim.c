@@ -6,13 +6,22 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 22:26:27 by fbabin            #+#    #+#             */
-/*   Updated: 2018/03/08 21:14:50 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/08 22:46:47 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(const char *s)
+static char		*ft_strtrim2(int len)
+{
+	char    *nstr;
+
+	if (!(nstr = ft_strnew(len)))
+		return (NULL);
+	return (nstr);
+}
+
+char			*ft_strtrim(const char *s)
 {
 	char	*nstr;
 	int		len;
@@ -23,9 +32,9 @@ char	*ft_strtrim(const char *s)
 		return (NULL);
 	len = ft_strlen(s);
 	if (len == 0)
-		return (NULL);
+		return (ft_strtrim2(len));
 	while (len && (s[len - 1] == ' ' || s[len - 1] == '\t' ||
-		s[len - 1] == '\n'))
+				s[len - 1] == '\n'))
 		len--;
 	while (len && (s[++i] == ' ' || s[i] == '\t' || s[i] == '\n'))
 		len--;
