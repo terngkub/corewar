@@ -6,7 +6,7 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/16 21:15:36 by fbabin            #+#    #+#              #
-#    Updated: 2018/03/08 12:12:13 by pnardozi         ###   ########.fr        #
+#    Updated: 2018/03/08 14:34:58 by fbabin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,13 +53,13 @@ _GREEN=\x1b[32m
 _YELLOW=\x1b[33m
 _END=\x1b[0m
 
-all: $(LIBFT) $(ASM) $(COREWAR)
+all:  $(ASM) $(COREWAR)
 
-$(ASM): $(ASM_OBJS)
+$(ASM): $(LIBFT) $(ASM_OBJS)
 			@$(CC) $(CFLAGS) -o $(ASM) $(ASM_OBJS) -L$(LIB_DIR) -lft -I $(HEADER_DIR)
 			@echo "$(ASM) : $(_GREEN)Done$(_END)"
 
-$(COREWAR): $(COREWAR_OBJS)
+$(COREWAR): $(LIBFT) $(COREWAR_OBJS)
 			@$(CC) $(CFLAGS) -o $(COREWAR) $(COREWAR_OBJS) -L$(LIB_DIR) -lft -lncurses -I $(HEADER_DIR)
 			@echo "$(COREWAR) : $(_GREEN)Done$(_END)"
 
