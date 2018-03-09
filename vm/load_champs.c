@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:35:23 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/03 16:13:02 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/09 16:37:53 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,75 @@ int		print_error_max_size(int p, int save, char *champ)
 	return (0);
 }
 
+int		check_magic(char *header)
+{
+	unsigned int	magic;
+	
+	magic = x_char_to_int(&header[0], 4);
+	if (magic != COREWAR_EXEC_MAGIC)
+		return (0);
+	return (1);
+}
+
+int		check_champ_size(char *header)
+{
+	long long	ret;
+
+	ret = x_char_to_int(&header[PROG_NAME_LENGTH + 4], 8);
+	return (ret);
+}
+
+int		check_header(int fd, char *l)
+{
+	int		i;
+	char	*header;
+	int		ret;
+
+	i = 0;
+	if (!(header = ft_strnew(PROG_NAME_LENGTH + COMMENT_LENGTH + 16)))
+			exit(0);
+	while (i < PROG_NAME_LENGTH + COMMENT_LENGTH + 16)
+	{
+		read(fd, l, 1);
+		header[i] = l[0];
+		i++;
+	}
+	if (!(ret = check_magic(header)))
+	{
+		free(header);
+		return (0);
+	}
+	if (!(ret = check_champ_size(header)))
+	{
+		free(header);
+		return (0);
+	}
+	return (ret);
+}
+
 int		load_one_champ(t_arena arn, char *champ, int p, t_norme opt)
 {
 	char	*l;
 	int		i;
 	int		save;
+	int		j;
 
-	i = 0;
 	save = p;
+	j = 0;
 	if (!(l = ft_strnew(1)))
 		exit(0);
-	while (read(opt.fd, l, 1))
+	if (!(i = check_header(opt.fd, l)))
+		return (0);
+	while (j < i)
 	{
-		i++;
-		if (i > PROG_NAME_LENGTH + COMMENT_LENGTH + 16)
-		{
-			arn.mem[p % MEM_SIZE] = l[0];
-			arn.color[p % MEM_SIZE] = opt.j + 1;
-			p++;
-		}
+			read(opt.fd, l, 1);
+			arn.mem[j % MEM_SIZE] = l[0];
+			arn.color[j % MEM_SIZE] = opt.j + 1;
+			j++;
 	}
 	free(l);
-	if (p - save > CHAMP_MAX_SIZE)
-		return (print_error_max_size(p, save, champ));
+	if (j - save > CHAMP_MAX_SIZE)
+		return (print_error_max_size(j, save, champ));
 	return (1);
 }
 

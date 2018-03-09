@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:18:27 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/03 16:13:19 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/09 16:43:05 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ int		main(int argc, char **argv)
 	ft_init_color(arn.color, MEM_SIZE);
 	ft_bzero(arn.mem, MEM_SIZE);
 	if (!(load_champs(arn, argv, nb_players, opt)))
-		return (0);
+		return (ft_dprintf(2, "ERROR in header\nLao-Tseu a dit : "
+					"\"L'échec est le fondement de la réussite.\"\n"));
 	if (!(init_arena(&arn, nb_players, argv, opt)))
 		return (write_usage());
 	run_cycle(&arn, opt.dump, opt.display);
