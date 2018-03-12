@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 17:20:30 by fbabin            #+#    #+#             */
-/*   Updated: 2018/03/07 20:54:36 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/09 18:25:52 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,22 @@ void		multiple_lines_handler_name(char **line, t_champ *champ, t_file *f)
 {
 	char	*tmp;
 	int		ret;
+	int		len;
 
 	ret = 1;
 	tmp = *line;
+	len = ft_strlen(tmp);
 	while (ret > 0 && !ft_charinset(':', tmp) &&
 		!tmp[ft_strchrindex(tmp, '"')])
 	{
-		ft_strcat(champ->name, tmp);
+		if (len > PROG_NAME_LENGTH)
+			ft_exit_error_line(f, champ, "champion name too long", 0);
+		ft_strlcat(champ->name, tmp, PROG_NAME_LENGTH);
 		ft_strdel(&f->line);
 		ret = sget_next_line(f->fd_read, &f->line);
 		f->line_nb++;
 		tmp = f->line;
+		len += ft_strlen(tmp);
 	}
 	*line = tmp;
 }
@@ -46,13 +51,17 @@ void		multiple_lines_handler_comment(char **line, t_champ *champ,
 {
 	char	*tmp;
 	int		ret;
+	int		len;
 
 	ret = 1;
 	tmp = *line;
+	len = ft_strlen(tmp);
 	while (ret > 0 && !ft_charinset(':', tmp) &&
 		!tmp[ft_strchrindex(tmp, '"')])
 	{
-		ft_strcat(champ->comment, tmp);
+		if (len > COMMENT_LENGTH)
+			ft_exit_error_line(f, champ, "comment too long", 0);
+		ft_strlcat(champ->comment, tmp, COMMENT_LENGTH);
 		ft_strdel(&f->line);
 		ret = sget_next_line(f->fd_read, &f->line);
 		f->line_nb++;
