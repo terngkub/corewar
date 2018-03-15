@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 17:20:30 by fbabin            #+#    #+#             */
-/*   Updated: 2018/03/15 21:27:03 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/15 21:47:22 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ void		multiple_lines_handler_comment(char **line, t_champ *champ,
 	len = ft_strchrindex(tmp, '"');
 	if (len > COMMENT_LENGTH)
 		ft_exit_error_line(f, champ, "comment too long", 0);
-	while (ret > 0 && !ft_charinset(':', tmp) &&
-			!tmp[ft_strchrindex(tmp, '"')])
+	while (ret > 0 && !tmp[ft_strchrindex(tmp, '"')])
 	{
 		ft_strlcat(champ->comment, tmp, COMMENT_LENGTH);
 		ft_strdel(&f->line);
