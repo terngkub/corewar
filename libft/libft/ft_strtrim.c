@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 22:26:27 by fbabin            #+#    #+#             */
-/*   Updated: 2018/03/08 22:46:47 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/15 15:12:14 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static char		*ft_strtrim2(int len)
 {
-	char    *nstr;
+	char	*nstr;
 
 	if (!(nstr = ft_strnew(len)))
 		return (NULL);
