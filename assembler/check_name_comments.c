@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 17:20:30 by fbabin            #+#    #+#             */
-/*   Updated: 2018/03/15 21:47:22 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/16 13:14:27 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void		multiple_lines_handler_name(char **line, t_champ *champ, t_file *f)
 		ret = sget_next_line(f->fd_read, &f->line);
 		f->line_nb++;
 		tmp = f->line;
-		len += ft_strchrindex(tmp, '"');
+		len += ft_strchrindex(tmp, '"') + 1;
 		if (len > PROG_NAME_LENGTH)
 			ft_exit_error_line(f, champ, "champion name too long", 0);
 	}
@@ -66,7 +66,7 @@ void		multiple_lines_handler_comment(char **line, t_champ *champ,
 		ret = sget_next_line(f->fd_read, &f->line);
 		f->line_nb++;
 		tmp = f->line;
-		len += ft_strchrindex(tmp, '"');
+		len += ft_strchrindex(tmp, '"') + 1;
 		if (len > COMMENT_LENGTH)
 			ft_exit_error_line(f, champ, "comment too long", 0);
 	}
@@ -98,7 +98,7 @@ void		check_name(t_champ *champ, t_file *f, t_check *check)
 	}
 	if (n_len > PROG_NAME_LENGTH)
 		ft_exit_error_line(f, champ, "champion name too long", 0);
-	ft_strlcat(champ->name, line, n_len);
+	ft_strlcat(champ->name, line, n_len + 1);
 	check->name = 1;
 }
 
@@ -125,6 +125,6 @@ void		check_comment(t_champ *champ, t_file *f, t_check *check)
 				"could not find ending '\"' at the end of the comment", 0);
 	if (n_len > COMMENT_LENGTH)
 		ft_exit_error_line(f, champ, "comment too long", 0);
-	ft_strlcat(champ->comment, line, n_len);
+	ft_strlcat(champ->comment, line, n_len + 1);
 	check->comment = 1;
 }
