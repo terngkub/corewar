@@ -6,7 +6,7 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/16 21:15:36 by fbabin            #+#    #+#              #
-#    Updated: 2018/03/15 21:38:11 by fbabin           ###   ########.fr        #
+#    Updated: 2018/03/16 10:57:00 by arobion          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ _ASM_SRCS		=	asm.c op.c init.c\
 
 _COREWAR_SRCS	=	main.c op.c visu.c displays.c parse_champs.c load_champs.c \
 					init_arena.c init_players.c init_player2.c check_number.c \
-					check_dump.c load_champ2.c\
+					check_dump.c \
 					init_process.c run_cycle.c handle_process.c \
 					freeall.c hex_to_dec.c modif_pc.c check_param_type.c \
 					check_get_registry.c get.c set.c live.c ld.c lld.c \

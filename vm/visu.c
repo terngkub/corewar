@@ -6,7 +6,7 @@
 /*   By: pnardozi <pnardozi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 13:43:32 by pnardozi          #+#    #+#             */
-/*   Updated: 2018/03/02 18:08:15 by pnardozi         ###   ########.fr       */
+/*   Updated: 2018/03/08 15:51:28 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void			put_info2(t_visu v, t_arena *arn, int *u, int i)
 {
 	wattron(v.info, COLOR_PAIR(arn->players[i].number + 2));
-	mvwprintw(v.info, *u, 2, "Player %3d : %3s",\
+	mvwprintw(v.info, *u, 2, "Player %3d : %10s",\
 			arn->players[i].number, arn->players[i].name);
 	wattron(v.info, COLOR_PAIR(1));
 	mvwprintw(v.info, *u + 1, 3, "Last live : %5d",\

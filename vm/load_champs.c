@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:35:23 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/15 15:21:03 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/03 16:13:02 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,57 +19,29 @@ int		print_error_max_size(int p, int save, char *champ)
 	return (0);
 }
 
-int		check_header(int fd, char *l)
-{
-	int		i;
-	char	*header;
-	int		ret;
-
-	i = 0;
-	if (!(header = ft_strnew(PROG_NAME_LENGTH + COMMENT_LENGTH + 16)))
-		exit(0);
-	while (i < PROG_NAME_LENGTH + COMMENT_LENGTH + 16)
-	{
-		read(fd, l, 1);
-		header[i] = l[0];
-		i++;
-	}
-	if (!(ret = check_magic(header)))
-	{
-		free(header);
-		return (0);
-	}
-	if (!(ret = check_champ_size(header)))
-	{
-		free(header);
-		return (0);
-	}
-	return (ret);
-}
-
 int		load_one_champ(t_arena arn, char *champ, int p, t_norme opt)
 {
 	char	*l;
 	int		i;
 	int		save;
-	int		j;
 
+	i = 0;
 	save = p;
-	j = 0;
 	if (!(l = ft_strnew(1)))
 		exit(0);
-	if (!(i = check_header(opt.fd, l)))
-		return (0);
-	while (j < i)
+	while (read(opt.fd, l, 1))
 	{
-		read(opt.fd, l, 1);
-		arn.mem[j % MEM_SIZE] = l[0];
-		arn.color[j % MEM_SIZE] = opt.j + 1;
-		j++;
+		i++;
+		if (i > PROG_NAME_LENGTH + COMMENT_LENGTH + 16)
+		{
+			arn.mem[p % MEM_SIZE] = l[0];
+			arn.color[p % MEM_SIZE] = opt.j + 1;
+			p++;
+		}
 	}
 	free(l);
-	if (j - save > CHAMP_MAX_SIZE)
-		return (print_error_max_size(j, save, champ));
+	if (p - save > CHAMP_MAX_SIZE)
+		return (print_error_max_size(p, save, champ));
 	return (1);
 }
 
