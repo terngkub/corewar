@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 15:17:21 by fbabin            #+#    #+#             */
-/*   Updated: 2018/03/16 12:25:22 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/16 15:36:22 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		check_champ_size(int fd, char *header, char *l)
 
 	i = 0;
 	size = x_char_to_int(&header[PROG_NAME_LENGTH + 4], 8);
-	while (read(fd, l, 1))
+	while (read(fd, l, 1) > 0)
 	{
 		i++;
 		if (i > size + 10)

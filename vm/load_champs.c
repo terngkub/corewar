@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:35:23 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/16 11:32:12 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/16 15:44:02 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		load_one_champ(t_arena arn, char *champ, int p, t_norme opt)
 		exit(0);
 	if (!(check_header(opt.fd, l)))
 		return (0);
-	while (read(opt.fd, l, 1))
+	while (read(opt.fd, l, 1) > 0)
 	{
 		i++;
 		if (i > PROG_NAME_LENGTH + COMMENT_LENGTH + 16)
