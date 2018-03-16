@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/16 11:43:39 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/16 13:11:32 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ void					run_cycle(t_arena *arn, int dump, int display);
 void					kill_and_refresh_processes(t_arena *arn, t_process\
 		**begin_list, int *next, int *die);
 int						nb_of_process(t_process **begin_list);
+int						free_mem_err(t_arena arn);
 void					freeall(t_arena *arn);
 void					free_one_process(t_process **process);
 
