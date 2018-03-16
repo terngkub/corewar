@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/15 15:18:40 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/16 11:43:39 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,9 @@ int						check_number(int argc, char **argv, int *j);
 int						parse_champs(int argc, char **argv, t_norme *opt);
 int						load_champs(t_arena arn, char **argv,\
 		int nb_players, t_norme opt);
-int						check_champ_size(char *header);
-int						check_magic(char *header);
+int						check_champ_size(int fd, char *header, char *l);
+int						check_magic(char *header, char *l);
+int						check_header(int fd, char *l);
 int						start_of_input(int i, int nb_players);
 int						opc_nb_cycle(int opc);
 void					ft_fork_front(t_process **begin_list,\
