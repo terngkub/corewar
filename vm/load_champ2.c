@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 15:17:21 by fbabin            #+#    #+#             */
-/*   Updated: 2018/03/16 11:50:26 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/16 12:25:22 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		check_header(int fd, char *l)
 	if (!(header = ft_strnew(PROG_NAME_LENGTH + COMMENT_LENGTH + 16)))
 		exit(0);
 	if (!(get_header(fd, l, header)))
-		return (0);	
+		return (0);
 	if (!(check_magic(header, l)))
 		return (0);
 	if (!(check_champ_size(fd, header, l)))
