@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:32:42 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/03 16:16:18 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/16 20:15:35 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ int		check_display(char **argv, int argc, int *display, int *i)
 		{
 			if (argc >= 3)
 			{
-				free(flag);
+				ft_strdel(&flag);
 				*i += 1;
 				*display = 1;
 			}
 		}
 		else
-			free(flag);
+			ft_strdel(&flag);
 	}
 	return (1);
 }

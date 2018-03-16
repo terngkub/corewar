@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 12:07:55 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/03 16:20:26 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/16 20:14:54 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ void		get_number2(char **argv, char **flag, int *j, t_norme opt)
 	*flag = ft_strndup(argv[*j], 0, 2);
 	if (ft_strcmp(*flag, "-n ") == 0)
 	{
-		free(*flag);
+		ft_strdel(flag);
 		*flag = ft_strndup(argv[*j], 3, opt.len);
 		opt.nb = ft_long_atoi(*flag);
 		*j += 1;
-		free(*flag);
+		ft_strdel(flag);
 	}
 	else
-		free(*flag);
+		ft_strdel(flag);
 }
 
 int			get_number(char **argv, int *j)
@@ -41,15 +41,15 @@ int			get_number(char **argv, int *j)
 		flag = ft_strdup(argv[*j]);
 		if (ft_strcmp(flag, "-n") == 0)
 		{
-			free(flag);
+			ft_strdel(&flag);
 			*j += 1;
 			flag = ft_strdup(argv[*j]);
 			opt.nb = ft_long_atoi(flag);
 			*j += 1;
-			free(flag);
+			ft_strdel(&flag);
 		}
 		else
-			free(flag);
+			ft_strdel(&flag);
 	}
 	return (opt.nb);
 }
@@ -106,7 +106,7 @@ t_player	create_one_player(char *champ, int number)
 	player.number = number;
 	player.nb_live = 0;
 	player.last_live = 0;
-	free(l);
+	ft_strdel(&l);
 	close(fd);
 	return (player);
 }

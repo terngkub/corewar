@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 21:57:48 by fbabin            #+#    #+#             */
-/*   Updated: 2017/11/08 21:57:54 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/16 16:21:51 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ t_list		*ft_lstnew(void const *content, size_t content_size)
 		return (NULL);
 	if (content)
 	{
-		t->content = ft_memalloc(content_size);
+		if (!(t->content = ft_memalloc(content_size)))
+			return (NULL);
 		ft_memcpy(t->content, content, content_size);
 		t->content_size = content_size;
 	}

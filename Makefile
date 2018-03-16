@@ -6,12 +6,12 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/16 21:15:36 by fbabin            #+#    #+#              #
-#    Updated: 2018/03/16 11:23:42 by arobion          ###   ########.fr        #
+#    Updated: 2018/03/16 20:29:36 by fbabin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ASM				= asm
-COREWAR			= corewar
+NAME			= corewar
 
 CC				= gcc
 CFLAGS			= -Wall -Werror -Wextra
@@ -53,15 +53,15 @@ _GREEN=\x1b[32m
 _YELLOW=\x1b[33m
 _END=\x1b[0m
 
-all:  $(ASM) $(COREWAR)
+all:  $(ASM) $(NAME)
 
 $(ASM): $(LIBFT) $(ASM_OBJS)
 			@$(CC) $(CFLAGS) -o $(ASM) $(ASM_OBJS) -L$(LIB_DIR) -lft -I $(HEADER_DIR)
 			@echo "$(ASM) : $(_GREEN)Done$(_END)"
 
-$(COREWAR): $(LIBFT) $(COREWAR_OBJS)
-			@$(CC) $(CFLAGS) -o $(COREWAR) $(COREWAR_OBJS) -L$(LIB_DIR) -lft -lncurses -I $(HEADER_DIR)
-			@echo "$(COREWAR) : $(_GREEN)Done$(_END)"
+$(NAME): $(LIBFT) $(COREWAR_OBJS)
+			@$(CC) $(CFLAGS) -o $(NAME) $(COREWAR_OBJS) -L$(LIB_DIR) -lft -lncurses -I $(HEADER_DIR)
+			@echo "$(NAME) : $(_GREEN)Done$(_END)"
 
 $(LIBFT):
 			@make -C $(LIB_DIR)
@@ -74,13 +74,13 @@ clean:
 			@/bin/rm -f $(ASM_OBJS)
 			@/bin/rm -f $(COREWAR_OBJS)
 			@echo "$(ASM) clean : $(_GREEN)Done$(_END)"
-			@echo "$(COREWAR) clean : $(_GREEN)Done$(_END)"
+			@echo "$(NAME) clean : $(_GREEN)Done$(_END)"
 	
 fclean: clean
 			@/bin/rm -f $(ASM)
-			@/bin/rm -f $(COREWAR)
+			@/bin/rm -f $(NAME)
 			@echo "$(ASM) fclean : $(_GREEN)Done$(_END)"
-			@echo "$(COREWAR) fclean : $(_GREEN)Done$(_END)"
+			@echo "$(NAME) fclean : $(_GREEN)Done$(_END)"
 
 re:
 			@make fclean

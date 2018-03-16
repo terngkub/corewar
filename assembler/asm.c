@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/13 15:49:10 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/16 16:39:41 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ int			main_2(t_file *f, t_champ *champ, t_check *check)
 		}
 		else if (!check_instruction_line(champ, f->line, f->line_nb))
 			return (free_return(f, champ, -1));
-		free(f->line);
+		ft_strdel(&f->line);
 	}
-	free(f->line);
+	ft_strdel(&f->line);
 	return (0);
 }
 
@@ -79,5 +79,6 @@ int			main(int argc, char **argv)
 	write_champion(f.fd_write, &champ);
 	close(f.fd_read);
 	close(f.fd_write);
+	ft_printf("Writing output program to %s\n", f.cor_filename);
 	return (free_return(&f, &champ, 0));
 }

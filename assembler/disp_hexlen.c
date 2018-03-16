@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 20:18:17 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/12 20:34:43 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/03/16 16:40:51 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ void	disp_hexlen(int fd, size_t size, int len)
 		size /= 256;
 	}
 	write(fd, tmp, len);
-	free(tmp);
+	ft_memdel((void**)&tmp);
 }

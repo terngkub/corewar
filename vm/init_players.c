@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:40:33 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/28 12:08:40 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/16 20:20:57 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			choose_player_number(t_player *players, int nb_players)
 	i = 0;
 	while (ft_is_in(j, tab, nb_players) == 1)
 		j++;
-	free(tab);
+	ft_memdel((void**)&tab);
 	return (j);
 }
 

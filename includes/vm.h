@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 15:19:19 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/16 13:11:32 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/16 16:33:16 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,27 @@
 # include "../libft/includes/get_next_line.h"
 # include "../libft/includes/ft_printf.h"
 # include <ncurses.h>
+# include <limits.h>
 
-# define INT_MAX 2147483648
-
-# define COLOR_LGREY		10
-# define COLOR_NRED			11
-# define COLOR_TRED			12
-# define COLOR_LBLUE		13
-# define COLOR_LGREEN		14
-# define COLOR_WGREEN		15
-# define COLOR_LYELLOW		16
+# define COLOR_LGREY	10
+# define COLOR_NRED		11
+# define COLOR_TRED		12
+# define COLOR_LBLUE	13
+# define COLOR_LGREEN	14
+# define COLOR_WGREEN	15
+# define COLOR_LYELLOW	16
 
 typedef struct			s_norme
 {
-	int				i;
-	int				j;
-	int				fd;
-	int				argc;
-	int				start;
-	unsigned int	dump;
-	int				display;
-	size_t			len;
-	long long		nb;
+	int					i;
+	int					j;
+	int					fd;
+	int					argc;
+	int					start;
+	unsigned int		dump;
+	int					display;
+	size_t				len;
+	long long			nb;
 }						t_norme;
 
 typedef struct			s_process

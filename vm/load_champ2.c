@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 15:17:21 by fbabin            #+#    #+#             */
-/*   Updated: 2018/03/16 15:36:22 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/16 20:18:37 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int		check_magic(char *header, char *l)
 	magic = x_char_to_int(&header[0], 4);
 	if (magic != COREWAR_EXEC_MAGIC)
 	{
-		free(header);
-		free(l);
+		ft_strdel(&header);
+		ft_strdel(&l);
 		return (0);
 	}
 	return (1);
@@ -41,8 +41,8 @@ int		check_champ_size(int fd, char *header, char *l)
 	}
 	if (i == size)
 		return (1);
-	free(header);
-	free(l);
+	ft_strdel(&header);
+	ft_strdel(&l);
 	return (0);
 }
 
@@ -55,8 +55,8 @@ int		get_header(int fd, char *l, char *header)
 	{
 		if (read(fd, l, 1) <= 0)
 		{
-			free(header);
-			free(l);
+			ft_strdel(&header);
+			ft_strdel(&l);
 			return (0);
 		}
 		header[i] = l[0];
@@ -77,7 +77,7 @@ int		check_header(int fd, char *l)
 		return (0);
 	if (!(check_champ_size(fd, header, l)))
 		return (0);
-	free(header);
+	ft_strdel(&header);
 	lseek(fd, 0, SEEK_SET);
 	return (1);
 }

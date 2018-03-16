@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 14:53:34 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/16 13:12:40 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/16 20:24:35 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ void	freeall(t_arena *arn)
 	int		i;
 
 	i = 0;
-	free(arn->mem);
-	free(arn->color);
+	ft_strdel(&arn->mem);
+	ft_strdel(&arn->color);
 	while (i < arn->nb_players)
 	{
-		free(arn->players[i].name);
-		free(arn->players[i].comment);
+		ft_strdel(&arn->players[i].name);
+		ft_strdel(&arn->players[i].comment);
 		i++;
 	}
 	free(arn->players);
@@ -59,8 +59,8 @@ void	freeall(t_arena *arn)
 
 int		free_mem_err(t_arena arn)
 {
-	free(arn.mem);
-	free(arn.color);
+	ft_strdel(&arn.mem);
+	ft_strdel(&arn.color);
 	ft_dprintf(2, "ERROR in header \nLao-Tseu a dit : "\
 			"\"L'échec est le fondement de la réussite.\"\n");
 	return (0);

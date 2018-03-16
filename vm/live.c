@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 22:27:37 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/03/02 15:14:47 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/16 20:20:24 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int		get_player_number(t_arena *arn, t_process *process)
 	while (++i < 4)
 		str[i] = arn->mem[(process->pc + i + 1) % MEM_SIZE];
 	number = -hex_to_dec(str, 4);
-	free(str);
+	ft_strdel(&str);
 	return (number);
 }
 

@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:35:23 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/16 15:44:02 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/16 20:16:17 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		load_one_champ(t_arena arn, char *champ, int p, t_norme opt)
 			p++;
 		}
 	}
-	free(l);
+	ft_strdel(&l);
 	if (p - save > CHAMP_MAX_SIZE)
 		return (print_error_max_size(p, save, champ));
 	return (1);

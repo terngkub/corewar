@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 21:36:41 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/12 18:36:57 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/03/16 16:38:28 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		check_parameters(char *str, t_op *op, t_inst *inst, int line_nb)
 	{
 		if (!(tmp = ft_strtrim(arr[i])))
 			ft_error_line("ft_strtrim failed in check_parameters", line_nb);
-		free(arr[i]);
+		ft_strdel(&arr[i]);
 		arr[i] = tmp;
 		if (!(type = get_param_type(arr[i], inst, i)))
 			ft_error_line("ft_strtrim failed in check_parameters", line_nb);

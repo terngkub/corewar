@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 16:57:49 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/25 15:48:06 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/03/16 20:22:29 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	read_mem(t_arena *arn, int index, int len)
 		i++;
 	}
 	value = hex_to_dec(str, len);
-	free(str);
+	ft_strdel(&str);
 	return (value);
 }
 

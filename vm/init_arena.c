@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:38:23 by arobion           #+#    #+#             */
-/*   Updated: 2018/02/27 16:48:07 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/16 20:21:31 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		weigh_champ(char *str)
 	fd = open(str, O_RDONLY);
 	while (read(fd, l, 1))
 		i++;
-	free(l);
+	ft_strdel(&l);
 	close(fd);
 	return (i - (PROG_NAME_LENGTH + COMMENT_LENGTH + 16));
 }

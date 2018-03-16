@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 12:21:40 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/03 16:24:00 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/16 18:22:36 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ int		check_number2(char **argv, char **flag, int *j, t_norme opt)
 	*flag = ft_strndup(argv[*j], 0, 2);
 	if (ft_strcmp(*flag, "-n ") == 0)
 	{
-		free(*flag);
+		ft_strdel(flag);
 		*flag = ft_strndup(argv[*j], 3, opt.len);
 		opt.nb = ft_long_atoi(*flag);
 		*j += 1;
-		free(*flag);
+		ft_strdel(flag);
 		if (opt.nb <= 0 || opt.nb > INT_MAX)
 			return (0);
 	}
 	else
-		free(*flag);
+		ft_strdel(flag);
 	return (1);
 }
 
@@ -37,18 +37,18 @@ int		check_number3(char **argv, char **flag, int *j, t_norme opt)
 	{
 		if (opt.argc > *j + 1)
 		{
-			free(*flag);
+			ft_strdel(flag);
 			*j += 1;
 			*flag = ft_strdup(argv[*j]);
 			opt.nb = ft_long_atoi(*flag);
 			*j += 1;
-			free(*flag);
+			ft_strdel(flag);
 			if (opt.nb <= 0 || opt.nb > INT_MAX)
 				return (0);
 		}
 	}
 	else
-		free(*flag);
+		ft_strdel(flag);
 	return (1);
 }
 

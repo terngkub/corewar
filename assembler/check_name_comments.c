@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 17:20:30 by fbabin            #+#    #+#             */
-/*   Updated: 2018/03/16 13:14:27 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/16 16:37:46 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		ft_exit_error_line(t_file *f, t_champ *champ,
 {
 	ft_dprintf(2, "%+kerror%k: %+kline %k%d%k : %s\n",
 			LRED, RESET, EOC, LGREEN, f->line_nb, RESET, message);
-	free(f->line);
+	ft_strdel(&f->line);
 	free_return(f, champ, 0);
 	exit(ret);
 }

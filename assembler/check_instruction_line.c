@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 18:33:17 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/12 19:17:14 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/03/16 16:37:15 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static t_op		*check_instruction(char *str, int line_nb)
 		ft_error_line("ft_strsub failed in check_instruction", line_nb);
 	if (!(op = get_op(instruction)))
 		ft_error_line("instuction not found", line_nb);
-	free(instruction);
+	ft_strdel(&instruction);
 	return (op);
 }
 
@@ -98,7 +98,7 @@ int				check_instruction_line(t_champ *champ, char *line, int line_nb)
 	i = check_label_infront(str, champ, line_nb);
 	if (!str[i])
 	{
-		free(str);
+		ft_strdel(&str);
 		return (1);
 	}
 	i = skip_space(str, i);
@@ -109,6 +109,6 @@ int				check_instruction_line(t_champ *champ, char *line, int line_nb)
 	check_parameters(&str[i], op, inst, line_nb);
 	champ->accu_len += inst->len;
 	ft_lstpushback(&champ->inst, inst, sizeof(t_inst));
-	free(str);
+	ft_strdel(&str);
 	return (1);
 }

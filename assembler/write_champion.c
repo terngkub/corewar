@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 20:07:14 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/02/12 20:07:17 by nkamolba         ###   ########.fr       */
+/*   Updated: 2018/03/16 16:41:34 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	write_label(int fd, t_inst *inst, t_list *label_list, int i)
 		disp_hexlen(fd, addr - inst->addr, direct_len);
 	else
 		ft_error("can't find label");
-	free(label);
+	ft_strdel(&label);
 }
 
 static void	write_inst(int fd, t_inst *inst, t_list *label_list)
