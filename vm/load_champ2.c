@@ -6,7 +6,7 @@
 /*   By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 15:17:21 by fbabin            #+#    #+#             */
-/*   Updated: 2018/03/17 12:44:39 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/17 13:50:39 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ int		check_magic(char *header, char *l)
 int		check_champ_size(int fd, char *header, char *l)
 {
 	unsigned int	size;
-	int				i;
+	unsigned int	i;
 
 	i = 0;
 	size = x_char_to_int(&header[PROG_NAME_LENGTH + 8], 4);
 	while (read(fd, l, 1) > 0)
 	{
 		i++;
-		if (i > (int)size + 10)
+		if (i > size + 10)
 			break ;
 	}
-	if (i == (int)size)
+	if (i == size)
 		return (1);
 	ft_strdel(&header);
 	ft_strdel(&l);
