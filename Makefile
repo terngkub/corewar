@@ -6,7 +6,7 @@
 #    By: fbabin <fbabin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/16 21:15:36 by fbabin            #+#    #+#              #
-#    Updated: 2018/03/16 20:29:36 by fbabin           ###   ########.fr        #
+#    Updated: 2018/03/17 12:49:26 by fbabin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,17 +53,17 @@ _GREEN=\x1b[32m
 _YELLOW=\x1b[33m
 _END=\x1b[0m
 
-all:  $(ASM) $(NAME)
+all:  lib $(ASM) $(NAME)
 
-$(ASM): $(LIBFT) $(ASM_OBJS)
+$(ASM): $(ASM_OBJS)
 			@$(CC) $(CFLAGS) -o $(ASM) $(ASM_OBJS) -L$(LIB_DIR) -lft -I $(HEADER_DIR)
 			@echo "$(ASM) : $(_GREEN)Done$(_END)"
 
-$(NAME): $(LIBFT) $(COREWAR_OBJS)
+$(NAME): $(COREWAR_OBJS)
 			@$(CC) $(CFLAGS) -o $(NAME) $(COREWAR_OBJS) -L$(LIB_DIR) -lft -lncurses -I $(HEADER_DIR)
 			@echo "$(NAME) : $(_GREEN)Done$(_END)"
 
-$(LIBFT):
+lib:
 			@make -C $(LIB_DIR)
 
 %.o : %.c
