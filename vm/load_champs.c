@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:35:23 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/16 21:00:46 by arobion          ###   ########.fr       */
+/*   Updated: 2018/03/17 16:09:41 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,14 @@ int		load_champs(t_arena arn, char **argv, int nb_players, t_norme opt)
 	while (opt.j <= nb_players)
 	{
 		check_number(opt.argc, argv, &index);
-		opt.fd = open(argv[index], O_RDONLY);
+		if ((opt.fd = open(argv[index], O_RDONLY)) < 0)
+			exit(0);
 		if (!(load_one_champ(arn, argv[index],\
 						start_of_input(opt.j, nb_players), opt)))
+		{
+			close(opt.fd);
 			return (0);
+		}
 		close(opt.fd);
 		(opt.j)++;
 		index++;

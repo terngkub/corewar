@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 12:21:40 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/16 18:22:36 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/17 15:48:21 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 int		check_number2(char **argv, char **flag, int *j, t_norme opt)
 {
-	*flag = ft_strndup(argv[*j], 0, 2);
+	if (!(*flag = ft_strndup(argv[*j], 0, 2)))
+		exit(0);
 	if (ft_strcmp(*flag, "-n ") == 0)
 	{
 		ft_strdel(flag);
-		*flag = ft_strndup(argv[*j], 3, opt.len);
+		if (!(*flag = ft_strndup(argv[*j], 3, opt.len)))
+			exit(0);
 		opt.nb = ft_long_atoi(*flag);
 		*j += 1;
 		ft_strdel(flag);
@@ -32,20 +34,24 @@ int		check_number2(char **argv, char **flag, int *j, t_norme opt)
 
 int		check_number3(char **argv, char **flag, int *j, t_norme opt)
 {
-	*flag = ft_strdup(argv[*j]);
+	if (!(*flag = ft_strdup(argv[*j])))
+		exit(0);
 	if (ft_strcmp(*flag, "-n") == 0)
 	{
 		if (opt.argc > *j + 1)
 		{
 			ft_strdel(flag);
 			*j += 1;
-			*flag = ft_strdup(argv[*j]);
+			if (!(*flag = ft_strdup(argv[*j])))
+				exit(0);
 			opt.nb = ft_long_atoi(*flag);
 			*j += 1;
 			ft_strdel(flag);
 			if (opt.nb <= 0 || opt.nb > INT_MAX)
 				return (0);
 		}
+		else
+			ft_strdel(flag);
 	}
 	else
 		ft_strdel(flag);

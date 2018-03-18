@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 14:53:34 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/16 20:24:35 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/17 14:42:02 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,11 @@ int		free_mem_err(t_arena arn)
 	ft_dprintf(2, "ERROR in header \nLao-Tseu a dit : "\
 			"\"L'échec est le fondement de la réussite.\"\n");
 	return (0);
+}
+
+int		free_arena_err(t_arena arn)
+{
+	ft_strdel(&arn.mem);
+	ft_strdel(&arn.color);
+	return (write_usage());
 }

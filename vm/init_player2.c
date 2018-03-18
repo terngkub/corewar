@@ -6,20 +6,22 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 12:07:55 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/16 20:14:54 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/17 16:01:47 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void		get_number2(char **argv, char **flag, int *j, t_norme opt)
+void		get_number2(char **argv, char **flag, int *j, t_norme *opt)
 {
-	*flag = ft_strndup(argv[*j], 0, 2);
+	if (!(*flag = ft_strndup(argv[*j], 0, 2)))
+		exit(0);
 	if (ft_strcmp(*flag, "-n ") == 0)
 	{
 		ft_strdel(flag);
-		*flag = ft_strndup(argv[*j], 3, opt.len);
-		opt.nb = ft_long_atoi(*flag);
+		if (!(*flag = ft_strndup(argv[*j], 3, (*opt).len)))
+			exit(0);
+		(*opt).nb = ft_long_atoi(*flag);
 		*j += 1;
 		ft_strdel(flag);
 	}
@@ -35,15 +37,17 @@ int			get_number(char **argv, int *j)
 	opt.nb = 0;
 	opt.len = ft_strlen(argv[*j]);
 	if (opt.len > 2)
-		get_number2(argv, &flag, j, opt);
+		get_number2(argv, &flag, j, &opt);
 	else if (opt.len == 2)
 	{
-		flag = ft_strdup(argv[*j]);
+		if (!(flag = ft_strdup(argv[*j])))
+			exit(0);
 		if (ft_strcmp(flag, "-n") == 0)
 		{
 			ft_strdel(&flag);
 			*j += 1;
-			flag = ft_strdup(argv[*j]);
+			if (!(flag = ft_strdup(argv[*j])))
+				exit(0);
 			opt.nb = ft_long_atoi(flag);
 			*j += 1;
 			ft_strdel(&flag);
@@ -100,7 +104,8 @@ t_player	create_one_player(char *champ, int number)
 		exit(0);
 	if (!(player.comment = ft_strnew(COMMENT_LENGTH)))
 		exit(0);
-	fd = open(champ, O_RDONLY);
+	if ((fd = open(champ, O_RDONLY)) < 0)
+		exit(0);
 	create_name(fd, player.name, l);
 	create_comment(fd, player.comment, l);
 	player.number = number;

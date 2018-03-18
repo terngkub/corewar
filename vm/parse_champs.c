@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 19:32:42 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/16 20:15:35 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/17 16:02:35 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int		ft_checkfile(char *str)
 {
 	int		fd;
 
-	fd = open(str, O_RDONLY);
+	if ((fd = open(str, O_RDONLY)) < 0)
+		exit(0);
 	if (fd == -1)
 		return (0);
 	close(fd);
@@ -48,18 +49,17 @@ int		check_display(char **argv, int argc, int *display, int *i)
 
 	if (ft_strlen(argv[*i]) == 2)
 	{
-		flag = ft_strdup(argv[*i]);
+		if (!(flag = ft_strdup(argv[*i])))
+			exit(0);
 		if (ft_strcmp(flag, "-v") == 0)
 		{
 			if (argc >= 3)
 			{
-				ft_strdel(&flag);
 				*i += 1;
 				*display = 1;
 			}
 		}
-		else
-			ft_strdel(&flag);
+		ft_strdel(&flag);
 	}
 	return (1);
 }

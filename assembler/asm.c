@@ -6,7 +6,7 @@
 /*   By: nkamolba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 19:15:02 by nkamolba          #+#    #+#             */
-/*   Updated: 2018/03/16 16:39:41 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/17 16:08:32 by fbabin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,20 @@ int			main(int argc, char **argv)
 	init_asm(&champ, &check, &f);
 	if (argc != 2 || !check_file_name(argv[1]))
 		ft_error("wrong input");
-	f.fd_read = open(argv[1], O_RDONLY);
+	if ((f.fd_read = open(argv[1], O_RDONLY)) == -1)
+		ft_error("wrong input");
 	f.cor_filename = get_cor_name(argv[1]);
 	if (main_2(&f, &champ, &check) == -1)
 		return (-1);
 	if (!(check_integrity(&champ, &check)))
 		return (free_return(&f, &champ, -1));
-	f.fd_write = open(f.cor_filename, O_WRONLY | O_CREAT, 0755);
+	if ((f.fd_write = open(f.cor_filename, O_WRONLY | O_CREAT, 0755)) == -1)
+		return (free_return(&f, &champ, -1));
 	write_champion(f.fd_write, &champ);
-	close(f.fd_read);
-	close(f.fd_write);
+	if ((close(f.fd_read)) == -1)
+		return (free_return(&f, &champ, 0));
+	if ((close(f.fd_write)) == -1)
+		return (free_return(&f, &champ, 0));
 	ft_printf("Writing output program to %s\n", f.cor_filename);
 	return (free_return(&f, &champ, 0));
 }

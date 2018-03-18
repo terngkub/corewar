@@ -6,7 +6,7 @@
 /*   By: arobion <arobion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 12:19:56 by arobion           #+#    #+#             */
-/*   Updated: 2018/03/16 18:20:08 by fbabin           ###   ########.fr       */
+/*   Updated: 2018/03/17 15:46:33 by arobion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 void	check_dump2(char **argv, char **flag, int *i, t_norme *opt)
 {
-	*flag = ft_strndup(argv[*i], 0, 4);
+	if (!(*flag = ft_strndup(argv[*i], 0, 4)))
+		exit(0);
 	if (ft_strcmp(*flag, "-dump") == 0)
 	{
 		ft_strdel(flag);
-		*flag = ft_strndup(argv[*i], 5, opt->len);
+		if (!(*flag = ft_strndup(argv[*i], 5, opt->len)))
+			exit(0);
 		opt->nb = ft_long_atoi(*flag);
 		opt->dump = opt->nb % 4294967296;
 		*i += 1;
@@ -30,19 +32,22 @@ void	check_dump2(char **argv, char **flag, int *i, t_norme *opt)
 
 void	check_dump3(char **argv, char **flag, int *i, t_norme *opt)
 {
-	*flag = ft_strdup(argv[*i]);
+	if (!(*flag = ft_strdup(argv[*i])))
+		exit(0);
 	if (ft_strcmp(*flag, "-dump") == 0)
 	{
 		if (opt->argc >= 3)
 		{
 			ft_strdel(flag);
 			*i += 1;
-			*flag = ft_strdup(argv[*i]);
+			if (!(*flag = ft_strdup(argv[*i])))
+				exit(0);
 			opt->nb = ft_long_atoi(*flag);
 			opt->dump = opt->nb % 4294967296;
 			*i += 1;
 			ft_strdel(flag);
 		}
+		ft_strdel(flag);
 	}
 	else
 		ft_strdel(flag);
