@@ -7,6 +7,17 @@
 * The objective of this project is to create an assembler, a virtual machine and a simple champion for Corewar game.
 
 ### What is Corewar game
+* It's a battle royale of champions. The objective of the game is to be the last champion that is alive in the arena.
+* A champion has a set of instructions that will run when the game start. The champion file is .s type.
+  ![champion](/screenshot/champion.png?raw=true)
+* An assembler will comply a champion into a byte code or .cor type.
+  ![bytecode](/screenshot/bytecode.png?raw=true)
+* A virtual machine will run the game
+  * receiving .cor files
+  * placing each heroes in the memory
+  * read byte codes, interpret them and run them if it's valid
+  * run the game until there is a winner
+![virtual machine](/screenshot/flag_v.png?raw=true)
 
 
 ### How to run the program
