@@ -99,7 +99,7 @@ void			ft_handle_wstr(t_buff *b, t_printf *t, va_list args)
 			return ;
 		}
 		len = (t->prec > 0 && t->prec < (int)ft_strlen(tm)) ?
-			t->prec : ft_strlen(tm);
+			t->prec : (int)ft_strlen(tm);
 		len = (t->prec == -1) ? 0 : len;
 		ft_padding_b(b, t, len);
 		if (t->prec != -1)
